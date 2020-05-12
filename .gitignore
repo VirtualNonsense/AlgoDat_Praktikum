@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/AlgoDatDictionaries/obj
+/.vs/AlgoDat_Praktikum/DesignTimeBuild
+/.vs/AlgoDat_Praktikum/v16
+/AlgoDatConsole/obj
+/AlgoDatConsole/bin/Debug/netcoreapp3.1
+/AlgoDatDictionaries/bin/Debug/netcoreapp3.1
+/AlgoDatConsole/bin/Release/netcoreapp3.1
+/AlgoDatDictionaries/bin/Release/netcoreapp3.1
