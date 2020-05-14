@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AlgoDatDictionaries.Lists
 {
-    class SetUnSortedLinkedList:ServiceLinkedList
+    public class SetUnSortedLinkedList:ServiceLinkedList
     {
         public bool Prepend(int num) // Could be func insert() -> (unsorted)
         {

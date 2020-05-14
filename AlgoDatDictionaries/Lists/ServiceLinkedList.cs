@@ -28,6 +28,7 @@ namespace AlgoDatDictionaries.Lists
                 Console.Write($"{temp.Key} ");
                 temp = temp.Next;
             }
+            Console.WriteLine();
         }
     }
 }

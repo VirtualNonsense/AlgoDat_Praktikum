@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AlgoDatDictionaries.Lists
 {
-    class SetSortedLinkedList :ServiceLinkedList
+    public class SetSortedLinkedList :ServiceLinkedList
     {
         
 
