@@ -8,11 +8,17 @@ namespace AlgoDatDictionaries.Lists
 {
     public abstract class ServiceLinkedList
     {
-        public llnode root;
+        public llnode first = null;
+        
+        public llnode First
+        {
+            get { return first; }
+            set { first = value; }
+        }
 
         public void PrintList()
         {
-            llnode temp = root;
+            llnode temp = first;
             if (temp == null)
             {
                 Console.WriteLine("List is empty");
