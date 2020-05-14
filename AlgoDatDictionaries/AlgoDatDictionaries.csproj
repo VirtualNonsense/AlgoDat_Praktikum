@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Lists\" />
     <Folder Include="Trees\" />
   </ItemGroup>
 

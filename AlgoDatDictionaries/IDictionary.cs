@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AlgoDatDictionaries
 {
-    interface IDictionary
+    public interface IDictionary
     {
         bool Search();
         bool Insert();

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AlgoDatDictionaries
 {
-    interface IMultiSetSorted : IDictionary
+    public interface IMultiSetSorted : IDictionary
     {
     }
 }
