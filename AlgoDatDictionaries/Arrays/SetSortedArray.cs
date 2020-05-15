@@ -4,13 +4,8 @@ using System.Text;
 
 namespace AlgoDatDictionaries.Arrays
 {
-    class SetSortedArray : ServiceArray, ISet
+    class SetSortedArray : MultiSetSortedArray, ISet
     {
-        public bool Search(int value)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool Insert(int value)
         {
             throw new NotImplementedException();
