@@ -23,6 +23,9 @@ namespace AlgoDatConsole
 
             Console.WriteLine(multiSetUnsorted.Search(3));
             Console.WriteLine(multiSetUnsorted.Search(10));
+            Console.WriteLine(multiSetUnsorted.Search(7));
+            Console.WriteLine(multiSetUnsorted.Search(2));
+
             Console.WriteLine();
 
             // MultiSetSorted Tests
@@ -37,19 +40,22 @@ namespace AlgoDatConsole
 
             multisetsorted.Print();
 
-            Console.WriteLine(multisetsorted.Search(1));
-            Console.WriteLine(multisetsorted.Search(3));
-
             multisetsorted.Insert(3);
             multisetsorted.Insert(6);
             multisetsorted.Insert(1);
             multisetsorted.Insert(100);
 
             multisetsorted.Print();
+
+            Console.WriteLine(multisetsorted.Search(70));
+            Console.WriteLine(multisetsorted.Search(1));
+            Console.WriteLine(multisetsorted.Search(5));
+            Console.WriteLine(multisetsorted.Search(100));
+
             Console.WriteLine();
 
             // SetUnsorted Tests
-            Console.WriteLine("SetUnSorted");
+            Console.WriteLine("SetUnSorted:");
             SetUnSortedLinkedList setUnsorted = new SetUnSortedLinkedList();
             setUnsorted.Insert(45);
             setUnsorted.Insert(46);
@@ -63,12 +69,19 @@ namespace AlgoDatConsole
             setUnsorted.Insert(100);
             setUnsorted.Insert(89);
             setUnsorted.Insert(45);
+            setUnsorted.Insert(87);
 
             setUnsorted.Print();
+
+            Console.WriteLine(setUnsorted.Search(100));
+            Console.WriteLine(setUnsorted.Search(99));
+            Console.WriteLine(setUnsorted.Search(89));
+            Console.WriteLine(setUnsorted.Search(45));
+
             Console.WriteLine();
 
             // SetSorted Tests
-            Console.WriteLine("SetSorted");
+            Console.WriteLine("SetSorted:");
             SetSortedLinkedList setSorted = new SetSortedLinkedList();
             setSorted.Insert(100);
             setSorted.Insert(87);
@@ -86,6 +99,11 @@ namespace AlgoDatConsole
             setSorted.Insert(46);
 
             setSorted.Print();
+
+            Console.WriteLine(setSorted.Search(2));
+            Console.WriteLine(setSorted.Search(47));
+            Console.WriteLine(setSorted.Search(1));
+            Console.WriteLine(setSorted.Search(200));
 
             Console.ReadKey();
         }
