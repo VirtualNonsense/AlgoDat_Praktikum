@@ -7,7 +7,9 @@ namespace AlgoDatDictionaries.Lists
 {
     public class SetSortedLinkedList : MultiSetSortedLinkedList
     {
-        static bool Set = true;
-        
+        public override bool Insert(int num)
+        {
+            return Insert(false, true, num);
+        }
     }
 }

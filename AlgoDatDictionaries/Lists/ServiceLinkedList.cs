@@ -1,6 +1,7 @@
 ﻿using AlgoDatDictionaries.Lists;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Text;
 using System.Xml;
 
@@ -8,9 +9,7 @@ namespace AlgoDatDictionaries.Lists
 {
     public abstract class ServiceLinkedList
     {
-        bool Set = false;
         // Properties
-
         public llnode first = null;
         
         public llnode First
@@ -19,54 +18,82 @@ namespace AlgoDatDictionaries.Lists
             set { first = value; }
         }
 
-
         // Methods
+        // Search
         public bool Search(int num)
         {
             return search(num).Item2;
         }
-        public (llnode, bool) search(int num) //test
+        public (llnode, bool, int) search(int num)  // added int, cause we need one more case
         {
-            llnode searchNum = First;
-            
-            if (searchNum == null)
+            llnode find = First;
+
+            // Empty List
+            if (First == null)
             {
-                return (null, false);
-            }
-            if (searchNum.Key == num) //changed first to searchnum
-            {
-                return (searchNum,true); // ""-""
+                return (null, false, -1);
             }
 
-            if (searchNum.Next == null)
+            // One Element in List
+            if (num == First.Key)
             {
-                if (num < searchNum.Key)
-                {
-                    return (null, false);
-                }
-                else
-                {
-                    return (searchNum, false);
-                }
+                return (First, true, 0);
             }
 
-            while (searchNum.Next != null)
+            // More Elements in List
+            while (find.Next != null)
             {
-                if (searchNum.Next.Key == num)
+                if (find.Next.Key == num)
                 {
-                    return (searchNum, true);
+                    return (find, true, 0);
                 }
-                if (searchNum.Next.Key > num) //&& Set == true
+
+                if (num > find.Key && num < find.Next.Key)
                 {
-                    return (searchNum, false);
+                    return (find, false, 0);
                 }
-                searchNum = searchNum.Next;
+                find = find.Next;
             }
-            return (searchNum, false);
+
+            // Check, after it wasn't found, if smaller than first element
+            if (num < First.Key)
+            {
+                return (null, false, -1);
+            }
+
+            // Append
+            if (num > find.Key)
+            {
+                return (find, false, 1);
+            }
+            return (null, false, 0);
         }
+
+        // Insert
+        public bool Insert(bool multi, bool sorted, int num)
+        {
+            (llnode insertnode, bool found, int BeforeAfter) = search(num);
+           
+            if (multi == false && found == true)
+            {
+                return false;
+            }
+
+            if ((multi == true && sorted == false) || (multi == false && sorted == false && found == false ||  BeforeAfter == -1))
+            {
+                Prepend(num);
+                return true;
+            }
+
+            llnode newNode = new llnode(num, insertnode.Next);
+            insertnode.Next = newNode;
+            return true;
+        }
+
+        // Print
         public void Print()
         {
-            llnode temp = first;
+            llnode temp = First;
             if (temp == null)
             {
                 Console.WriteLine("List is empty");
@@ -79,6 +106,7 @@ namespace AlgoDatDictionaries.Lists
             Console.WriteLine();
         }
 
+        // Prepend
         public void Prepend(int num)
         {
             llnode newNode = new llnode(num, First);

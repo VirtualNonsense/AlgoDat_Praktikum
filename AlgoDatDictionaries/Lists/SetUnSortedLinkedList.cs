@@ -8,13 +8,7 @@ namespace AlgoDatDictionaries.Lists
     {
         public override bool Insert(int num)
         {
-            if (Search(num) == true)
-            {
-                return false;
-            }
-            Prepend(num);
-            return true;
-        }
-       
+            return Insert(false, false, num);
+        }    
     }
 }

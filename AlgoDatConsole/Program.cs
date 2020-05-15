@@ -9,9 +9,8 @@ namespace AlgoDatConsole
     {
         static void Main(string[] args)
         {
-
-            ////Multisetunsorted tests
-            Console.WriteLine("Mulltisetunsorted");
+            // MultiSetUnsorted Tests
+            Console.WriteLine("MultiSetUnSorted:");
             MultiSetUnsortedLinkedList multiSetUnsorted = new MultiSetUnsortedLinkedList();
             multiSetUnsorted.Insert(7);
             multiSetUnsorted.Insert(6);
@@ -24,18 +23,17 @@ namespace AlgoDatConsole
 
             Console.WriteLine(multiSetUnsorted.Search(3));
             Console.WriteLine(multiSetUnsorted.Search(10));
+            Console.WriteLine();
 
-
-
-            //Multisetsorted tests
-            Console.WriteLine("Multisetsorted");
+            // MultiSetSorted Tests
+            Console.WriteLine("MultiSetSorted:");
             MultiSetSortedLinkedList multisetsorted = new MultiSetSortedLinkedList();
-            multisetsorted.Prepend(5);
-            multisetsorted.Prepend(5);
-            multisetsorted.Prepend(4);
-            multisetsorted.Prepend(4);
-            multisetsorted.Prepend(2);
-            multisetsorted.Prepend(1);
+            multisetsorted.Insert(5);
+            multisetsorted.Insert(5);
+            multisetsorted.Insert(4);
+            multisetsorted.Insert(4);
+            multisetsorted.Insert(2);
+            multisetsorted.Insert(1);
 
             multisetsorted.Print();
 
@@ -48,12 +46,10 @@ namespace AlgoDatConsole
             multisetsorted.Insert(100);
 
             multisetsorted.Print();
+            Console.WriteLine();
 
-
-
-
-            ////SetUnsorted Test
-            Console.WriteLine("Setunsorted");
+            // SetUnsorted Tests
+            Console.WriteLine("SetUnSorted");
             SetUnSortedLinkedList setUnsorted = new SetUnSortedLinkedList();
             setUnsorted.Insert(45);
             setUnsorted.Insert(46);
@@ -69,35 +65,29 @@ namespace AlgoDatConsole
             setUnsorted.Insert(45);
 
             setUnsorted.Print();
+            Console.WriteLine();
 
-
-
-
-            //SetSorted Tests
-            Console.WriteLine("setsorted"); //passt noch nicht!
+            // SetSorted Tests
+            Console.WriteLine("SetSorted");
             SetSortedLinkedList setSorted = new SetSortedLinkedList();
-            setSorted.Prepend(100);
-            setSorted.Prepend(87);
-            setSorted.Prepend(46);
-            setSorted.Prepend(45);
-            setSorted.Prepend(36);
-            setSorted.Prepend(1);
+            setSorted.Insert(100);
+            setSorted.Insert(87);
+            setSorted.Insert(46);
+            setSorted.Insert(45);
+            setSorted.Insert(36);
+            setSorted.Insert(2);
 
             setSorted.Print();
 
             setSorted.Insert(2);
+            setSorted.Insert(1);
             setSorted.Insert(99);
             setSorted.Insert(200);
             setSorted.Insert(46);
 
-
             setSorted.Print();
 
-
-
             Console.ReadKey();
-
-
         }
     }
 }
