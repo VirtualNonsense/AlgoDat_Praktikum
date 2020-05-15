@@ -6,69 +6,43 @@ namespace AlgoDatDictionaries.Lists
 {
     public class MultiSetSortedLinkedList:ServiceLinkedList
     {
+
+        static bool Set = false;
+
         
-
-        public bool Search(int num)
+        public bool Insert(int num) // funktioniert
         {
-            llnode searchNum = First;
+            llnode insertnode;
+            bool found;
 
-            while (searchNum != null)
-            {
-                if (searchNum.Key == num)
-                {
-                    return true;
-                }
-                searchNum = searchNum.Next;
-            }
-            return false;
-        }
+            (insertnode, found) = search(num);
 
-        public bool Insert(int num) // Clumsy...
-        {
-            llnode x = First;
-
-            // First Knot
-            if (num <= First.Key)
+            if (found == false && insertnode == null)
             {
                 Prepend(num);
-
                 return true;
             }
 
-            // Inbetween Knots
-            while (x.Next != null)
+            if (num <= first.Key)
             {
-                if (num >= x.Key && num <= x.Next.Key)
-                {
-                    llnode newNode = new llnode(num, x.Next);
-
-                    x.Next = newNode;
-
-                    return true;
-                }
-                x = x.Next;
+                Prepend(num);
+                return true;
             }
 
-            // Last Knot
-            while (x.Next != null)
+            if (found == false || (found == true && Set ==false) )
             {
-                x = x.Next;
+                llnode newnode = new llnode(num, insertnode.Next);
+                insertnode.Next = newnode;
+                return true;
             }
+            
+            
+            return false;
 
-            llnode newNode2 = new llnode(num, null);
-
-            x.Next = newNode2;
-
-            return true;
         }
+
+
 
         
-
-        public void Prepend(int num)
-        {
-            llnode newNode = new llnode(num, First);
-
-            first = newNode;
-        }
     }
 }

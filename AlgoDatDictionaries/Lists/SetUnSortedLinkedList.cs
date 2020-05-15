@@ -4,47 +4,17 @@ using System.Text;
 
 namespace AlgoDatDictionaries.Lists
 {
-    public class SetUnSortedLinkedList:ServiceLinkedList
+    public class SetUnSortedLinkedList:MultiSetUnsortedLinkedList
     {
-        public bool Prepend(int num) // Could be func insert() -> (unsorted)
+        public override bool Insert(int num)
         {
-            if (Search(num) == false)
+            if (Search(num) == true)
             {
-                llnode newNode = new llnode(num, First);
-
-                first = newNode;
-
-                return true;
+                return false;
             }
-            return false;
+            Prepend(num);
+            return true;
         }
-
-        public bool Search(int num)
-        {
-            llnode searchNum = First;
-
-            while (searchNum != null)
-            {
-                if (searchNum.Key == num)
-                {
-                    return true;
-                }
-                searchNum = searchNum.Next;
-            }
-            return false;
-        }
-
-        public void Print()
-        {
-            llnode output = First;
-
-            while (output != null)
-            {
-                Console.Write(output.Key + " ");
-
-                output = output.Next;
-            }
-            Console.WriteLine();
-        }
+       
     }
 }

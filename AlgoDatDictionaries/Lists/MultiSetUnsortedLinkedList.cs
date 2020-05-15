@@ -8,29 +8,13 @@ namespace AlgoDatDictionaries.Lists
     {
         
 
-        public bool Prepend(int num) // Could be func insert() -> (Multi, unsorted)
+        public virtual bool Insert(int num)
         {
-            llnode newNode = new llnode(num, First);
-
-            first = newNode;
-
+            Prepend(num);
             return true;
         }
 
-        public bool Search(int num)
-        {
-            llnode searchNum = First;
-
-            while (searchNum != null)
-            {
-                if (searchNum.Key == num)
-                {
-                    return true;
-                }
-                searchNum = searchNum.Next;
-            }
-            return false;
-        }
+        
 
         
     }
