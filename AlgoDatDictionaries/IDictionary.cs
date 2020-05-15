@@ -6,9 +6,9 @@ namespace AlgoDatDictionaries
 {
     public interface IDictionary
     {
-        bool Search();
-        bool Insert();
-        bool Delete();
+        bool Search(int value);
+        bool Insert(int value);
+        bool Delete(int value);
         void Print();
     }
 }
