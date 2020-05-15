@@ -13,3 +13,5 @@
 /tests/bin/
 /tests/obj/
 .idea/
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
