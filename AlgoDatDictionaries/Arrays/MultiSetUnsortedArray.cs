@@ -18,12 +18,12 @@ namespace AlgoDatDictionaries.Arrays
             return false;
         }
 
-        public bool Insert()
+        public bool Insert(int num)
         {
             throw new NotImplementedException();
         }
 
-        public bool Delete()
+        public bool Delete(int num)
         {
             throw new NotImplementedException();
         }
