@@ -26,5 +26,14 @@ namespace AlgoDatDictionaries.Arrays
             Console.WriteLine();
         }
 
+        public bool Search(int value)
+        {
+            return search(value).Item2;
+        }
+
+        protected virtual (int, bool) search(int value)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

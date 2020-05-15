@@ -7,7 +7,8 @@ namespace AlgoDatDictionaries.Arrays
 {
     class MultiSetSortedArray:ServiceArray, IMultiSetSorted
     {
-        public bool Search(int num) //Binary Search
+
+        protected override (int, bool) search(int value)
         {
             int midIndex;
             int leftIndex = 0;
@@ -15,7 +16,7 @@ namespace AlgoDatDictionaries.Arrays
             do
             {
                 midIndex = (leftIndex + rightIndex) / 2;//Array Length very long, search for first item == null
-                if (array[midIndex] < num)
+                if (array[midIndex] < value)
                 {
                     leftIndex = midIndex + 1;
                 }
@@ -24,8 +25,8 @@ namespace AlgoDatDictionaries.Arrays
                     rightIndex = midIndex - 1;
                 }
 
-            } while (array[midIndex] != num || leftIndex < rightIndex);
-            return (array[midIndex] == num);
+            } while (array[midIndex] != value || leftIndex < rightIndex);
+            return (midIndex, array[midIndex] == value);
         }
 
         public bool Insert(int num)
