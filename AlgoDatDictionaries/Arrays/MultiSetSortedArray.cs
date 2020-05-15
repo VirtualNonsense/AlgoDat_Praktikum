@@ -5,9 +5,9 @@ using System.Transactions;
 
 namespace AlgoDatDictionaries.Arrays
 {
-    class MultiSetSortedArray:ServiceArray
+    class MultiSetSortedArray:ServiceArray, IMultiSetSorted
     {
-        public bool BinarySearch(int num)
+        public bool Search(int num) //Binary Search
         {
             int midIndex;
             int leftIndex = 0;
@@ -26,6 +26,16 @@ namespace AlgoDatDictionaries.Arrays
 
             } while (array[midIndex] != num || leftIndex < rightIndex);
             return (array[midIndex] == num);
+        }
+
+        public bool Insert(int num)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(int num)
+        {
+            throw new NotImplementedException();
         }
     }
 }

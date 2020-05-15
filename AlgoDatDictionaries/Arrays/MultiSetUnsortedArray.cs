@@ -4,9 +4,9 @@ using System.Text;
 
 namespace AlgoDatDictionaries.Arrays
 {
-    class MultiSetUnsortedArray : ServiceArray
+    class MultiSetUnsortedArray : ServiceArray, IMultiSet
     {
-        public bool LinearSearch(int num)
+        public bool Search(int num) //linear serach
         {
             foreach (int elem in array)
             {
@@ -16,6 +16,16 @@ namespace AlgoDatDictionaries.Arrays
                 }
             }
             return false;
+        }
+
+        public bool Insert()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete()
+        {
+            throw new NotImplementedException();
         }
     }
 }
