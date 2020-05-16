@@ -1,6 +1,6 @@
 ﻿namespace AlgoDatDictionaries.Trees
 {
-    public class TreeNode
+    internal class TreeNode
     {
         public int value;
         public TreeNode left;

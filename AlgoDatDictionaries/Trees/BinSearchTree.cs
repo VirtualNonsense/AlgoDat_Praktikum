@@ -1,7 +1,18 @@
-﻿namespace AlgoDatDictionaries.Trees
+﻿using System;
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo("tests")]
+
+namespace AlgoDatDictionaries.Trees
 {
     public class BinSearchTree : ISetSorted
     {
+        internal enum Direction
+        {
+            Unset,
+            Left,
+            Right
+        }
+
         private TreeNode root;
         
         // ###############################################
@@ -16,115 +27,82 @@
         // ISetSorted
         // ###############################################
         public bool Search(int value)
-        {  
-            if (value == root.value)
-            {
-                return true;
-            }
-            else
-            {
-                Search(value, root);
-                return false;
-            }
-        }
-        private bool Search(int value, TreeNode node)
         {
-            if (value < node.value)
-            {
-                return Search(value, node.left);
-            }
-            else if (value > node.value)
-            {
-               return Search(value, node.left);
-            }
-            else if (value == node.value)
-            {
-                return true;
-            }
-            else
-            {
-               return false;
-            }
+            return search(value).Item4;
         }
+
+        /// <summary>
+        /// asdf
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Item1 PreNode, Item2 Node, Item3 Direction, Item4 found</returns>
+        internal (TreeNode, TreeNode, Direction, bool) search(int value)
+        {
+            TreeNode a = root;
+            TreeNode pre = null;
+            Direction dir = Direction.Unset;
+            while(a != null && a.value != value)
+            {
+                if (value < a.value)
+                {
+                    pre = a;
+                    dir = Direction.Left;
+                    a = a.left;
+                    continue;
+                }
+                pre = a;
+                dir = Direction.Right;
+                a = a.right;
+            }
+
+            return (pre, a, dir, a != null);
+        }
+
 
         public bool Insert(int value)
         {
-            if (root == null)
+            var r = search(value);
+            if(r.Item4)
             {
-                root = new TreeNode(value);
-                return true;
+                return false;
             }
-            else
+            switch(r.Item3)
             {
-               return Insert(value, root);          
+                case Direction.Unset:
+                    root = new TreeNode(value);
+                    break;
+                case Direction.Left:
+                    r.Item1.left = new TreeNode(value);
+                    break;
+                case Direction.Right:
+                    r.Item1.right = new TreeNode(value);
+                    break;
             }
-        }
-        private bool Insert(int value, TreeNode node)
-        {
+            return true;
 
-            if (value < node.value)
-            {
-                if (node.left == null)
-                {
-                    node.left = new TreeNode(value);
-                    return true;
-                }
-                else
-                {
-                    Insert(value,node.left);
-                }
-                return false;
-            }
-            else
-            {
-                if (node.right == null)
-                {
-                    node.right = new TreeNode(value);
-                    return true;
-                }
-                else
-                {
-                    Insert(value, node.right);
-                }
-                return false;
-            }
         }
 
 
         public bool Delete(int value)
         {
-            if (root == null)
+            var t = search(value);
+            if(!t.Item4)
             {
-                return true;
-            }
-            else
-            {
-                Delete(value, root);
                 return false;
             }
-        }
-        private bool Delete(int value, TreeNode node)
-        {
-
-            if (value < node.value)
+            switch(t.Item3)
             {
-              return  Delete(value, node.left);
+                case Direction.Unset:
+                    root = null;
+                    break;
+                case Direction.Left:
+                    t.Item1.left = null;
+                    break;
+                case Direction.Right:
+                    t.Item1.right = null;
+                    break;
             }
-            else if (value > node.value)
-            {
-              return  Delete(value, node.right);
-            }
-            else if (node.left != null)
-            {
-                node = node.left;
-                return true;
-            }
-            else
-            {
-                node = node.right;
-                return true;
-            }
-           
+            return true;
         }
 
         public void Print()
@@ -132,6 +110,11 @@
             throw new System.NotImplementedException();
         }
         
+        internal string GeneratePrintString()
+        {
+            throw new NotImplementedException();
+        } 
+
         // ###############################################
         // Private Stuff
         // ###############################################
