@@ -24,9 +24,10 @@ namespace AlgoDatDictionaries.Lists
         {
             return search(num).Item2;
         }
-        public (llnode, bool, int) search(int num)  // added int, cause we need one more case
+        public (llnode, bool, int) search(int num)  // added int, cause we need one more case for smaller than first ((null, true) is rude)
         {
             llnode find = First;
+            (llnode, bool, int) gothroughMarker = (null, false, 0); // Necessary for not sorted Multiset; e.g.: 1 100 1 1 1 1 80 input: 80
 
             // Empty List
             if (First == null)
@@ -50,7 +51,7 @@ namespace AlgoDatDictionaries.Lists
 
                 if (num > find.Key && num < find.Next.Key)
                 {
-                    return (find, false, 0);
+                     gothroughMarker = (find, false, 0);
                 }
                 find = find.Next;
             }
@@ -66,25 +67,28 @@ namespace AlgoDatDictionaries.Lists
             {
                 return (find, false, 1);
             }
-            return (null, false, 0);
+            return gothroughMarker;
         }
 
         // Insert
-        public bool Insert(bool multi, bool sorted, int num)
+        protected bool Insert(bool multi, bool sorted, int num)
         {
-            (llnode insertnode, bool found, int BeforeAfter) = search(num);
+            (llnode insertnode, bool found, int before) = search(num);
            
+            // Not possible
             if (multi == false && found == true)
             {
                 return false;
             }
 
-            if ((multi == true && sorted == false) || (multi == false && sorted == false && found == false ||  BeforeAfter == -1))
+            // Easiest cases
+            if ((multi == true && sorted == false) || (multi == false && sorted == false && found == false ||  before == -1))
             {
                 Prepend(num);
                 return true;
             }
 
+            // Inbetween Inputs
             llnode newNode = new llnode(num, insertnode.Next);
             insertnode.Next = newNode;
             return true;
