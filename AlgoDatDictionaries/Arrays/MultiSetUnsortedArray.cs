@@ -16,7 +16,7 @@ namespace AlgoDatDictionaries.Arrays
                     return (i, true);
                 }
             }
-            return (-1, false);
+            return (-1, false); //what do we want to return if no index is correct
         }
 
 
