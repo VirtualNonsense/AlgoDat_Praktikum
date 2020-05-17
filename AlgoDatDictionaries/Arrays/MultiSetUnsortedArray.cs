@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace AlgoDatDictionaries.Arrays
 {
-    class MultiSetUnsortedArray : ServiceArray, IMultiSet
+    public class MultiSetUnsortedArray : ServiceArray, IMultiSet
     {
         protected override (int, bool) search(int value) //linear search
         {
@@ -22,12 +22,31 @@ namespace AlgoDatDictionaries.Arrays
 
         public bool Insert(int num)
         {
-            throw new NotImplementedException();
+            try
+            {
+                array[GetLastIndex(array) + 1] = num;
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         public bool Delete(int num)
         {
-            throw new NotImplementedException();
+            if (Search(num))
+            {
+                int index = search(num).Item1;
+                array[index] = 0;
+                for (int i = index; i <= GetLastIndex(array)+1; i++)
+                {
+                    array[i] = array[i + 1];
+                }
+
+                return true;
+            }
+            return false;
         }
     }
 }

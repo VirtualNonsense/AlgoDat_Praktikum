@@ -7,9 +7,9 @@ namespace AlgoDatDictionaries.Arrays
 {
     public abstract class ServiceArray
     {
-        protected int[] array; 
-        
-        
+        protected int[] array = new int[100]; 
+
+
         protected int GetLastIndex(int[] array)
         {
             int currentIndex = 0;

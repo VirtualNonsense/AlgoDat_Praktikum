@@ -5,7 +5,7 @@ using System.Transactions;
 
 namespace AlgoDatDictionaries.Arrays
 {
-    class MultiSetSortedArray:ServiceArray, IMultiSetSorted
+    public class MultiSetSortedArray:ServiceArray, IMultiSetSorted
     {
         protected override (int, bool) search(int value)
         {
