@@ -11,8 +11,8 @@ namespace AlgoDatConsole
         {
 
             //bin zu dämlich für die unit tests
-            int[] nums = { 1, 2, 3, 4, 5, };
-            SetSortedLinkedList testlist = new SetSortedLinkedList();
+            int[] nums = { 1, 2, 3, 4, 4, 5, };
+            MultiSetSortedLinkedList testlist = new MultiSetSortedLinkedList();
             foreach (int  item in nums)
             {
                 testlist.Insert(item);
@@ -32,8 +32,15 @@ namespace AlgoDatConsole
             testlist.Delete(5);
 
             testlist.Print();
-            
 
+            SetUnSortedLinkedList setun = new SetUnSortedLinkedList();
+            setun.Insert(100);
+
+            setun.Print();
+
+            IDictionary listone = new SetUnSortedLinkedList();
+            listone.Insert(200);
+            listone.Print();
 
         }
     }

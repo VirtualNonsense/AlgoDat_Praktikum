@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace AlgoDatDictionaries.Lists
 {
-    public abstract class ServiceLinkedList
+    public abstract class ServiceLinkedList 
     {
         // Properties
         public llnode first = null;
@@ -28,7 +28,7 @@ namespace AlgoDatDictionaries.Lists
         {
             llnode find = First;
             (llnode, bool, int) gothroughMarker = (null, false, 0); // Necessary for not sorted Multiset; e.g.: 1 100 1 1 1 1 80 input: 80
-
+            
             // Empty List
             if (First == null)
             {
@@ -51,7 +51,7 @@ namespace AlgoDatDictionaries.Lists
 
                 if (num > find.Key && num < find.Next.Key)
                 {
-                     gothroughMarker = (find, false, 0);
+                    gothroughMarker = (find, false, 0);
                 }
                 find = find.Next;
             }
@@ -71,7 +71,7 @@ namespace AlgoDatDictionaries.Lists
         }
 
         // Insert
-        protected bool Insert(bool multi, bool sorted, int num)
+        public bool Insert(bool multi, bool sorted, int num)
         {
             (llnode insertnode, bool found, int before) = search(num);
            
