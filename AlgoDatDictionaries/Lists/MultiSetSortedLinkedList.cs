@@ -8,7 +8,6 @@ namespace AlgoDatDictionaries.Lists
     {
         public virtual bool Insert(int num)
         {
-
             return Insert(true, true, num);
         }
     }

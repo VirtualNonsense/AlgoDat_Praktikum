@@ -71,7 +71,7 @@ namespace AlgoDatDictionaries.Lists
         }
 
         // Insert
-        public bool Insert(bool multi, bool sorted, int num)
+        protected bool Insert(bool multi, bool sorted, int num)
         {
             (llnode insertnode, bool found, int before) = search(num);
            
