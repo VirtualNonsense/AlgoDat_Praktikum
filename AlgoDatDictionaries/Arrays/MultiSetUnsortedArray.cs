@@ -21,16 +21,9 @@ namespace AlgoDatDictionaries.Arrays
 
 
         public bool Insert(int num)
-        {
-            try
-            {
-                array[GetLastIndex(array) + 1] = num;
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
+        { 
+            array[GetLastIndex(array) + 1] = num;
+            return true;
         }
 
         public bool Delete(int num)

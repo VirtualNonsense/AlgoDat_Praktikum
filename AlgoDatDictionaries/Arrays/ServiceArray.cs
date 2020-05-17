@@ -19,9 +19,9 @@ namespace AlgoDatDictionaries.Arrays
         
         public void Print()
         {
-            foreach(int i in array)
+            for (int i = 0; i <= GetLastIndex(array); i++)
             {
-                Console.Write($"{i} ");
+                Console.WriteLine("{0}, \t {1}", i,array[i] );
             }
             Console.WriteLine();
         }
@@ -34,6 +34,22 @@ namespace AlgoDatDictionaries.Arrays
         protected virtual (int, bool) search(int value)
         {
             throw new NotImplementedException();
+        }
+        
+        protected bool Delete(int num) //same method in multiple classes, don't know how inheritations work
+        {
+            if (Search(num))
+            {
+                int index = search(num).Item1;
+                array[index] = 0;
+                for (int i = index; i <= GetLastIndex(array)+1; i++)
+                {
+                    array[i] = array[i + 1];
+                }
+
+                return true;
+            }
+            return false;
         }
         
 
