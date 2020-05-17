@@ -141,5 +141,11 @@ namespace AlgoDatDictionaries.Lists
 
             first = newNode;
         }
+
+        //reset 
+        public void Reset()
+        {
+            first = null;
+        }
     }
 }
