@@ -9,9 +9,7 @@ namespace AlgoDatDictionaries.Lists
         int key;
         llnode next;
 
-
         // Properties
-
         public int Key
         { 
             get { return key; }
@@ -25,7 +23,6 @@ namespace AlgoDatDictionaries.Lists
         }
 
         // Constructors
-
         public llnode() 
         {
             // Default constructor
