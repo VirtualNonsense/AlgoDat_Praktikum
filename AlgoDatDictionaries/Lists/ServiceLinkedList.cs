@@ -90,6 +90,30 @@ namespace AlgoDatDictionaries.Lists
             return true;
         }
 
+        public bool Delete(int value)
+        {
+            llnode foundnode;
+            int _case;
+            bool found;
+
+            (foundnode, found, _case) = search(value);
+
+            if (found == false) // Node not found  => do nothing
+            {
+                return false;   
+            }
+            else if (first.Key == value) // Special case : Root is the value
+            {
+                first = first.Next;
+                return true;
+            }
+            else        // Inbetween nodes
+            {
+                llnode temp = foundnode.Next.Next;
+                foundnode.Next = temp;
+                return true;
+            }
+        }
         // Print
         public void Print()
         {
