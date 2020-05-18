@@ -10,11 +10,12 @@ namespace AlgoDatDictionaries.Arrays
         protected override (int, bool) search(int value)
         {
             int midIndex;
-            int leftIndex = 0;
-            int rightIndex = GetLastIndex(array);
+            double leftIndex = 0;
+            double rightIndex = GetLastIndex(array)-1;//Array very long, search for first item == null
             do
             {
-                midIndex = (leftIndex + rightIndex) / 2;//Array Length very long, search for first item == null
+                var doubleMidIndex = (leftIndex + rightIndex) / 2;
+                midIndex = Convert.ToInt32(Math.Ceiling(doubleMidIndex)); 
                 if (array[midIndex] < value)
                 {
                     leftIndex = midIndex + 1;
@@ -24,36 +25,21 @@ namespace AlgoDatDictionaries.Arrays
                     rightIndex = midIndex - 1;
                 }
 
-            } while (array[midIndex] != value && leftIndex < rightIndex);
+            } while (array[midIndex] != value && leftIndex <= rightIndex);
             return (midIndex, array[midIndex] == value);
         }
 
-        public bool Insert(int num)
+        public virtual bool Insert(int num)
         {
             int index = search(num).Item1;
-            for (int i = GetLastIndex(array); i > index; i--)
+            for (int i = GetLastIndex(array); i > index-1; i--)
             {
                 array[i + 1] = array[i];
             }
 
-            array[index + 1] = num;
+            array[index] = num;
             return true;
         }
 
-        public bool Delete(int num)
-        {
-            if (Search(num))
-            {
-                int index = search(num).Item1;
-                array[index] = 0;
-                for (int i = index; i <= GetLastIndex(array)+1; i++)
-                {
-                    array[i] = array[i + 1];
-                }
-
-                return true;
-            }
-            return false;
-        }
     }
 }

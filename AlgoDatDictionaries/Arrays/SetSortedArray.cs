@@ -7,27 +7,14 @@ namespace AlgoDatDictionaries.Arrays
 {
     public class SetSortedArray : MultiSetSortedArray, ISet
     {
-        public bool Insert(int value)
+        public override bool Insert(int num)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Delete(int num)
-        {
-            
-            if (Search(num))
+            if (!Search(num))
             {
-                int index = search(num).Item1;
-                array[index] = 0;
-                for (int i = index; i <= GetLastIndex(array)+1; i++)
-                {
-                    array[i] = array[i + 1];
-                }
-
+                base.Insert(num);
                 return true;
             }
             return false;
         }
-
     }
 }

@@ -1,23 +1,23 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using AlgoDatDictionaries.Arrays;
 
-using AlgoDatDictionaries.Lists;
-namespace Tests.Lists
+namespace Tests.Arrays
 {
     [TestClass]
-    public class SetSorted
+    public class SetUnsorted
     {
         [TestMethod]
         public void InsetTest()
         {
-            SetSortedArray multiSetUnsorted = new SetSortedArray();
-            multiSetUnsorted.Insert(7);
+            SetUnsortedArray setUnsortedArray = new SetUnsortedArray();
+            setUnsortedArray.Insert(7);
         }
         
         
         [TestMethod]
         public void SearchTest()
         {
-            SetSortedArray set = new SetSortedArray();
+            SetUnsortedArray set = new SetUnsortedArray();
             set.Insert(7);
             set.Insert(6);
             set.Insert(3);
@@ -36,11 +36,10 @@ namespace Tests.Lists
         [TestMethod]
         public void DeleteTest()
         {
-            SetSortedArray set = new SetSortedArray();
+            SetUnsortedArray set = new SetUnsortedArray();
             set.Insert(7);
             Assert.IsTrue(set.Search(7));
-            // multiSetUnsorted.Delete(7);
-            Assert.Fail("Delete method is missing");
+            set.Delete(7);
             Assert.IsFalse(set.Search(7));
             
         }

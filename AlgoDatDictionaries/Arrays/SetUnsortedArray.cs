@@ -6,15 +6,15 @@ namespace AlgoDatDictionaries.Arrays
 {
     public class SetUnsortedArray : MultiSetUnsortedArray, ISetSorted
     {
-
-        public bool Insert(int value)
+        public override bool Insert(int num)
         {
-            throw new NotImplementedException();
-        }
+            if (!Search(num))
+            {
+                array[GetLastIndex(array) + 1] = num;
+                return true;
+            }
 
-        public bool Delete(int value)
-        {
-            throw new NotImplementedException();
+            return false;
         }
     }
 }

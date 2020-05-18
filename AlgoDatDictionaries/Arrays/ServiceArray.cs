@@ -8,13 +8,12 @@ namespace AlgoDatDictionaries.Arrays
     public abstract class ServiceArray
     {
         protected int[] array = new int[100]; 
-
-
+        
         protected int GetLastIndex(int[] array)
         {
             int currentIndex = 0;
             while (array[currentIndex] != 0) currentIndex++; //darf 0 vorkommen??
-            return currentIndex - 1;
+            return currentIndex;
         }
         
         public void Print()
@@ -36,7 +35,7 @@ namespace AlgoDatDictionaries.Arrays
             throw new NotImplementedException();
         }
         
-        protected bool Delete(int num) //same method in multiple classes, don't know how inheritations work
+        public bool Delete(int num) 
         {
             if (Search(num))
             {

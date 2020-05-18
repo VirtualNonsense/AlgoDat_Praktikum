@@ -20,26 +20,12 @@ namespace AlgoDatDictionaries.Arrays
         }
 
 
-        public bool Insert(int num)
+        public virtual bool Insert(int num)
         { 
             array[GetLastIndex(array) + 1] = num;
             return true;
         }
 
-        public bool Delete(int num)
-        {
-            if (Search(num))
-            {
-                int index = search(num).Item1;
-                array[index] = 0;
-                for (int i = index; i <= GetLastIndex(array)+1; i++)
-                {
-                    array[i] = array[i + 1];
-                }
-
-                return true;
-            }
-            return false;
-        }
+       
     }
 }
