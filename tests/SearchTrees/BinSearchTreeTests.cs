@@ -155,5 +155,26 @@ namespace tests.SearchTrees
             Assert.IsTrue(deleted);
         }
 
+        [TestMethod]
+        public void GeneratePrintStringtest()
+        {
+            BinSearchTree t = new BinSearchTree(); 
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(15);
+            t.Insert(17);
+            t.Insert(20);
+            t.Insert(19);
+            t.Insert(14);
+            t.Insert(16);
+            t.Insert(13);
+            t.Insert(8);
+            t.Insert(3);
+            t.Insert(1);
+            t.Insert(6);
+            t.Insert(9);
+            StringAssert.Contains("10", "10");
+
+        }
     }
 }

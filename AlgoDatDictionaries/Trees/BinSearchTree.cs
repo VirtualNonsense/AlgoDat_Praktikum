@@ -107,13 +107,39 @@ namespace AlgoDatDictionaries.Trees
 
         public void Print()
         {
-            throw new System.NotImplementedException();
+            GeneratePrintString();
         }
         
         internal string GeneratePrintString()
         {
-            throw new NotImplementedException();
+            TreeNode tmp = root;
+            string s="";
+            if (tmp == null)
+            {
+                Console.WriteLine("Tree is empty");
+            }
+            while (tmp != null )
+            {
+                //#######unfinisched
+                tmp = InOrder(tmp);
+                s += $"{tmp.value} ";
+                //#######
+            }
+            Console.WriteLine();
+            return s;
         } 
+        internal TreeNode InOrder(TreeNode node)
+        {
+            if (node.right != null)
+            {
+                InOrder(node.right);
+            }
+            if (node.left != null)
+            {
+                InOrder(node.left);
+            }
+            return node;
+        }
 
         // ###############################################
         // Private Stuff
