@@ -13,7 +13,7 @@ namespace AlgoDatDictionaries.Arrays
         {
             int currentIndex = 0;
             while (array[currentIndex] != 0) currentIndex++; //darf 0 vorkommen??
-            return currentIndex;
+            return currentIndex-1;
         }
         
         public void Print()

@@ -10,12 +10,11 @@ namespace AlgoDatDictionaries.Arrays
         protected override (int, bool) search(int value)
         {
             int midIndex;
-            double leftIndex = 0;
-            double rightIndex = GetLastIndex(array)-1;//Array very long, search for first item == null
+            int leftIndex = 0;
+            int rightIndex = GetLastIndex(array);//Array very long, search for first item == null
             do
             {
-                var doubleMidIndex = (leftIndex + rightIndex) / 2;
-                midIndex = Convert.ToInt32(Math.Ceiling(doubleMidIndex)); 
+                midIndex = (leftIndex + rightIndex) / 2;
                 if (array[midIndex] < value)
                 {
                     leftIndex = midIndex + 1;
@@ -31,13 +30,19 @@ namespace AlgoDatDictionaries.Arrays
 
         public virtual bool Insert(int num)
         {
+            if (array[0] == 0)
+            {
+                array[0] = num;
+                return true;
+            }
             int index = search(num).Item1;
-            for (int i = GetLastIndex(array); i > index-1; i--)
+            for (int i = GetLastIndex(array)+1; i >= index; i--)
             {
                 array[i + 1] = array[i];
             }
 
-            array[index] = num;
+            if (array[index] > num) array[index] = num;
+            else array[index+1] = num;
             return true;
         }
 

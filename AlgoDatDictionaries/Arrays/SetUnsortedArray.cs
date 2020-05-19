@@ -10,8 +10,7 @@ namespace AlgoDatDictionaries.Arrays
         {
             if (!Search(num))
             {
-                array[GetLastIndex(array) + 1] = num;
-                return true;
+                base.Insert(num);
             }
 
             return false;
