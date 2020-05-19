@@ -19,6 +19,7 @@ namespace AlgoDatDictionaries.Lists
         }
 
         // Methods
+
         // Search
         public bool Search(int num)
         {
@@ -82,7 +83,8 @@ namespace AlgoDatDictionaries.Lists
             }
 
             // Easiest cases
-            if ((multi == true && sorted == false) || (multi == false && sorted == false && found == false ||  before == -1))
+            if ((multi == true && sorted == false) //description
+                || (multi == false && sorted == false && found == false ||  before == -1)) // --""--
             {
                 Prepend(num);
                 return true;

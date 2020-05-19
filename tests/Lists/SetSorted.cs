@@ -38,11 +38,19 @@ namespace Tests.Lists
         {
             SetSortedArray set = new SetSortedArray();
             set.Insert(7);
-            Assert.IsTrue(set.Search(7));
-            // multiSetUnsorted.Delete(7);
-            Assert.Fail("Delete method is missing");
-            Assert.IsFalse(set.Search(7));
+            set.Insert(5);
+            set.Insert(2);
+            set.Insert(1);
+            set.Insert(10);
+            set.Insert(4);
+            Assert.IsTrue(set.Delete(1));
+            Assert.IsTrue(set.Delete(10));
+            Assert.IsTrue(set.Delete(5));
+            Assert.IsFalse(set.Delete(20));
+            Assert.IsFalse(set.Delete(1));
             
+
+
         }
     }
 }

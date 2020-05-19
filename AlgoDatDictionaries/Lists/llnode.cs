@@ -27,6 +27,7 @@ namespace AlgoDatDictionaries.Lists
         {
             // Default constructor
         }
+        
 
         public llnode(int key, llnode next)
         {
