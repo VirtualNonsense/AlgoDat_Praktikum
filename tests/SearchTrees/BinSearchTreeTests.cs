@@ -154,6 +154,37 @@ namespace tests.SearchTrees
             Assert.IsFalse(t.Search(value));
             Assert.IsTrue(deleted);
         }
+        
+        [TestMethod]
+        public void DeleteTest_DeleteRoot_CheckRest()
+        {
+            BinSearchTree t = new BinSearchTree();
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(15);
+            t.Insert(17);
+            bool deleted = t.Delete(10);
+            Assert.IsTrue(deleted);
+            Assert.IsFalse(t.Search(10));
+            Assert.IsTrue(t.Search(5));
+            Assert.IsTrue(t.Search(15));
+            Assert.IsTrue(t.Search(17));
+        }
+
+        [TestMethod]
+        public void DeleteTest_Delete_TwoChildNode()
+        {
+            BinSearchTree t = new BinSearchTree();
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(6);
+            t.Insert(4);
+            bool deleted = t.Delete(5);
+            Assert.IsTrue(deleted);
+            Assert.IsFalse(t.Search(5));
+            Assert.IsTrue(t.Search(4));
+            Assert.IsTrue(t.Search(6));
+        }
 
         [TestMethod]
         public void GeneratePrintStringtest()
@@ -176,5 +207,6 @@ namespace tests.SearchTrees
             StringAssert.Contains("10", "10");
 
         }
+
     }
 }

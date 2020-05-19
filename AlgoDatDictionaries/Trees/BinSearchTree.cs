@@ -12,17 +12,14 @@ namespace AlgoDatDictionaries.Trees
             Left,
             Right
         }
+        
 
         private TreeNode root;
         
         // ###############################################
         // Constructor
         // ###############################################
-        public BinSearchTree()
-        {
-            
-        }
-        
+
         // ###############################################
         // ISetSorted
         // ###############################################
@@ -32,7 +29,7 @@ namespace AlgoDatDictionaries.Trees
         }
 
         /// <summary>
-        /// asdf
+        /// 
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Item1 PreNode, Item2 Node, Item3 Direction, Item4 found</returns>
@@ -47,12 +44,12 @@ namespace AlgoDatDictionaries.Trees
                 {
                     pre = a;
                     dir = Direction.Left;
-                    a = a.left;
+                    a = a.Left;
                     continue;
                 }
                 pre = a;
                 dir = Direction.Right;
-                a = a.right;
+                a = a.Right;
             }
 
             return (pre, a, dir, a != null);
@@ -72,14 +69,13 @@ namespace AlgoDatDictionaries.Trees
                     root = new TreeNode(value);
                     break;
                 case Direction.Left:
-                    r.Item1.left = new TreeNode(value);
+                    r.Item1.Left = new TreeNode(value);
                     break;
                 case Direction.Right:
-                    r.Item1.right = new TreeNode(value);
+                    r.Item1.Right = new TreeNode(value);
                     break;
             }
             return true;
-
         }
 
 
@@ -90,20 +86,10 @@ namespace AlgoDatDictionaries.Trees
             {
                 return false;
             }
-            switch(t.Item3)
-            {
-                case Direction.Unset:
-                    root = null;
-                    break;
-                case Direction.Left:
-                    t.Item1.left = null;
-                    break;
-                case Direction.Right:
-                    t.Item1.right = null;
-                    break;
-            }
+            RemoveNode(t.Item1, t.Item2, t.Item3);
             return true;
         }
+        
 
         public void Print()
         {
@@ -130,13 +116,13 @@ namespace AlgoDatDictionaries.Trees
         } 
         internal TreeNode InOrder(TreeNode node)
         {
-            if (node.right != null)
+            if (node.Right != null)
             {
-                InOrder(node.right);
+                InOrder(node.Right);
             }
-            if (node.left != null)
+            if (node.Left != null)
             {
-                InOrder(node.left);
+                InOrder(node.Left);
             }
             return node;
         }
@@ -144,5 +130,53 @@ namespace AlgoDatDictionaries.Trees
         // ###############################################
         // Private Stuff
         // ###############################################
+
+        private void RemoveNode(TreeNode pre , TreeNode node, Direction prediDir)
+        {
+            switch (node.Type)
+            {
+                case TreeNode.NodeType.Leaf:
+                    switch (prediDir)
+                    {
+                        case Direction.Unset:
+                            root = null;
+                            break;
+                        case Direction.Left:
+                             pre.Left = null;
+                            break;
+                        case Direction.Right:
+                            pre.Right = null;
+                            break;
+                    }
+                    break;
+                case TreeNode.NodeType.OneChild:
+                    switch (prediDir)
+                    {
+                        case Direction.Unset:
+                            root = root.Left ?? root.Right;
+                            break;
+                        case Direction.Left:
+                            pre.Left = root.Left ?? root.Right;
+                            break;
+                        case Direction.Right:
+                            pre.Right = root.Left ?? root.Right;
+                            break;
+                    }
+                    break;
+                case TreeNode.NodeType.TwoChildren:
+                    switch (prediDir)
+                    {
+                        case Direction.Unset:
+                            root.value = root.Left.value;
+                            RemoveNode(root, root.Left, Direction.Left);
+                            break;
+                        default:
+                            node.value = node.Left.value;
+                            RemoveNode(node, node.Left, Direction.Left);
+                            break;
+                    }
+                    break;
+            }
+        }
     }
 }
