@@ -20,7 +20,7 @@ namespace AlgoDatDictionaries.Arrays
         {
             for (int i = 0; i <= GetLastIndex(array); i++)
             {
-                Console.WriteLine("{0}, \t {1}", i,array[i] );
+                Console.WriteLine("{0} \t {1}", i,array[i] );
             }
             Console.WriteLine();
         }
