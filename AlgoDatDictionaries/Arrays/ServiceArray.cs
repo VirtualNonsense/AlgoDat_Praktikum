@@ -13,7 +13,7 @@ namespace AlgoDatDictionaries.Arrays
         {
             int currentIndex = 0;
             while (array[currentIndex] != 0) currentIndex++; //darf 0 vorkommen??
-            return currentIndex-1;
+            return currentIndex-1;    //current index is not a number -> -1
         }
         
         public void Print()
@@ -37,10 +37,10 @@ namespace AlgoDatDictionaries.Arrays
         
         public bool Delete(int num) 
         {
-            if (Search(num))
+            if (Search(num))    //checking if number is in array
             {
-                int index = search(num).Item1;
-                array[index] = 0;
+                int index = search(num).Item1;    //get the position 
+                array[index] = 0;    //delete the number and move all consecutive elements
                 for (int i = index; i <= GetLastIndex(array)+1; i++)
                 {
                     array[i] = array[i + 1];

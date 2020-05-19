@@ -22,7 +22,7 @@ namespace AlgoDatDictionaries.Arrays
 
         public virtual bool Insert(int num)
         { 
-            array[GetLastIndex(array) + 1] = num;
+            array[GetLastIndex(array) + 1] = num;    //insert at last position
             return true;
         }
 
