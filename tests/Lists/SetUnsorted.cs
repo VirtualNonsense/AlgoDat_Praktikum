@@ -38,11 +38,18 @@ namespace Tests.Lists
         {
             SetUnSortedLinkedList set = new SetUnSortedLinkedList();
             set.Insert(7);
-            Assert.IsTrue(set.Search(7));
-            // multiSetUnsorted.Delete(7);
-            Assert.Fail("Delete method is missing");
-            Assert.IsFalse(set.Search(7));
-            
+            set.Insert(5);
+            set.Insert(2);
+            set.Insert(1);
+            set.Insert(6);
+            set.Insert(8);
+            set.Insert(9);
+            Assert.IsTrue(set.Delete(7));
+            Assert.IsTrue(set.Delete(1));
+            Assert.IsTrue(set.Delete(9));
+            Assert.IsFalse(set.Delete(0));
+            Assert.IsFalse(set.Delete(10));
+
         }
     }
 }

@@ -8,7 +8,8 @@ namespace AlgoDatDictionaries.Arrays
     public abstract class ServiceArray
     {
         protected int[] array = new int[100]; 
-        
+           
+        // idee: int length =0; //bei insert ==> ++       bei delete ==> --
         protected int GetLastIndex(int[] array)
         {
             int currentIndex = 0;
