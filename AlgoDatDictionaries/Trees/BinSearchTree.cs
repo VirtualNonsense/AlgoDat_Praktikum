@@ -6,6 +6,9 @@ namespace AlgoDatDictionaries.Trees
 {
     public class BinSearchTree : ISetSorted
     {
+        private char _intendString = '\t';
+        private char _eol = '\n';
+        
         internal enum Direction
         {
             Unset,
@@ -93,50 +96,48 @@ namespace AlgoDatDictionaries.Trees
 
         public void Print()
         {
-            GeneratePrintString();
+            Console.WriteLine(GeneratePrintString());
         }
-        
+
+
         internal string GeneratePrintString()
         {
-            TreeNode tmp = root;
-            string s="";
-            if (tmp == null)
-            {
-                Console.WriteLine("Tree is empty");
-            }
-            while (tmp != null )
-            {
-                //#######unfinisched
-                tmp = InOrder(tmp);
-                s += $"{tmp.value} ";
-                //#######
-            }
-            Console.WriteLine();
-            return s;
-        } 
-        internal TreeNode InOrder(TreeNode node)
+            return GeneratePrintString(root, 0);
+        }
+        
+        internal string GeneratePrintString(TreeNode node, int intend)
         {
-            if (node.Right != null)
+            switch (node.Type)
             {
-                InOrder(node.Right);
+                case TreeNode.NodeType.Leaf:
+                    return IntendPrint($"{node.value}", intend);
+                default:
+                    string tmp = "";
+                    if (node.Right != null)
+                        tmp += GeneratePrintString(node.Right, intend + 1);
+                    tmp += IntendPrint($"{node.value}", intend);
+                    if (node.Left != null)
+                        tmp += GeneratePrintString(node.Left, intend + 1);
+                    return tmp;
             }
-            if (node.Left != null)
-            {
-                InOrder(node.Left);
-            }
-            return node;
+            
         }
 
         // ###############################################
         // Private Stuff
         // ###############################################
 
-        private void RemoveNode(TreeNode pre , TreeNode node, Direction prediDir)
+        private string IntendPrint(string value, int intend)
+        {
+            return new string(_intendString, intend) + value + _eol;
+        }
+        
+        private void RemoveNode(TreeNode pre , TreeNode node, Direction predDir)
         {
             switch (node.Type)
             {
                 case TreeNode.NodeType.Leaf:
-                    switch (prediDir)
+                    switch (predDir)
                     {
                         case Direction.Unset:
                             root = null;
@@ -150,7 +151,7 @@ namespace AlgoDatDictionaries.Trees
                     }
                     break;
                 case TreeNode.NodeType.OneChild:
-                    switch (prediDir)
+                    switch (predDir)
                     {
                         case Direction.Unset:
                             root = root.Left ?? root.Right;
@@ -164,7 +165,7 @@ namespace AlgoDatDictionaries.Trees
                     }
                     break;
                 case TreeNode.NodeType.TwoChildren:
-                    switch (prediDir)
+                    switch (predDir)
                     {
                         case Direction.Unset:
                             root.value = root.Left.value;

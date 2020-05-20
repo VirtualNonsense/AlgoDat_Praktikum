@@ -187,25 +187,73 @@ namespace tests.SearchTrees
         }
 
         [TestMethod]
-        public void GeneratePrintStringtest()
+        public void GeneratePrintString_JustRoot()
         {
             BinSearchTree t = new BinSearchTree(); 
-            t.Insert(10);
             t.Insert(5);
-            t.Insert(15);
-            t.Insert(17);
-            t.Insert(20);
-            t.Insert(19);
-            t.Insert(14);
-            t.Insert(16);
-            t.Insert(13);
-            t.Insert(8);
+            string s = t.GeneratePrintString();
+            Assert.AreEqual("5\n", s);
+        }
+
+        [TestMethod]
+        public void GeneratePrintString_RootAndRightChild()
+        {
+            BinSearchTree t = new BinSearchTree(); 
+            t.Insert(5);
+            t.Insert(7);
+            string s = t.GeneratePrintString();
+            Assert.AreEqual("\t7\n" + "5\n", s);
+        }
+        [TestMethod]
+        public void GeneratePrintString_RootAndLeftChild()
+        {
+            BinSearchTree t = new BinSearchTree(); 
+            t.Insert(5);
+            t.Insert(2);
+            string s = t.GeneratePrintString();
+            Assert.AreEqual( "5\n" + "\t2\n", s);
+        }
+        
+        
+        [TestMethod]
+        public void GeneratePrintString_RootChildren()
+        {
+            BinSearchTree t = new BinSearchTree(); 
+            t.Insert(5);
+            t.Insert(7);
+            t.Insert(2);
+            string s = t.GeneratePrintString();
+            Assert.AreEqual("\t7\n" + "5\n" + "\t2\n", s);
+        }
+
+        [TestMethod]
+        public void GeneratePrintSting_TreeTest()
+        {
+            BinSearchTree t = new BinSearchTree();
+            string tree =
+                "\t\t\t15\n" +
+                "\t\t\t\t12\n" +
+                "\t\t10\n" +
+                "\t\t\t8\n" +
+                "\t7\n" +
+                "\t\t6\n" +
+                "5\n" +
+                "\t\t3\n" +
+                "\t2\n" +
+                "\t\t1\n";
+
+            t.Insert(5);
+            t.Insert(7);
+            t.Insert(2);
             t.Insert(3);
             t.Insert(1);
+            t.Insert(10);
+            t.Insert(15);
+            t.Insert(12);
+            t.Insert(8);
             t.Insert(6);
-            t.Insert(9);
-            StringAssert.Contains("10", "10");
-
+            Assert.AreEqual(tree, t.GeneratePrintString());
+            
         }
 
     }
