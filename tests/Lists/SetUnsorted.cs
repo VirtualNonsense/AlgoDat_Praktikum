@@ -7,7 +7,7 @@ namespace Tests.Lists
     public class SetUnsorted
     {
         [TestMethod]
-        public void InsetTest()
+        public void InsertTest()
         {
             SetUnSortedLinkedList multiSetUnsorted = new SetUnSortedLinkedList();
             multiSetUnsorted.Insert(7);

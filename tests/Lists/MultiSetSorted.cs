@@ -8,10 +8,15 @@ namespace Tests.Lists
     public class MultiSetSorted
     {
         [TestMethod]
-        public void InsetTest()
+        public void InsertTest()
         {
             MultiSetSortedLinkedList multiSetUnsorted = new MultiSetSortedLinkedList();
-            multiSetUnsorted.Insert(7);
+            Assert.IsTrue(multiSetUnsorted.Insert(7));
+            Assert.IsTrue(multiSetUnsorted.Insert(7));
+            Assert.IsTrue(multiSetUnsorted.Insert(3));
+            Assert.IsTrue(multiSetUnsorted.Insert(7));
+            Assert.IsTrue(multiSetUnsorted.Insert(400));
+            Assert.IsTrue(multiSetUnsorted.Insert(7));
         }
         
         
