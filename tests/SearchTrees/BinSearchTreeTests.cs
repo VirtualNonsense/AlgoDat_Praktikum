@@ -27,7 +27,7 @@ namespace tests.SearchTrees
         }
 
         [TestMethod]
-        public void InternalSeachRootTest_found()
+        public void InternalSearchRootTest_found()
         {
             BinSearchTree t = new BinSearchTree();
             int value = 5;
@@ -43,7 +43,7 @@ namespace tests.SearchTrees
         }
 
         [TestMethod]
-        public void InternalSeachRootTest_notfound()
+        public void InternalSearchRootTest_notfound()
         {
             BinSearchTree t = new BinSearchTree();
             int value = 5;
@@ -59,7 +59,7 @@ namespace tests.SearchTrees
         }
 
         [TestMethod]
-        public void InternalSeachRightToRootTest_found()
+        public void InternalSearchRightToRootTest_found()
         {
             BinSearchTree t = new BinSearchTree();
             int value = 5;
@@ -77,7 +77,7 @@ namespace tests.SearchTrees
 
 
         [TestMethod]
-        public void InternalSeachLeftToRootTest_found()
+        public void InternalSearchLeftToRootTest_found()
         {
             BinSearchTree t = new BinSearchTree();
             int value = 3;
@@ -95,7 +95,7 @@ namespace tests.SearchTrees
 
 
         [TestMethod]
-        public void InternalSeachRootNullTest_notfound()
+        public void InternalSearchRootNullTest_notfound()
         {
             BinSearchTree t = new BinSearchTree();
             var r = t.search(5);
