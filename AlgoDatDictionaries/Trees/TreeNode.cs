@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("tests")]
 namespace AlgoDatDictionaries.Trees
 {
-    internal class TreeNode
+    public class TreeNode
     {
         internal enum NodeType
         {
@@ -62,7 +64,7 @@ namespace AlgoDatDictionaries.Trees
             this.Value = value;
         }
 
-        public NodeType Type
+        internal NodeType Type
         {
             get
             {

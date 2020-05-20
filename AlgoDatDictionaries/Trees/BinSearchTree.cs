@@ -9,7 +9,7 @@ namespace AlgoDatDictionaries.Trees
         private char _intendString = '\t';
         private char _eol = '\n';
         
-        internal enum Direction
+        public enum Direction
         {
             Unset,
             Left,
@@ -17,7 +17,7 @@ namespace AlgoDatDictionaries.Trees
         }
         
 
-        private TreeNode root;
+        protected TreeNode root;
         
         // ###############################################
         // Constructor
@@ -62,35 +62,13 @@ namespace AlgoDatDictionaries.Trees
         public virtual bool Insert(int value)
         {
             var r = search(value);
-            if(r.Item4)
-            {
-                return false;
-            }
-            switch(r.Item3)
-            {
-                case Direction.Unset:
-                    root = new TreeNode(value);
-                    break;
-                case Direction.Left:
-                    r.Item1.Left = new TreeNode(value);
-                    break;
-                case Direction.Right:
-                    r.Item1.Right = new TreeNode(value);
-                    break;
-            }
-            return true;
+            return Insert(r, value);
         }
-
 
         public virtual bool Delete(int value)
         {
             var t = search(value);
-            if(!t.Item4)
-            {
-                return false;
-            }
-            RemoveNode(t.Item1, t.Item2, t.Item3);
-            return true;
+            return Delete(t, value);
         }
         
 
@@ -126,6 +104,38 @@ namespace AlgoDatDictionaries.Trees
         // ###############################################
         // Private Stuff
         // ###############################################
+
+        protected bool Insert((TreeNode, TreeNode, Direction, bool) r, int value)
+        {
+            if(r.Item4)
+            {
+                return false;
+            }
+            switch(r.Item3)
+            {
+                case Direction.Unset:
+                    root = new TreeNode(value);
+                    break;
+                case Direction.Left:
+                    r.Item1.Left = new TreeNode(value);
+                    break;
+                case Direction.Right:
+                    r.Item1.Right = new TreeNode(value);
+                    break;
+            }
+            return true;
+        }
+
+        protected bool Delete((TreeNode, TreeNode, Direction, bool) t, int value)
+        {
+            if(!t.Item4)
+            {
+                return false;
+            }
+            RemoveNode(t.Item1, t.Item2, t.Item3);
+            return true;
+        }
+            
 
         private string IntendPrint(string value, int intend)
         {
