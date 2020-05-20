@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-[assembly: InternalsVisibleTo("tests")]
 
+[assembly: InternalsVisibleTo("tests")]
 namespace AlgoDatDictionaries.Trees
 {
     public class BinSearchTree : ISetSorted
@@ -59,7 +59,7 @@ namespace AlgoDatDictionaries.Trees
         }
 
 
-        public bool Insert(int value)
+        public virtual bool Insert(int value)
         {
             var r = search(value);
             if(r.Item4)
@@ -82,7 +82,7 @@ namespace AlgoDatDictionaries.Trees
         }
 
 
-        public bool Delete(int value)
+        public virtual bool Delete(int value)
         {
             var t = search(value);
             if(!t.Item4)
