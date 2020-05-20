@@ -41,9 +41,9 @@ namespace AlgoDatDictionaries.Trees
             TreeNode a = root;
             TreeNode pre = null;
             Direction dir = Direction.Unset;
-            while(a != null && a.value != value)
+            while(a != null && a.Value != value)
             {
-                if (value < a.value)
+                if (value < a.Value)
                 {
                     pre = a;
                     dir = Direction.Left;
@@ -110,12 +110,12 @@ namespace AlgoDatDictionaries.Trees
             switch (node.Type)
             {
                 case TreeNode.NodeType.Leaf:
-                    return IntendPrint($"{node.value}", intend);
+                    return IntendPrint($"{node.Value}", intend);
                 default:
                     string tmp = "";
                     if (node.Right != null)
                         tmp += GeneratePrintString(node.Right, intend + 1);
-                    tmp += IntendPrint($"{node.value}", intend);
+                    tmp += IntendPrint($"{node.Value}", intend);
                     if (node.Left != null)
                         tmp += GeneratePrintString(node.Left, intend + 1);
                     return tmp;
@@ -168,11 +168,11 @@ namespace AlgoDatDictionaries.Trees
                     switch (predDir)
                     {
                         case Direction.Unset:
-                            root.value = root.Left.value;
+                            root.Value = root.Left.Value;
                             RemoveNode(root, root.Left, Direction.Left);
                             break;
                         default:
-                            node.value = node.Left.value;
+                            node.Value = node.Left.Value;
                             RemoveNode(node, node.Left, Direction.Left);
                             break;
                     }

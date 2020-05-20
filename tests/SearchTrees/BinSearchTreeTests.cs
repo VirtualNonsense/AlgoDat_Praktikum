@@ -37,7 +37,7 @@ namespace tests.SearchTrees
             var r = t.search(value);
 
             Assert.IsNull(r.Item1);
-            Assert.AreEqual(value, r.Item2.value);
+            Assert.AreEqual(value, r.Item2.Value);
             Assert.AreEqual(BinSearchTree.Direction.Unset, r.Item3);
             Assert.IsTrue(r.Item4);
         }
@@ -52,7 +52,7 @@ namespace tests.SearchTrees
 
             var r = t.search(value);
 
-            Assert.AreEqual(4, r.Item1.value);
+            Assert.AreEqual(4, r.Item1.Value);
             Assert.IsNull(r.Item2);
             Assert.AreEqual(BinSearchTree.Direction.Right, r.Item3);
             Assert.IsFalse(r.Item4);
@@ -69,8 +69,8 @@ namespace tests.SearchTrees
 
             var r = t.search(value);
 
-            Assert.AreEqual(4, r.Item1.value);
-            Assert.AreEqual(value, r.Item2.value);
+            Assert.AreEqual(4, r.Item1.Value);
+            Assert.AreEqual(value, r.Item2.Value);
             Assert.AreEqual(BinSearchTree.Direction.Right, r.Item3);
             Assert.IsTrue(r.Item4);
         }
@@ -87,8 +87,8 @@ namespace tests.SearchTrees
 
             var r = t.search(value);
 
-            Assert.AreEqual(4, r.Item1.value);
-            Assert.AreEqual(value, r.Item2.value);
+            Assert.AreEqual(4, r.Item1.Value);
+            Assert.AreEqual(value, r.Item2.Value);
             Assert.AreEqual(BinSearchTree.Direction.Left, r.Item3);
             Assert.IsTrue(r.Item4);
         }
