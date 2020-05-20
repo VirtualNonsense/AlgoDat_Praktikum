@@ -154,6 +154,107 @@ namespace tests.SearchTrees
             Assert.IsFalse(t.Search(value));
             Assert.IsTrue(deleted);
         }
+        
+        [TestMethod]
+        public void DeleteTest_DeleteRoot_CheckRest()
+        {
+            BinSearchTree t = new BinSearchTree();
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(15);
+            t.Insert(17);
+            bool deleted = t.Delete(10);
+            Assert.IsTrue(deleted);
+            Assert.IsFalse(t.Search(10));
+            Assert.IsTrue(t.Search(5));
+            Assert.IsTrue(t.Search(15));
+            Assert.IsTrue(t.Search(17));
+        }
+
+        [TestMethod]
+        public void DeleteTest_Delete_TwoChildNode()
+        {
+            BinSearchTree t = new BinSearchTree();
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(6);
+            t.Insert(4);
+            bool deleted = t.Delete(5);
+            Assert.IsTrue(deleted);
+            Assert.IsFalse(t.Search(5));
+            Assert.IsTrue(t.Search(4));
+            Assert.IsTrue(t.Search(6));
+        }
+
+        [TestMethod]
+        public void GeneratePrintString_JustRoot()
+        {
+            BinSearchTree t = new BinSearchTree(); 
+            t.Insert(5);
+            string s = t.GeneratePrintString();
+            Assert.AreEqual("5\n", s);
+        }
+
+        [TestMethod]
+        public void GeneratePrintString_RootAndRightChild()
+        {
+            BinSearchTree t = new BinSearchTree(); 
+            t.Insert(5);
+            t.Insert(7);
+            string s = t.GeneratePrintString();
+            Assert.AreEqual("\t7\n" + "5\n", s);
+        }
+        [TestMethod]
+        public void GeneratePrintString_RootAndLeftChild()
+        {
+            BinSearchTree t = new BinSearchTree(); 
+            t.Insert(5);
+            t.Insert(2);
+            string s = t.GeneratePrintString();
+            Assert.AreEqual( "5\n" + "\t2\n", s);
+        }
+        
+        
+        [TestMethod]
+        public void GeneratePrintString_RootChildren()
+        {
+            BinSearchTree t = new BinSearchTree(); 
+            t.Insert(5);
+            t.Insert(7);
+            t.Insert(2);
+            string s = t.GeneratePrintString();
+            Assert.AreEqual("\t7\n" + "5\n" + "\t2\n", s);
+        }
+
+        [TestMethod]
+        public void GeneratePrintSting_TreeTest()
+        {
+            BinSearchTree t = new BinSearchTree();
+            string tree =
+                "\t\t\t15\n" +
+                "\t\t\t\t12\n" +
+                "\t\t10\n" +
+                "\t\t\t8\n" +
+                "\t7\n" +
+                "\t\t6\n" +
+                "5\n" +
+                "\t\t3\n" +
+                "\t2\n" +
+                "\t\t1\n";
+
+            t.Insert(5);
+            t.Insert(7);
+            t.Insert(2);
+            t.Insert(3);
+            t.Insert(1);
+            t.Insert(10);
+            t.Insert(15);
+            t.Insert(12);
+            t.Insert(8);
+            t.Insert(6);
+            Assert.AreEqual(tree, t.GeneratePrintString());
+            
+        }
 
     }
 }
