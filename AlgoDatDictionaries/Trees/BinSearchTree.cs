@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("tests")]
@@ -61,8 +62,8 @@ namespace AlgoDatDictionaries.Trees
 
         public virtual bool Insert(int value)
         {
-            var r = search(value);
-            return Insert(r, value);
+            var (pre, node, dir, found) = search(value);
+            return Insert(pre, dir, found, value);
         }
 
         public virtual bool Delete(int value)
@@ -105,24 +106,24 @@ namespace AlgoDatDictionaries.Trees
         // Private Stuff
         // ###############################################
 
-        protected bool Insert((TreeNode, TreeNode, Direction, bool) r, int value)
+        protected bool Insert(TreeNode pre, Direction dir, bool found, int value)
         {
-            if(r.Item4)
+            if(found)
             {
                 return false;
             }
-            switch(r.Item3)
+            switch(dir)
             {
                 case Direction.Unset:
                     root = new TreeNode(value);
                     break;
                 case Direction.Left:
-                    r.Item1.Left = new TreeNode(value);
-                    r.Item1.Left.Previous = r.Item1;
+                    pre.Left = new TreeNode(value);
+                    pre.Left.Previous = pre;
                     break;
                 case Direction.Right:
-                    r.Item1.Right = new TreeNode(value);
-                    r.Item1.Right.Previous = r.Item1;
+                    pre.Right = new TreeNode(value);
+                    pre.Right.Previous = pre;
                     break;
             }
             return true;
