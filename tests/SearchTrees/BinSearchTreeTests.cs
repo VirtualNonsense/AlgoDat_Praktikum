@@ -185,9 +185,32 @@ namespace tests.SearchTrees
             Assert.IsTrue(t.Search(4));
             Assert.IsTrue(t.Search(6));
         }
+        
+        [TestMethod]
+        public void DeleteTest_SymmetricPredecessorIsChild_EzTree_CheckForPredecessors()
+        {
+            BinSearchTree t = new BinSearchTree();
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(6);
+            t.Insert(4);
+            Console.WriteLine("Befor delete");
+            t.Print();
+            bool deleted = t.Delete(5);
+            Console.WriteLine("After delete");
+            t.Print();
+            Assert.IsTrue(deleted);
+            var (pre6, node6, dir6, found6) = t.search(6);
+            var (pre4, node4, dir4, found4) = t.search(4);
+            
+            Assert.AreEqual(pre6.Value, node6.Previous.Value);
+            Assert.AreEqual(4, node6.Previous.Value);
+            Assert.AreEqual(10, node4.Previous.Value);
+            Assert.AreEqual(pre4.Value, node4.Previous.Value);
+        }
 
         [TestMethod]
-        public void DeleteTest_SymmetricPredecessorIsChild_HiddenSymPre()
+        public void DeleteTest_SymmetricPredecessorIsChild_HiddenSymPre_CheckForPredecessors()
         {
             BinSearchTree t = new BinSearchTree();
             t.Insert(45);
@@ -207,13 +230,19 @@ namespace tests.SearchTrees
             t.Print();
             
             bool result = t.Delete(67);
+            
             Console.WriteLine("After delete");
             t.Print();
-            var (pre, root, direction, found) = t.search(45);
-            var stillThere = t.Search(67);
-            Assert.IsTrue(result);
-            Assert.AreEqual(66, root.Right.Value);
-            Assert.IsFalse(stillThere);
+            var (pre66, node66, dir66, found66) = t.search(66);
+            var (pre56, node56, dir56, found56) = t.search(56);
+            var (pre97, node97, dir97, found97) = t.search(97);
+            
+            Assert.AreEqual(pre66.Value, node66.Previous.Value);
+            Assert.AreEqual(45, node66.Previous.Value);
+            Assert.AreEqual(pre56.Value, node56.Previous.Value);
+            Assert.AreEqual(66, node56.Previous.Value);
+            Assert.AreEqual(pre97.Value, node97.Previous.Value);
+            Assert.AreEqual(66, node97.Previous.Value);
 
         }
 
@@ -248,7 +277,7 @@ namespace tests.SearchTrees
             t.Insert(5);
             t.Insert(7);
             string s = t.GeneratePrintString();
-            Assert.AreEqual("\t7\n" + "5\n", s);
+            Assert.AreEqual("\t----7\n" + "5\n", s);
         }
         [TestMethod]
         public void GeneratePrintString_RootAndLeftChild()
@@ -257,7 +286,7 @@ namespace tests.SearchTrees
             t.Insert(5);
             t.Insert(2);
             string s = t.GeneratePrintString();
-            Assert.AreEqual( "5\n" + "\t2\n", s);
+            Assert.AreEqual( "5\n" + "\t----2\n", s);
         }
         
         
@@ -269,7 +298,7 @@ namespace tests.SearchTrees
             t.Insert(7);
             t.Insert(2);
             string s = t.GeneratePrintString();
-            Assert.AreEqual("\t7\n" + "5\n" + "\t2\n", s);
+            Assert.AreEqual("\t----7\n" + "5\n" + "\t----2\n", s);
         }
 
         [TestMethod]
@@ -277,16 +306,16 @@ namespace tests.SearchTrees
         {
             BinSearchTree t = new BinSearchTree();
             string tree =
-                "\t\t\t15\n" +
-                "\t\t\t\t12\n" +
-                "\t\t10\n" +
-                "\t\t\t8\n" +
-                "\t7\n" +
-                "\t\t6\n" +
+                "\t\t\t----15\n" +
+                "\t\t\t\t----12\n" +
+                "\t\t----10\n" +
+                "\t\t\t----8\n" +
+                "\t----7\n" +
+                "\t\t----6\n" +
                 "5\n" +
-                "\t\t3\n" +
-                "\t2\n" +
-                "\t\t1\n";
+                "\t\t----3\n" +
+                "\t----2\n" +
+                "\t\t----1\n";
 
             t.Insert(5);
             t.Insert(7);

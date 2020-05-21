@@ -159,7 +159,7 @@ namespace AlgoDatDictionaries.Trees
 
         private string IntendPrint(string value, int intend)
         {
-            return new string(_intendString, intend) + value + _eol;
+            return new string(_intendString, intend) + (intend > 0? "----" : "") + value + _eol;
         }
         private static bool DelSymPred(TreeNode node)
         {
@@ -169,12 +169,14 @@ namespace AlgoDatDictionaries.Trees
             if (preSymPre.Value == node.Value)
             {
                 node.Left = node.Left.Left;
-                node.Left = node;
+                if (node.Left != null)
+                   node.Left.Previous = node;
             }
             else
             {
                 preSymPre.Right = symPred.Left;
-                preSymPre.Right.Previous = preSymPre.Right;
+                if (preSymPre.Right != null)
+                    preSymPre.Right.Previous = preSymPre.Right;
             }
             return true;
         }
