@@ -9,7 +9,7 @@ namespace Tests.Lists
         [TestMethod]
         public void InsertTest()
         {
-            SetUnSortedLinkedList multiSetUnsorted = new SetUnSortedLinkedList();
+            SetUnsortedLinkedList multiSetUnsorted = new SetUnsortedLinkedList();
             multiSetUnsorted.Insert(7);
         }
         
@@ -17,7 +17,7 @@ namespace Tests.Lists
         [TestMethod]
         public void SearchTest()
         {
-            SetUnSortedLinkedList set = new SetUnSortedLinkedList();
+            SetUnsortedLinkedList set = new SetUnsortedLinkedList();
             set.Insert(7);
             set.Insert(6);
             set.Insert(3);
@@ -36,7 +36,7 @@ namespace Tests.Lists
         [TestMethod]
         public void DeleteTest()
         {
-            SetUnSortedLinkedList set = new SetUnSortedLinkedList();
+            SetUnsortedLinkedList set = new SetUnsortedLinkedList();
             set.Insert(7);
             set.Insert(5);
             set.Insert(2);
