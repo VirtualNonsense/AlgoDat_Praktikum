@@ -77,5 +77,7 @@ namespace AlgoDatDictionaries.Trees
                 return NodeType.OneChild;
             }        
         }
+
+        internal bool IsRoot => Previous == null;
     }
 }
