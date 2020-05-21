@@ -69,7 +69,7 @@ namespace AlgoDatDictionaries.Trees
         public virtual bool Delete(int value)
         {
             var (pre, node, dir, found) = search(value);
-            return found && Delete(pre, node, dir);
+            return Delete(pre, node, dir, found);
         }
         
 
@@ -129,8 +129,10 @@ namespace AlgoDatDictionaries.Trees
             return true;
         }
 
-        protected bool Delete(TreeNode pre, TreeNode a, Direction dir)
+        protected bool Delete(TreeNode pre, TreeNode a, Direction dir, bool found)
         {
+            if (!found)
+                return false;
             if (a.Type == TreeNode.NodeType.Symmetric)
                 return DelSymPred(a);
             
