@@ -82,7 +82,12 @@ namespace AlgoDatDictionaries.Trees
 
         public override string ToString()
         {
-            return $"{Value}, {Type}, {IsRoot}";
+            string root = IsRoot ? "ROOT " : "";
+            string children = Right != null? 
+                (Left != null ? $"; {Left.Value}, {Right.Value}" : $"; {Right.Value}") 
+                : (Left != null ? $"; {Left.Value}" : $"");
+            
+            return $"{root}{Value}{children}";
         }
     }
 }
