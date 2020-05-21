@@ -7,8 +7,10 @@ namespace AlgoDatDictionaries.Trees
 {
     public class BinSearchTree : ISetSorted
     {
-        private char _intendString = '\t';
-        private char _eol = '\n';
+        private const char IntendString = '\t';
+        private const string Eol = "\n";
+        private const string Branch = "----";
+        protected TreeNode Root;
         
         public enum Direction
         {
@@ -18,7 +20,6 @@ namespace AlgoDatDictionaries.Trees
         }
         
 
-        protected TreeNode root;
         
         // ###############################################
         // Constructor
@@ -27,19 +28,65 @@ namespace AlgoDatDictionaries.Trees
         // ###############################################
         // ISetSorted
         // ###############################################
+        /// <summary>
+        /// Search for value in tree structure
+        /// Returns true if the value is found
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public bool Search(int value)
         {
             return search(value).Item4;
         }
 
         /// <summary>
-        /// 
+        /// Insert a new node with given value
+        /// Returns true if successful
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public virtual bool Insert(int value)
+        {
+            var (pre, node, dir, found) = search(value);
+            return Insert(pre, dir, value);
+        }
+
+        /// <summary>
+        /// Delete node with given value
+        /// Returns true if successful
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public virtual bool Delete(int value)
+        {
+            var (pre, node, dir, found) = search(value);
+            return Delete(pre, node, dir, found);
+        }
+
+        /// <summary>
+        /// Print a string representation of the current tree into console
+        /// </summary>
+        public void Print()
+        {
+            Console.WriteLine(GeneratePrintString());
+        }
+        
+        // ###############################################
+        // Internal stuff
+        // ###############################################
+
+        /// <summary>
+        /// Searches inside tree for value;
+        /// if value is found the method returns its predecessor, the node value, the direction relative to pre and
+        /// true
+        /// if value is not within the tree structure the method will return the treenode where it shoud be, null, the
+        /// direction where the direction where the value should be found and false
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Item1 PreNode, Item2 Node, Item3 Direction, Item4 found</returns>
         internal (TreeNode, TreeNode, Direction, bool) search(int value)
         {
-            TreeNode a = root;
+            TreeNode a = Root;
             TreeNode pre = null;
             Direction dir = Direction.Unset;
             while(a != null && a.Value != value)
@@ -59,32 +106,22 @@ namespace AlgoDatDictionaries.Trees
             return (pre, a, dir, a != null);
         }
 
-
-        public virtual bool Insert(int value)
-        {
-            var (pre, node, dir, found) = search(value);
-            return Insert(pre, dir, found, value);
-        }
-
-        public virtual bool Delete(int value)
-        {
-            var (pre, node, dir, found) = search(value);
-            return Delete(pre, node, dir, found);
-        }
-        
-
-        public void Print()
-        {
-            Console.WriteLine(GeneratePrintString());
-        }
-
-
+        /// <summary>
+        /// Generate a string representation of the current tree
+        /// </summary>
+        /// <returns></returns>
         internal string GeneratePrintString()
         {
-            return GeneratePrintString(root, 0);
+            return GeneratePrintString(Root, 0);
         }
         
-        internal string GeneratePrintString(TreeNode node, int intend)
+        /// <summary>
+        /// Generate a string representation of the current tree
+        /// </summary>
+        /// <param name="node">Start node</param>
+        /// <param name="intend">Initial intend</param>
+        /// <returns></returns>
+        private string GeneratePrintString(TreeNode node, int intend)
         {
             switch (node.Type)
             {
@@ -103,32 +140,48 @@ namespace AlgoDatDictionaries.Trees
         }
 
         // ###############################################
-        // Private Stuff
+        // Private / Protected stuff
         // ###############################################
 
-        protected bool Insert(TreeNode pre, Direction dir, bool found, int value)
+        /// <summary>
+        /// Actual insert method
+        /// </summary>
+        /// <param name="pre">Predecessor| Node append new TreeNode on</param>
+        /// <param name="dir">Direction| Side on which the new Node should be put</param>
+        /// <param name="value">new Value</param>
+        /// <returns></returns>
+        protected bool Insert(TreeNode pre, Direction dir, int value)
         {
-            if(found)
-            {
-                return false;
-            }
             switch(dir)
             {
                 case Direction.Unset:
-                    root = new TreeNode(value);
+                    if (Root != null) return false;
+                    Root = new TreeNode(value);
                     break;
                 case Direction.Left:
+                    if (pre.Left != null) return false;
                     pre.Left = new TreeNode(value);
                     pre.Left.Previous = pre;
                     break;
                 case Direction.Right:
+                    if (pre.Right != null) return false;
                     pre.Right = new TreeNode(value);
                     pre.Right.Previous = pre;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(dir), dir, null);
             }
             return true;
         }
 
+        /// <summary>
+        /// Actual delete method.
+        /// </summary>
+        /// <param name="pre"></param>
+        /// <param name="a"></param>
+        /// <param name="dir"></param>
+        /// <param name="found"></param>
+        /// <returns></returns>
         protected bool Delete(TreeNode pre, TreeNode a, Direction dir, bool found)
         {
             if (!found)
@@ -140,9 +193,9 @@ namespace AlgoDatDictionaries.Trees
 
             if (pre == null)
             {
-                root = b;
+                Root = b;
                 if (b !=null)
-                    root.Previous = null;
+                    Root.Previous = null;
                 return true;
             }
 
@@ -159,31 +212,59 @@ namespace AlgoDatDictionaries.Trees
             return true;
         }
         
-
-        private string IntendPrint(string value, int intend)
-        {
-            return new string(_intendString, intend) + (intend > 0? "----" : "") + value + _eol;
-        }
+        /// <summary>
+        /// Helper method.
+        /// Use to "remove" node when node has two children
+        /// Basic idea is to copy 
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
         private static bool DelSymPred(TreeNode node)
         {
+            // get symmetric predecessor
             var symPred = MaxNode(node.Left);
+            
+            // get node bevor symPred
             var preSymPre = symPred.Previous;
+            
+            // Steal value from symPred
             node.Value = symPred.Value;
+            
+            // Check if the Node bevor symPred is node
             if (preSymPre.Value == node.Value)
             {
+                // remove symPred
                 node.Left = node.Left.Left;
                 if (node.Left != null)
                    node.Left.Previous = node;
             }
             else
             {
+                // remove symPred
                 preSymPre.Right = symPred.Left;
                 if (preSymPre.Right != null)
                     preSymPre.Right.Previous = preSymPre.Right;
             }
             return true;
         }
+
+        /// <summary>
+        /// Pretty print with variable intend
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="intend"></param>
+        /// <param name="endOfLine"></param>
+        /// <returns></returns>
+        private string IntendPrint(string value, int intend, bool endOfLine = true)
+        {
+            return new string(IntendString, intend) + (intend > 0? Branch : "") + value + (endOfLine? Eol : "");
+        }
         
+        /// <summary>
+        /// Returns the most right node from a given start
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
         protected static TreeNode MaxNode(TreeNode n)
         {
             while (n.Right != null)
@@ -192,6 +273,12 @@ namespace AlgoDatDictionaries.Trees
             }
             return n;
         }
+        
+        /// <summary>
+        /// Returns the most left node from a given start
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
         protected static TreeNode MinNode(TreeNode n)
         {
             while (n.Left != null)
