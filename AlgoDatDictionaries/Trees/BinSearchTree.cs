@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Numerics;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("tests")]
@@ -19,8 +18,6 @@ namespace AlgoDatDictionaries.Trees
             Right
         }
         
-
-        
         // ###############################################
         // Constructor
         // ###############################################
@@ -36,7 +33,7 @@ namespace AlgoDatDictionaries.Trees
         /// <returns></returns>
         public bool Search(int value)
         {
-            return search(value).Item4;
+            return DetailedSearch(value).Item4;
         }
 
         /// <summary>
@@ -47,7 +44,7 @@ namespace AlgoDatDictionaries.Trees
         /// <returns></returns>
         public virtual bool Insert(int value)
         {
-            var (pre, node, dir, found) = search(value);
+            var (pre, _, dir, _) = DetailedSearch(value);
             return Insert(pre, dir, value);
         }
 
@@ -59,7 +56,7 @@ namespace AlgoDatDictionaries.Trees
         /// <returns></returns>
         public virtual bool Delete(int value)
         {
-            var (pre, node, dir, found) = search(value);
+            var (pre, node, dir, _) = DetailedSearch(value);
             return Delete(pre, node, dir);
         }
 
@@ -79,12 +76,12 @@ namespace AlgoDatDictionaries.Trees
         /// Searches inside tree for value;
         /// if value is found the method returns its predecessor, the node value, the direction relative to pre and
         /// true
-        /// if value is not within the tree structure the method will return the treenode where it shoud be, null, the
+        /// if value is not within the tree structure the method will return the TreeNode where it Should be, null, the
         /// direction where the direction where the value should be found and false
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Item1 PreNode, Item2 Node, Item3 Direction, Item4 found</returns>
-        internal (TreeNode, TreeNode, Direction, bool) search(int value)
+        internal (TreeNode, TreeNode, Direction, bool) DetailedSearch(int value)
         {
             TreeNode a = Root;
             TreeNode pre = null;
@@ -180,7 +177,6 @@ namespace AlgoDatDictionaries.Trees
         /// <param name="pre"></param>
         /// <param name="a"></param>
         /// <param name="dir"></param>
-        /// <param name="found"></param>
         /// <returns></returns>
         protected bool Delete(TreeNode pre, TreeNode a, Direction dir)
         {
@@ -265,7 +261,7 @@ namespace AlgoDatDictionaries.Trees
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        protected static TreeNode MaxNode(TreeNode n)
+        private static TreeNode MaxNode(TreeNode n)
         {
             while (n.Right != null)
             {
