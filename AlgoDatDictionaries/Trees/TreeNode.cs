@@ -10,7 +10,7 @@ namespace AlgoDatDictionaries.Trees
         {
             Leaf,
             OneChild,
-            TwoChildren
+            Symmetric
         }
         public int Value;
 
@@ -32,7 +32,7 @@ namespace AlgoDatDictionaries.Trees
                             return -(1 + Left.MaxHeight);
                         }
                         return  1 + Right.MaxHeight;
-                    case NodeType.TwoChildren:
+                    case NodeType.Symmetric:
                         return Right.MaxHeight - Left.MaxHeight;
                     default:
                         throw new NotImplementedException();
@@ -50,7 +50,7 @@ namespace AlgoDatDictionaries.Trees
                     case NodeType.OneChild:
                         TreeNode node = Left ?? Right;
                         return 1 + node.MaxHeight;
-                    case NodeType.TwoChildren:
+                    case NodeType.Symmetric:
                         int leftHeight = Left.MaxHeight;
                         int rightHeight = Right.MaxHeight;
                         int max = (leftHeight > rightHeight) ? leftHeight : rightHeight;
@@ -71,7 +71,7 @@ namespace AlgoDatDictionaries.Trees
             get
             {
                 if (Left != null && Right != null)
-                    return NodeType.TwoChildren;
+                    return NodeType.Symmetric;
                 if (Left == null && Right == null)
                     return NodeType.Leaf;
                 return NodeType.OneChild;

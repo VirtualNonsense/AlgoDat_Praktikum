@@ -172,7 +172,7 @@ namespace tests.SearchTrees
         }
 
         [TestMethod]
-        public void DeleteTest_Delete_TwoChildNode()
+        public void DeleteTest_SymmetricPredecessorIsChild_EzTree()
         {
             BinSearchTree t = new BinSearchTree();
             t.Insert(10);
@@ -184,6 +184,37 @@ namespace tests.SearchTrees
             Assert.IsFalse(t.Search(5));
             Assert.IsTrue(t.Search(4));
             Assert.IsTrue(t.Search(6));
+        }
+
+        [TestMethod]
+        public void DeleteTest_SymmetricPredecessorIsChild_HiddenSymPre()
+        {
+            BinSearchTree t = new BinSearchTree();
+            t.Insert(45);
+            t.Insert(18);
+            t.Insert(67);
+            t.Insert(10);
+            t.Insert(41);
+            t.Insert(56);
+            t.Insert(97);
+            t.Insert(43);
+            t.Insert(66);
+            t.Insert(95);
+            t.Insert(59);
+            t.Insert(57);
+            t.Insert(64);
+            Console.WriteLine("Befor delete");
+            t.Print();
+            
+            bool result = t.Delete(67);
+            Console.WriteLine("After delete");
+            t.Print();
+            var (pre, root, direction, found) = t.search(45);
+            var stillThere = t.Search(67);
+            Assert.IsTrue(result);
+            Assert.AreEqual(66, root.Right.Value);
+            Assert.IsFalse(stillThere);
+
         }
 
 

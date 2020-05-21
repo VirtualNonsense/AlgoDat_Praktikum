@@ -67,8 +67,8 @@ namespace AlgoDatDictionaries.Trees
 
         public virtual bool Delete(int value)
         {
-            var t = search(value);
-            return Delete(t, value);
+            var (pre, node, dir, found) = search(value);
+            return found && Delete(pre, node, dir);
         }
         
 
@@ -128,99 +128,57 @@ namespace AlgoDatDictionaries.Trees
             return true;
         }
 
-        protected bool Delete((TreeNode, TreeNode, Direction, bool) t, int value)
+        protected bool Delete(TreeNode pre, TreeNode a, Direction dir)
         {
-            if(!t.Item4)
+            if (a.Type == TreeNode.NodeType.Symmetric)
+                return DelSymPred(a);
+            
+            var b = a.Left ?? a.Right;
+
+            if (pre == null)
             {
-                return false;
+                root = b;
+                if (b !=null)
+                    root.Previous = null;
+                return true;
             }
-            RemoveNode(t.Item1, t.Item2, t.Item3);
+
+            if (dir == Direction.Left)
+            {
+                pre.Left = b;
+                pre.Left.Previous = pre;
+            }
+            else
+            {
+                pre.Right = b;
+                pre.Right.Previous = pre;
+            }
             return true;
         }
-            
+        
 
         private string IntendPrint(string value, int intend)
         {
             return new string(_intendString, intend) + value + _eol;
         }
-        
-        private void RemoveNode(TreeNode pre , TreeNode node, Direction predDir)
+        private static bool DelSymPred(TreeNode node)
         {
-            switch (node.Type)
+            var symPred = MaxNode(node.Left);
+            var preSymPre = symPred.Previous;
+            node.Value = symPred.Value;
+            if (preSymPre.Value == node.Value)
             {
-                case TreeNode.NodeType.Leaf:
-                    switch (predDir)
-                    {
-                        case Direction.Unset:
-                            root = null;
-                            break;
-                        case Direction.Left:
-                            pre.Left.Previous = null;
-                            pre.Left = null;
-                            break;
-                        case Direction.Right:
-                            pre.Right.Previous = null;
-                            pre.Right = null;
-                            break;
-                    }
-                    break;
-                case TreeNode.NodeType.OneChild:
-                    switch (predDir)
-                    {
-                        case Direction.Unset:
-                            root = root.Left ?? root.Right;
-                            root.Previous = null;
-                            break;
-                        case Direction.Left:
-                            // replacing left child
-                            pre.Left = node.Left ?? node.Right;
-                            // replacing node as previous node
-                            pre.Left.Previous = pre;
-                            break;
-                        case Direction.Right:
-                            // replacing left child
-                            pre.Right = node.Left ?? node.Right;
-                            // replacing node as previous node
-                            pre.Right.Previous = pre.Right;
-                            break;
-                    }
-                    break;
-                case TreeNode.NodeType.TwoChildren:
-                    TreeNode symPre;
-                    switch (predDir)
-                    {
-                        // Copy value of sym pre and remove sym pre
-                        case Direction.Unset:
-                            // get sym pre
-                            symPre = MaxNode(root.Left);
-                            // copy value to root
-                            root.Value = symPre.Value;
-                            // Check if previous is not root
-                            if (symPre.Previous.Value != root.Value)
-                                // replacing sym pre by left tree
-                                symPre.Previous.Right = symPre.Left;
-                            else
-                                // removing sym pre
-                                root.Left = null;
-                            break;
-                        default:
-                            // get sym pre
-                            symPre = MaxNode(node.Left);
-                            // copy value to Node
-                            node.Value = symPre.Value;
-                            // Check if previous is not root
-                            if (symPre.Previous.Value != node.Value)
-                                // replacing sym pre by left tree
-                                symPre.Previous.Right = symPre.Left;
-                            else
-                                // removing sym pre
-                                node.Left = null;
-                            break;
-                    }
-                    break;
+                node.Left = node.Left.Left;
+                node.Left = node;
             }
-
+            else
+            {
+                preSymPre.Right = symPred.Left;
+                preSymPre.Right.Previous = preSymPre.Right;
+            }
+            return true;
         }
+        
         protected static TreeNode MaxNode(TreeNode n)
         {
             while (n.Right != null)
