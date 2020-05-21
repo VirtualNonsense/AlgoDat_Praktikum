@@ -15,14 +15,14 @@ namespace tests.SearchTrees
             Assert.IsTrue(t.Insert(10));
         }
         [TestMethod]
-        public void Insertestfalse()
+        public void InsertTestFalse()
         {
             AVLTree t = new AVLTree();
             Assert.IsTrue(t.Insert(10));
             Assert.IsFalse(t.Insert(10));
         }
         [TestMethod]
-        public void Insertesttree()
+        public void InsertTestTree()
         {
             AVLTree t = new AVLTree();
             Assert.IsTrue(t.Insert(10));
@@ -32,7 +32,7 @@ namespace tests.SearchTrees
             
         }
         [TestMethod]
-        public void Insertesttreewithfalse()
+        public void InsertTestTreeWithFalse()
         {
             AVLTree t = new AVLTree();
             Assert.IsTrue(t.Insert(10));
@@ -43,14 +43,14 @@ namespace tests.SearchTrees
 
         }
         [TestMethod]
-        public void Deletetesttrue()
+        public void DeleteTestTrue()
         {
             AVLTree t = new AVLTree();
             t.Insert(10);
             Assert.IsTrue(t.Delete(10));
         }
         [TestMethod]
-        public void Deletetestfalse()
+        public void DeleteTestFalse()
         {
             AVLTree t = new AVLTree();
             t.Insert(10);
@@ -58,7 +58,7 @@ namespace tests.SearchTrees
 
         }
         [TestMethod]
-        public void Deletetesttree()
+        public void DeleteTestTree()
         {
             AVLTree t = new AVLTree();
             t.Insert(10);
@@ -69,7 +69,7 @@ namespace tests.SearchTrees
 
         }
         [TestMethod]
-        public void Deletetesttreefalse()
+        public void DeleteTestTreeFalse()
         {
             AVLTree t = new AVLTree();
             t.Insert(10);
@@ -80,13 +80,13 @@ namespace tests.SearchTrees
 
         }
         [TestMethod]
-        public void GetUnbalancedNoderoottest()
+        public void GetUnbalancedNodeRootTest()
         {
             AVLTree t = new AVLTree();
             Assert.AreEqual((null,0), t.GetUnbalancedNode(5));
         }
         [TestMethod]
-        public void GetUnbalancedNoderoottest2()
+        public void GetUnbalancedNodeRootTest2()
         {
             AVLTree t = new AVLTree();
             t.Insert(10);
@@ -94,7 +94,7 @@ namespace tests.SearchTrees
             Assert.AreEqual((null, 0), t.GetUnbalancedNode(3));
         }
         [TestMethod]
-        public void GetUnbalancedNodetest()
+        public void GetUnbalancedNodeTest()
         {
             AVLTree t = new AVLTree();
             t.Insert(5);
@@ -102,7 +102,7 @@ namespace tests.SearchTrees
 
         }
         [TestMethod]
-        public void GetUnbalancedNodetesttree()
+        public void GetUnbalancedNodeTestTree()
         {
             AVLTree t = new AVLTree();
             t.Insert(10);
