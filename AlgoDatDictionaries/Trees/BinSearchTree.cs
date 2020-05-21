@@ -192,7 +192,7 @@ namespace AlgoDatDictionaries.Trees
                         // Copy value of sym pre and remove sym pre
                         case Direction.Unset:
                             // get sym pre
-                            symPre = root.Left.MaxNode;
+                            symPre = MaxNode(root.Left);
                             // copy value to root
                             root.Value = symPre.Value;
                             // Check if previous is not root
@@ -205,7 +205,7 @@ namespace AlgoDatDictionaries.Trees
                             break;
                         default:
                             // get sym pre
-                            symPre = node.Left.MaxNode;
+                            symPre = MaxNode(node.Left);
                             // copy value to Node
                             node.Value = symPre.Value;
                             // Check if previous is not root
@@ -219,6 +219,23 @@ namespace AlgoDatDictionaries.Trees
                     }
                     break;
             }
+
+        }
+        protected static TreeNode MaxNode(TreeNode n)
+        {
+            while (n.Right != null)
+            {
+                n = n.Right;
+            }
+            return n;
+        }
+        protected static TreeNode MinNode(TreeNode n)
+        {
+            while (n.Left != null)
+            {
+                n = n.Left;
+            }
+            return n;
         }
     }
 }
