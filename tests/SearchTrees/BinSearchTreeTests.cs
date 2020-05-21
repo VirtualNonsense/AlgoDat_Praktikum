@@ -186,6 +186,21 @@ namespace tests.SearchTrees
             Assert.IsTrue(t.Search(6));
         }
 
+
+        public void DeleteTest_DeleteNodeWithTwoChildren_SymPreHasTwoChildrenAsWell()
+        {
+            BinSearchTree t = new BinSearchTree();
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(6);
+            t.Insert(4);
+            bool deleted = t.Delete(5);
+            Assert.IsTrue(deleted);
+            Assert.IsFalse(t.Search(5));
+            Assert.IsTrue(t.Search(4));
+            Assert.IsTrue(t.Search(6));
+        }
+
         [TestMethod]
         public void GeneratePrintString_JustRoot()
         {

@@ -118,9 +118,11 @@ namespace AlgoDatDictionaries.Trees
                     break;
                 case Direction.Left:
                     r.Item1.Left = new TreeNode(value);
+                    r.Item1.Left.Previous = r.Item1;
                     break;
                 case Direction.Right:
                     r.Item1.Right = new TreeNode(value);
+                    r.Item1.Right.Previous = r.Item1;
                     break;
             }
             return true;
@@ -153,9 +155,11 @@ namespace AlgoDatDictionaries.Trees
                             root = null;
                             break;
                         case Direction.Left:
-                             pre.Left = null;
+                            pre.Left.Previous = null;
+                            pre.Left = null;
                             break;
                         case Direction.Right:
+                            pre.Right.Previous = null;
                             pre.Right = null;
                             break;
                     }
@@ -165,25 +169,52 @@ namespace AlgoDatDictionaries.Trees
                     {
                         case Direction.Unset:
                             root = root.Left ?? root.Right;
+                            root.Previous = null;
                             break;
                         case Direction.Left:
-                            pre.Left = root.Left ?? root.Right;
+                            // replacing left child
+                            pre.Left = node.Left ?? node.Right;
+                            // replacing node as previous node
+                            pre.Left.Previous = pre;
                             break;
                         case Direction.Right:
-                            pre.Right = root.Left ?? root.Right;
+                            // replacing left child
+                            pre.Right = node.Left ?? node.Right;
+                            // replacing node as previous node
+                            pre.Right.Previous = pre.Right;
                             break;
                     }
                     break;
                 case TreeNode.NodeType.TwoChildren:
+                    TreeNode symPre;
                     switch (predDir)
                     {
+                        // Copy value of sym pre and remove sym pre
                         case Direction.Unset:
-                            root.Value = root.Left.Value;
-                            RemoveNode(root, root.Left, Direction.Left);
+                            // get sym pre
+                            symPre = root.Left.MaxNode;
+                            // copy value to root
+                            root.Value = symPre.Value;
+                            // Check if previous is not root
+                            if (symPre.Previous.Value != root.Value)
+                                // replacing sym pre by left tree
+                                symPre.Previous.Right = symPre.Left;
+                            else
+                                // removing sym pre
+                                root.Left = null;
                             break;
                         default:
-                            node.Value = node.Left.Value;
-                            RemoveNode(node, node.Left, Direction.Left);
+                            // get sym pre
+                            symPre = node.Left.MaxNode;
+                            // copy value to Node
+                            node.Value = symPre.Value;
+                            // Check if previous is not root
+                            if (symPre.Previous.Value != node.Value)
+                                // replacing sym pre by left tree
+                                symPre.Previous.Right = symPre.Left;
+                            else
+                                // removing sym pre
+                                node.Left = null;
                             break;
                     }
                     break;

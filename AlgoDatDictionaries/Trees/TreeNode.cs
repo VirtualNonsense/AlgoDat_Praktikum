@@ -13,6 +13,8 @@ namespace AlgoDatDictionaries.Trees
             TwoChildren
         }
         public int Value;
+
+        public TreeNode Previous;
         public TreeNode Left;
         public TreeNode Right;
 
@@ -58,6 +60,11 @@ namespace AlgoDatDictionaries.Trees
                 }
             }
         }
+
+        public TreeNode MaxNode => Right == null ? this : Right.MaxNode;
+
+        public TreeNode MinNode => Left == null ? this : Left.MinNode;
+        
 
         public TreeNode(int value)
         {
