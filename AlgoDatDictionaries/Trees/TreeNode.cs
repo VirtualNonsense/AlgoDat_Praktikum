@@ -79,5 +79,10 @@ namespace AlgoDatDictionaries.Trees
         }
 
         internal bool IsRoot => Previous == null;
+
+        public override string ToString()
+        {
+            return $"{Value}, {Type}, {IsRoot}";
+        }
     }
 }
