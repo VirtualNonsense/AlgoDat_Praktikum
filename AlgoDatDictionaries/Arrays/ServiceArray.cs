@@ -11,7 +11,6 @@ namespace AlgoDatDictionaries.Arrays
         protected int[] array = new int[100]; 
            
         // idee: int length =0; //bei insert ==> ++       bei delete ==> --
-        protected int[] array = new int[100];
         
         protected int GetLastIndex(int[] array)
         {
