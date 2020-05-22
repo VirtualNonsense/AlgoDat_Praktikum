@@ -12,7 +12,6 @@ namespace AlgoDatDictionaries.Arrays
             {
                 base.Insert(num);
             }
-
             return false;
         }
     }
