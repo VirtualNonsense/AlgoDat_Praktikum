@@ -183,7 +183,7 @@ namespace AlgoDatDictionaries.Trees
             if (a == null)
                 return (false, pre);
             if (a.Type == TreeNode.NodeType.Symmetric)
-                return (DelSymPred(a), a);
+                return DelSymPred(a);
             
             var b = a.Left ?? a.Right;
 
@@ -217,16 +217,18 @@ namespace AlgoDatDictionaries.Trees
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        private static bool DelSymPred(TreeNode node)
+        private static (bool, TreeNode) DelSymPred(TreeNode node)
         {
             // get symmetric predecessor
             var symPred = MaxNode(node.Left);
             
             // get node bevor symPred
             var preSymPre = symPred.Previous;
+            symPred.Previous = null;
             
             // Steal value from symPred
-            node.Value = symPred.Value;
+            var tmp = symPred.Value;
+
             
             // Check if the Node bevor symPred is node
             if (preSymPre.Value == node.Value)
@@ -243,7 +245,9 @@ namespace AlgoDatDictionaries.Trees
                 if (preSymPre.Right != null)
                     preSymPre.Right.Previous = preSymPre.Right;
             }
-            return true;
+
+            node.Value = tmp;
+            return (true, preSymPre);
         }
 
         /// <summary>

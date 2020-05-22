@@ -11,10 +11,11 @@ namespace AlgoDatDictionaries.Trees
     {
         private readonly int _balanceThreshold = 2;
         private bool _enableBalance = true;
+        
 
         public AVLTree()
         {
-            
+            Branch = "---";
         }
         
         /// <summary>
@@ -25,57 +26,61 @@ namespace AlgoDatDictionaries.Trees
         internal AVLTree(bool enableBalance)
         {
             _enableBalance = enableBalance;
+            Branch = "---";
         }
         public override bool Insert(int value)
         {
-            var search = base.search(value);
-            var result = Insert(search, value);
+            var (pre, node, dir, found) = base.DetailedSearch(value);
+            var result = Insert(pre, dir, value);
             if (!result || !_enableBalance) return result;
-            var (treeNode, balance) = GetUnbalancedNode(value);
-            Balance(treeNode, balance);
+            var (treeNode, balance) = GetUnbalancedNode((dir == Direction.Left)? pre.Left : pre.Right);
+            // if (unbalanced) Balance(pre, treeNode, balance);
             return true;
         }
 
         public override bool Delete(int value)
         {
-            var search = base.search(value);
-            var result = Delete(search, value);
+            var (pre, node, dir, found) = base.DetailedSearch(value);
+            var (result, newPre) = Delete(pre, node, dir);
             if (!result || !_enableBalance) return result;
-            var (treeNode, balance) = GetUnbalancedNode(value);
+            var (treeNode, balance) = GetUnbalancedNode(newPre);
             Balance(treeNode, balance);
             return true;
         }
 
-        private void Balance(TreeNode node, int balance)
+        private bool Balance(TreeNode node, int balance)
         {
-            
+            throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// This function will search similar to search for the given value but will return the first unbalanced node
-        /// instead of prenode node directon and found.
-        /// </summary>
-        /// <param name="value"></param>
-        internal (TreeNode, int) GetUnbalancedNode(int value)
+        internal (TreeNode, int) GetUnbalancedNode(TreeNode changedNote)
         {
-            if (root == null)
-                return (null, 0);
-            var a = root;                
-            var balance = a.Balance;
-            while(a != null && a.Value != value && Math.Abs(balance) < _balanceThreshold)
+            if (changedNote == null) return (null, 0);
+            while (true)
             {
-                if (value < a.Value)
-                {
-                    a = a.Left;
-                    balance = a.Balance;
-                    continue;
-                }
-                a = a.Right;
-                balance = a.Balance;
+                var balance = changedNote.Balance;
+                if (Math.Abs(balance) >= _balanceThreshold || changedNote.IsRoot) return (changedNote, balance);
+                changedNote = changedNote.Previous;
             }
-            return (a, balance);
         }
 
-        
+        protected override string IntendPrint(TreeNode node, int intend, bool endOfLine = true)
+        {
+            var b = node.Balance;
+            var bString = "0";
+            if (b < 0)
+                bString = new string('-', Math.Abs(b));
+            else if (b > 0)
+                bString = new string('+', b);
+
+            var dir = "";
+            var pre = node.Previous;
+            if (pre?.Left?.Value == node.Value)
+                dir = @" ╰";
+            else if (pre?.Right?.Value == node.Value)
+                dir = @" ╭";
+            
+            return new string(IntendString, intend) + dir + (intend > 0? Branch : "") + $"{node.Value}[{bString}]" + (endOfLine? Eol : "");
+        }
     }
 }
