@@ -2,7 +2,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AlgoDatDictionaries.Arrays;
 
 using AlgoDatDictionaries.Lists;
-using SetSortedArray = AlgoDatDictionaries.Lists.SetSortedArray;
 
 namespace Tests.Arrays
 {

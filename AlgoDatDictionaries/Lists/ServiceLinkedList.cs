@@ -7,6 +7,12 @@ using System.Xml;
 
 namespace AlgoDatDictionaries.Lists
 {
+    public enum Case
+    {
+        Default, //= 0,
+        SmallerFirst //= 1
+        // None (if you like)
+    }
     public abstract class ServiceLinkedList 
     {
         // Properties
@@ -23,50 +29,55 @@ namespace AlgoDatDictionaries.Lists
         // Search
         public bool Search(int num)
         {
-            return search(num).Item2;
+            return search(num).Item2;       // Just return bool as task demands
         }
-        public (llnode, bool, int) search(int num)  // added int, cause we need one more case for smaller than first ((null, true) is rude)
+        public (llnode, bool, Case) search(int num)  // added Enum, cause we need one more case for smaller than first
         {
             llnode find = First;
-            (llnode, bool, int) gothroughMarker = (null, false, 0); // Necessary for not sorted Multiset; e.g.: 1 100 1 1 1 1 80 input: 80
+            (llnode, bool, Case) gothroughMarker = (null, false, Case.Default); // Necessary for not sorted Multiset; e.g.: 1 100 1 1 1 1 80 input: 80
             
             // Empty List
             if (First == null)
             {
-                return (null, false, -1);
+                return (null, false, Case.SmallerFirst); // Enum None (if you like)
             }
 
             // One Element in List
             if (num == First.Key)
             {
-                return (First, true, 0);
+                return (First, true, Case.Default);
             }
 
             // More Elements in List
             while (find.Next != null)
             {
+                // We'll watch the successors 
+                // If searched num is successor it returns predecessor and bool => node was found 
                 if (find.Next.Key == num)
                 {
-                    return (find, true, 0);
+                    return (find, true, Case.Default);
                 }
 
+                // Haven't found it yet, mark the place where it (would) belong. Don't return it immediately, go through List,
+                // 'cause it's needed for not sorted Multisets; e.g.: 1 100 1 1 1 1 80 input: 80
+                // For Lucas: Can put that into Insert function (If you like...)
                 if (num > find.Key && num < find.Next.Key)
                 {
-                    gothroughMarker = (find, false, 0);
+                    gothroughMarker = (find, false, Case.Default);
                 }
                 find = find.Next;
             }
 
-            // Check, after it wasn't found, if smaller than first element
+            // After it wasn't found, check if smaller than first element
             if (num < First.Key)
             {
-                return (null, false, -1);
+                return (null, false, Case.SmallerFirst);
             }
 
-            // Append
+            // After it wasn't found, check if bigger than last element
             if (num > find.Key)
             {
-                return (find, false, 1);
+                return (find, false, Case.Default);
             }
             return gothroughMarker;
         }
@@ -74,7 +85,7 @@ namespace AlgoDatDictionaries.Lists
         // Insert
         protected bool Insert(bool multi, bool sorted, int num)
         {
-            (llnode insertnode, bool found, int before) = search(num);
+            (llnode insertnode, bool found, Case cases) = search(num);
            
             // Not possible
             if (multi == false && found == true)
@@ -83,8 +94,9 @@ namespace AlgoDatDictionaries.Lists
             }
 
             // Easiest cases
-            if ((multi == true && sorted == false) //description
-                || (multi == false && sorted == false && found == false ||  before == -1)) // --""--
+            if ((multi == true && sorted == false)                      // Is a MultiSet and Unsorted => Just Prepend
+                || (multi == false && sorted == false && found == false // Not Multi and Unsorted and searched num is not found => Just Prepend
+                ||  cases == Case.SmallerFirst))                        // After NOTHING was found in any List variety => Just Prepend
             {
                 Prepend(num);
                 return true;
@@ -99,7 +111,7 @@ namespace AlgoDatDictionaries.Lists
         public bool Delete(int value)
         {
             llnode foundnode;
-            int _case;
+            Case _case;
             bool found;
 
             (foundnode, found, _case) = search(value);
@@ -144,7 +156,7 @@ namespace AlgoDatDictionaries.Lists
             first = newNode;
         }
 
-        //reset 
+        // Reset  // Does not work for instance of IDictionary. Maybe we'll put it in...
         public void Reset()
         {
             first = null;
