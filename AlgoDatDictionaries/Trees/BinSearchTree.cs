@@ -1,122 +1,287 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-[assembly: InternalsVisibleTo("tests")]
 
+[assembly: InternalsVisibleTo("tests")]
 namespace AlgoDatDictionaries.Trees
 {
     public class BinSearchTree : ISetSorted
     {
-        internal enum Direction
+        private const char IntendString = '\t';
+        private const string Eol = "\n";
+        private const string Branch = "----";
+        protected TreeNode Root;
+        
+        public enum Direction
         {
             Unset,
             Left,
             Right
         }
-
-        private TreeNode root;
         
         // ###############################################
         // Constructor
         // ###############################################
-        public BinSearchTree()
-        {
-            
-        }
-        
+
         // ###############################################
         // ISetSorted
         // ###############################################
+        /// <summary>
+        /// Search for value in tree structure
+        /// Returns true if the value is found
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public bool Search(int value)
         {
-            return search(value).Item4;
+            return DetailedSearch(value).Item4;
         }
 
         /// <summary>
-        /// asdf
+        /// Insert a new node with given value
+        /// Returns true if successful
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public virtual bool Insert(int value)
+        {
+            var (pre, _, dir, _) = DetailedSearch(value);
+            return Insert(pre, dir, value);
+        }
+
+        /// <summary>
+        /// Delete node with given value
+        /// Returns true if successful
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public virtual bool Delete(int value)
+        {
+            var (pre, node, dir, _) = DetailedSearch(value);
+            return Delete(pre, node, dir);
+        }
+
+        /// <summary>
+        /// Print a string representation of the current tree into console
+        /// </summary>
+        public void Print()
+        {
+            Console.WriteLine(GeneratePrintString());
+        }
+        
+        // ###############################################
+        // Internal stuff
+        // ###############################################
+
+        /// <summary>
+        /// Searches inside tree for value;
+        /// if value is found the method returns its predecessor, the node value, the direction relative to pre and
+        /// true
+        /// if value is not within the tree structure the method will return the TreeNode where it Should be, null, the
+        /// direction where the direction where the value should be found and false
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Item1 PreNode, Item2 Node, Item3 Direction, Item4 found</returns>
-        internal (TreeNode, TreeNode, Direction, bool) search(int value)
+        internal (TreeNode, TreeNode, Direction, bool) DetailedSearch(int value)
         {
-            TreeNode a = root;
+            TreeNode a = Root;
             TreeNode pre = null;
             Direction dir = Direction.Unset;
-            while(a != null && a.value != value)
+            while(a != null && a.Value != value)
             {
-                if (value < a.value)
+                if (value < a.Value)
                 {
                     pre = a;
                     dir = Direction.Left;
-                    a = a.left;
+                    a = a.Left;
                     continue;
                 }
                 pre = a;
                 dir = Direction.Right;
-                a = a.right;
+                a = a.Right;
             }
 
             return (pre, a, dir, a != null);
         }
 
-
-        public bool Insert(int value)
-        {
-            var r = search(value);
-            if(r.Item4)
-            {
-                return false;
-            }
-            switch(r.Item3)
-            {
-                case Direction.Unset:
-                    root = new TreeNode(value);
-                    break;
-                case Direction.Left:
-                    r.Item1.left = new TreeNode(value);
-                    break;
-                case Direction.Right:
-                    r.Item1.right = new TreeNode(value);
-                    break;
-            }
-            return true;
-
-        }
-
-
-        public bool Delete(int value)
-        {
-            var t = search(value);
-            if(!t.Item4)
-            {
-                return false;
-            }
-            switch(t.Item3)
-            {
-                case Direction.Unset:
-                    root = null;
-                    break;
-                case Direction.Left:
-                    t.Item1.left = null;
-                    break;
-                case Direction.Right:
-                    t.Item1.right = null;
-                    break;
-            }
-            return true;
-        }
-
-        public void Print()
-        {
-            throw new System.NotImplementedException();
-        }
-        
+        /// <summary>
+        /// Generate a string representation of the current tree
+        /// </summary>
+        /// <returns></returns>
         internal string GeneratePrintString()
         {
-            throw new NotImplementedException();
-        } 
+            return GeneratePrintString(Root, 0);
+        }
+        
+        /// <summary>
+        /// Generate a string representation of the current tree
+        /// </summary>
+        /// <param name="node">Start node</param>
+        /// <param name="intend">Initial intend</param>
+        /// <returns></returns>
+        private string GeneratePrintString(TreeNode node, int intend)
+        {
+            switch (node.Type)
+            {
+                case TreeNode.NodeType.Leaf:
+                    return IntendPrint($"{node.Value}", intend);
+                default:
+                    string tmp = "";
+                    if (node.Right != null)
+                        tmp += GeneratePrintString(node.Right, intend + 1);
+                    tmp += IntendPrint($"{node.Value}", intend);
+                    if (node.Left != null)
+                        tmp += GeneratePrintString(node.Left, intend + 1);
+                    return tmp;
+            }
+            
+        }
 
         // ###############################################
-        // Private Stuff
+        // Private / Protected stuff
         // ###############################################
+
+        /// <summary>
+        /// Actual insert method
+        /// </summary>
+        /// <param name="pre">Predecessor| Node append new TreeNode on</param>
+        /// <param name="dir">Direction| Side on which the new Node should be put</param>
+        /// <param name="value">new Value</param>
+        /// <returns></returns>
+        protected bool Insert(TreeNode pre, Direction dir, int value)
+        {
+            switch(dir)
+            {
+                case Direction.Unset:
+                    if (Root != null) return false;
+                    Root = new TreeNode(value);
+                    break;
+                case Direction.Left:
+                    if (pre.Left != null) return false;
+                    pre.Left = new TreeNode(value);
+                    pre.Left.Previous = pre;
+                    break;
+                case Direction.Right:
+                    if (pre.Right != null) return false;
+                    pre.Right = new TreeNode(value);
+                    pre.Right.Previous = pre;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(dir), dir, null);
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Actual delete method.
+        /// </summary>
+        /// <param name="pre"></param>
+        /// <param name="a"></param>
+        /// <param name="dir"></param>
+        /// <returns></returns>
+        protected bool Delete(TreeNode pre, TreeNode a, Direction dir)
+        {
+            if (a == null)
+                return false;
+            if (a.Type == TreeNode.NodeType.Symmetric)
+                return DelSymPred(a);
+            
+            var b = a.Left ?? a.Right;
+
+            if (pre == null)
+            {
+                Root = b;
+                if (b !=null)
+                    Root.Previous = null;
+                return true;
+            }
+
+            if (dir == Direction.Left)
+            {
+                pre.Left = b;
+                pre.Left.Previous = pre;
+            }
+            else
+            {
+                pre.Right = b;
+                pre.Right.Previous = pre;
+            }
+            return true;
+        }
+        
+        /// <summary>
+        /// Helper method.
+        /// Use to "remove" node when node has two children
+        /// Basic idea is to copy 
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        private static bool DelSymPred(TreeNode node)
+        {
+            // get symmetric predecessor
+            var symPred = MaxNode(node.Left);
+            
+            // get node bevor symPred
+            var preSymPre = symPred.Previous;
+            
+            // Steal value from symPred
+            node.Value = symPred.Value;
+            
+            // Check if the Node bevor symPred is node
+            if (preSymPre.Value == node.Value)
+            {
+                // remove symPred
+                node.Left = node.Left.Left;
+                if (node.Left != null)
+                   node.Left.Previous = node;
+            }
+            else
+            {
+                // remove symPred
+                preSymPre.Right = symPred.Left;
+                if (preSymPre.Right != null)
+                    preSymPre.Right.Previous = preSymPre.Right;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Pretty print with variable intend
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="intend"></param>
+        /// <param name="endOfLine"></param>
+        /// <returns></returns>
+        private string IntendPrint(string value, int intend, bool endOfLine = true)
+        {
+            return new string(IntendString, intend) + (intend > 0? Branch : "") + value + (endOfLine? Eol : "");
+        }
+        
+        /// <summary>
+        /// Returns the most right node from a given start
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        private static TreeNode MaxNode(TreeNode n)
+        {
+            while (n.Right != null)
+            {
+                n = n.Right;
+            }
+            return n;
+        }
+        
+        /// <summary>
+        /// Returns the most left node from a given start
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        protected static TreeNode MinNode(TreeNode n)
+        {
+            while (n.Left != null)
+            {
+                n = n.Left;
+            }
+            return n;
+        }
     }
 }
