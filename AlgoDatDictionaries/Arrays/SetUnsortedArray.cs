@@ -4,21 +4,15 @@ using System.Text;
 
 namespace AlgoDatDictionaries.Arrays
 {
-    class SetUnsortedArray : ServiceArray, ISetSorted
+    public class SetUnsortedArray : MultiSetUnsortedArray, ISetSorted
     {
-        public bool Search(int value)
+        public override bool Insert(int num)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Insert(int value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Delete(int value)
-        {
-            throw new NotImplementedException();
+            if (!Search(num))
+            {
+                base.Insert(num);
+            }
+            return false;
         }
     }
 }

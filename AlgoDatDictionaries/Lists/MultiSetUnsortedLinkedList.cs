@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AlgoDatDictionaries.Lists
 {
-    public class MultiSetUnsortedLinkedList:ServiceLinkedList
+    public class MultiSetUnsortedLinkedList:ServiceLinkedList, IMultiSet
     {
         public virtual bool Insert(int num)
         {

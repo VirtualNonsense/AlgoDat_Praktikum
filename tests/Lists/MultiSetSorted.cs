@@ -4,13 +4,19 @@ using AlgoDatDictionaries.Lists;
 namespace Tests.Lists
 {
     [TestClass]
+
     public class MultiSetSorted
     {
         [TestMethod]
-        public void InsetTest()
+        public void InsertTest()
         {
             MultiSetSortedLinkedList multiSetUnsorted = new MultiSetSortedLinkedList();
-            multiSetUnsorted.Insert(7);
+            Assert.IsTrue(multiSetUnsorted.Insert(7));
+            Assert.IsTrue(multiSetUnsorted.Insert(7));
+            Assert.IsTrue(multiSetUnsorted.Insert(3));
+            Assert.IsTrue(multiSetUnsorted.Insert(7));
+            Assert.IsTrue(multiSetUnsorted.Insert(400));
+            Assert.IsTrue(multiSetUnsorted.Insert(7));
         }
         
         
@@ -38,11 +44,20 @@ namespace Tests.Lists
         {
             MultiSetSortedLinkedList set = new MultiSetSortedLinkedList();
             set.Insert(7);
-            Assert.IsTrue(set.Search(7));
-            // multiSetUnsorted.Delete(7);
-            Assert.Fail("Delete method is missing");
-            Assert.IsFalse(set.Search(7));
+            set.Insert(7);
+            set.Insert(3);
+            set.Insert(2);
+            set.Insert(4);
+            set.Insert(4);
+            set.Insert(10);
+            //Delete Process
             
+            Assert.IsTrue(set.Delete(7));
+            Assert.IsTrue(set.Delete(3));
+            Assert.IsTrue(set.Delete(4));
+            Assert.IsTrue(set.Delete(10));
+            Assert.IsFalse(set.Delete(0));
+
         }
     }
 }

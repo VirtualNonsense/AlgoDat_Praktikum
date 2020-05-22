@@ -1,31 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace AlgoDatDictionaries.Arrays
 {
-    class MultiSetUnsortedArray : ServiceArray, IMultiSet
+    public class MultiSetUnsortedArray : ServiceArray, IMultiSet
     {
-        public bool Search(int num) //linear serach
+        protected override (int, bool) search(int value) //linear search
         {
-            foreach (int elem in array)
+            for (int i = 0;  i <= Length; i++)
             {
-                if (elem == num)
+                if (array[i] == value)
                 {
-                    return true;
+                    return (i, true);
                 }
             }
-            return false;
+            return (-1, false); //what do we want to return if no index is correct
         }
 
-        public bool Insert(int num)
-        {
-            throw new NotImplementedException();
+
+        public virtual bool Insert(int num)
+        { 
+            array[Length++ + 1] = num;   //insert at last position#
+            return true;
         }
 
-        public bool Delete(int num)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

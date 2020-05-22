@@ -5,17 +5,17 @@ using System.Transactions;
 
 namespace AlgoDatDictionaries.Arrays
 {
-    class MultiSetSortedArray:ServiceArray, IMultiSetSorted
+    public class MultiSetSortedArray:ServiceArray, IMultiSetSorted
     {
-        public bool Search(int num) //Binary Search
+        protected override (int, bool) search(int value)    //binary search
         {
             int midIndex;
             int leftIndex = 0;
-            int rightIndex = array.Length - 1;
+            int rightIndex = Length;//Array very long, search for first item == null
             do
             {
-                midIndex = (leftIndex + rightIndex) / 2;//Array Length very long, search for first item == null
-                if (array[midIndex] < num)
+                midIndex = (leftIndex + rightIndex) / 2;
+                if (array[midIndex] < value)
                 {
                     leftIndex = midIndex + 1;
                 }
@@ -24,18 +24,28 @@ namespace AlgoDatDictionaries.Arrays
                     rightIndex = midIndex - 1;
                 }
 
-            } while (array[midIndex] != num || leftIndex < rightIndex);
-            return (array[midIndex] == num);
+            } while (array[midIndex] != value && leftIndex <= rightIndex);
+            return (midIndex, array[midIndex] == value);
         }
 
-        public bool Insert(int num)
+        public virtual bool Insert(int num)
         {
-            throw new NotImplementedException();
+            if (Length<0)    //checking if array empty
+            {
+                array[0] = num;
+                Length++;
+                return true;
+            }
+            int index = search(num).Item1;
+            for (int i = (Length++) + 1; i >= index; i--)    //move all elements from the end to the index
+            {
+                array[i + 1] = array[i];
+            }
+
+            if (array[index] > num) array[index] = num;    //checking where to put the element
+            else array[index+1] = num;
+            return true;
         }
 
-        public bool Delete(int num)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

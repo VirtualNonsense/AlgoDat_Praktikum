@@ -1,7 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using AlgoDatDictionaries.Arrays;
 
 using AlgoDatDictionaries.Lists;
-namespace Tests.Lists
+
+namespace Tests.Arrays
 {
     [TestClass]
     public class SetSorted
@@ -9,15 +11,15 @@ namespace Tests.Lists
         [TestMethod]
         public void InsetTest()
         {
-            SetSortedLinkedList multiSetUnsorted = new SetSortedLinkedList();
-            multiSetUnsorted.Insert(7);
+            SetSortedArray setSortedArray = new SetSortedArray();
+            setSortedArray.Insert(7);
         }
         
         
         [TestMethod]
         public void SearchTest()
         {
-            SetSortedLinkedList set = new SetSortedLinkedList();
+            SetSortedArray set = new SetSortedArray();
             set.Insert(7);
             set.Insert(6);
             set.Insert(3);
@@ -31,26 +33,18 @@ namespace Tests.Lists
             Assert.IsTrue(set.Search(3));
             Assert.IsTrue(set.Search(2));
             Assert.IsFalse(set.Search(5));
+            set.Print();
         }
 
         [TestMethod]
         public void DeleteTest()
         {
-            SetSortedLinkedList set = new SetSortedLinkedList();
+            SetSortedArray set = new SetSortedArray();
             set.Insert(7);
-            set.Insert(5);
-            set.Insert(2);
-            set.Insert(1);
-            set.Insert(10);
-            set.Insert(4);
-            Assert.IsTrue(set.Delete(1));
-            Assert.IsTrue(set.Delete(10));
-            Assert.IsTrue(set.Delete(5));
-            Assert.IsFalse(set.Delete(20));
-            Assert.IsFalse(set.Delete(1));
+            Assert.IsTrue(set.Search(7));
+            set.Delete(7);
+            Assert.IsFalse(set.Search(7));
             
-
-
         }
     }
 }

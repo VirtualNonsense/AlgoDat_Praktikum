@@ -1,24 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.VisualBasic.FileIO;
 
 namespace AlgoDatDictionaries.Arrays
 {
-    class SetSortedArray : ServiceArray, ISet
+    public class SetSortedArray : MultiSetSortedArray, ISet
     {
-        public bool Search(int value)
+        public override bool Insert(int num)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Insert(int value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Delete(int value)
-        {
-            throw new NotImplementedException();
+            if (!Search(num))
+            {
+                base.Insert(num);
+            }
+            return false;
         }
     }
 }

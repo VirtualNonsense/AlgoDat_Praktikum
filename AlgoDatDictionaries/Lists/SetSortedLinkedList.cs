@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AlgoDatDictionaries.Lists
 {
-    public class SetSortedLinkedList : MultiSetSortedLinkedList
+    public class SetSortedLinkedList : MultiSetSortedLinkedList, ISetSorted
     {
         public override bool Insert(int num)
         {
