@@ -9,7 +9,7 @@ namespace AlgoDatDictionaries.Arrays
     {
         protected override (int, bool) search(int value) //linear search
         {
-            for (int i = 0;  i < array.Length; i++)
+            for (int i = 0;  i <= Length; i++)
             {
                 if (array[i] == value)
                 {
@@ -22,7 +22,7 @@ namespace AlgoDatDictionaries.Arrays
 
         public virtual bool Insert(int num)
         { 
-            array[GetLastIndex(array) + 1] = num;    //insert at last position
+            array[Length++ + 1] = num;   //insert at last position#
             return true;
         }
 

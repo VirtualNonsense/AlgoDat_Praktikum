@@ -34,6 +34,7 @@ namespace Tests.Arrays
             Assert.IsTrue(set.Search(3));
             Assert.IsTrue(set.Search(2));
             Assert.IsFalse(set.Search(5));
+            set.Print();
         }
 
         [TestMethod]

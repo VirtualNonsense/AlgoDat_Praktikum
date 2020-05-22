@@ -11,7 +11,7 @@ namespace AlgoDatDictionaries.Arrays
         {
             int midIndex;
             int leftIndex = 0;
-            int rightIndex = GetLastIndex(array);//Array very long, search for first item == null
+            int rightIndex = Length;//Array very long, search for first item == null
             do
             {
                 midIndex = (leftIndex + rightIndex) / 2;
@@ -30,13 +30,14 @@ namespace AlgoDatDictionaries.Arrays
 
         public virtual bool Insert(int num)
         {
-            if (GetLastIndex(array)<0)    //checking if array empty
+            if (Length<0)    //checking if array empty
             {
                 array[0] = num;
+                Length++;
                 return true;
             }
             int index = search(num).Item1;
-            for (int i = GetLastIndex(array)+1; i >= index; i--)    //move all elements from the end to the index
+            for (int i = (Length++) + 1; i >= index; i--)    //move all elements from the end to the index
             {
                 array[i + 1] = array[i];
             }
