@@ -153,6 +153,25 @@ namespace tests.SearchTrees
             Assert.IsFalse(t.Search(value));
             Assert.IsTrue(deleted);
         }
+
+        [TestMethod]
+        public void DeleteTest_ComplexTree()
+        {
+            var t = new BinSearchTree();
+            t.Insert(10); // 0
+            t.Insert(5); // - 
+            t.Insert(7); // 0  
+            t.Insert(3); // - 
+            t.Insert(1); // 0 
+            t.Insert(15); // - -> --
+            t.Insert(20); // 0 -> x
+            t.Insert(12); // - 
+            t.Insert(11); // 0 
+
+            var b = t.Delete(20);
+            
+            Assert.IsTrue(b);
+        }
         
         [TestMethod]
         public void DeleteTest_DeleteRoot_CheckRest()

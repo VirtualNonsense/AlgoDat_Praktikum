@@ -57,7 +57,7 @@ namespace AlgoDatDictionaries.Trees
         public virtual bool Delete(int value)
         {
             var (pre, node, dir, _) = DetailedSearch(value);
-            return Delete(pre, node, dir);
+            return Delete(pre, node, dir).Item1;
         }
 
         /// <summary>
@@ -178,12 +178,12 @@ namespace AlgoDatDictionaries.Trees
         /// <param name="a"></param>
         /// <param name="dir"></param>
         /// <returns></returns>
-        protected bool Delete(TreeNode pre, TreeNode a, Direction dir)
+        internal (bool, TreeNode) Delete(TreeNode pre, TreeNode a, Direction dir)
         {
             if (a == null)
-                return false;
+                return (false, pre);
             if (a.Type == TreeNode.NodeType.Symmetric)
-                return DelSymPred(a);
+                return (DelSymPred(a), a);
             
             var b = a.Left ?? a.Right;
 
@@ -192,20 +192,22 @@ namespace AlgoDatDictionaries.Trees
                 Root = b;
                 if (b !=null)
                     Root.Previous = null;
-                return true;
+                return (true, Root);
             }
 
             if (dir == Direction.Left)
             {
                 pre.Left = b;
-                pre.Left.Previous = pre;
+                if (b !=null)
+                    pre.Left.Previous = pre;
             }
             else
             {
                 pre.Right = b;
-                pre.Right.Previous = pre;
+                if (b !=null)
+                    pre.Right.Previous = pre;
             }
-            return true;
+            return (true, pre);
         }
         
         /// <summary>
