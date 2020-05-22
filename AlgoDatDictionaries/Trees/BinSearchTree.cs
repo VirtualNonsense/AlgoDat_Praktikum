@@ -6,10 +6,10 @@ namespace AlgoDatDictionaries.Trees
 {
     public class BinSearchTree : ISetSorted
     {
-        private const char IntendString = '\t';
-        private const string Eol = "\n";
-        private const string Branch = "----";
-        protected TreeNode Root;
+        protected const char IntendString = '\t';
+        protected const string Eol = "\n";
+        protected const string Branch = "----";
+        private TreeNode _root;
         
         public enum Direction
         {
@@ -83,7 +83,7 @@ namespace AlgoDatDictionaries.Trees
         /// <returns>Item1 PreNode, Item2 Node, Item3 Direction, Item4 found</returns>
         internal (TreeNode, TreeNode, Direction, bool) DetailedSearch(int value)
         {
-            TreeNode a = Root;
+            TreeNode a = _root;
             TreeNode pre = null;
             Direction dir = Direction.Unset;
             while(a != null && a.Value != value)
@@ -109,7 +109,7 @@ namespace AlgoDatDictionaries.Trees
         /// <returns></returns>
         internal string GeneratePrintString()
         {
-            return GeneratePrintString(Root, 0);
+            return GeneratePrintString(_root, 0);
         }
         
         /// <summary>
@@ -123,12 +123,12 @@ namespace AlgoDatDictionaries.Trees
             switch (node.Type)
             {
                 case TreeNode.NodeType.Leaf:
-                    return IntendPrint($"{node.Value}", intend);
+                    return IntendPrint(node, intend);
                 default:
-                    string tmp = "";
+                    var tmp = "";
                     if (node.Right != null)
                         tmp += GeneratePrintString(node.Right, intend + 1);
-                    tmp += IntendPrint($"{node.Value}", intend);
+                    tmp += IntendPrint(node, intend);
                     if (node.Left != null)
                         tmp += GeneratePrintString(node.Left, intend + 1);
                     return tmp;
@@ -152,8 +152,8 @@ namespace AlgoDatDictionaries.Trees
             switch(dir)
             {
                 case Direction.Unset:
-                    if (Root != null) return false;
-                    Root = new TreeNode(value);
+                    if (_root != null) return false;
+                    _root = new TreeNode(value);
                     break;
                 case Direction.Left:
                     if (pre.Left != null) return false;
@@ -189,10 +189,10 @@ namespace AlgoDatDictionaries.Trees
 
             if (pre == null)
             {
-                Root = b;
+                _root = b;
                 if (b !=null)
-                    Root.Previous = null;
-                return (true, Root);
+                    _root.Previous = null;
+                return (true, _root);
             }
 
             if (dir == Direction.Left)
@@ -249,13 +249,13 @@ namespace AlgoDatDictionaries.Trees
         /// <summary>
         /// Pretty print with variable intend
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="node"></param>
         /// <param name="intend"></param>
         /// <param name="endOfLine"></param>
         /// <returns></returns>
-        private string IntendPrint(string value, int intend, bool endOfLine = true)
+        protected virtual string IntendPrint(TreeNode node, int intend, bool endOfLine = true)
         {
-            return new string(IntendString, intend) + (intend > 0? Branch : "") + value + (endOfLine? Eol : "");
+            return new string(IntendString, intend) + (intend > 0? Branch : "") + node.Value + (endOfLine? Eol : "");
         }
         
         /// <summary>
