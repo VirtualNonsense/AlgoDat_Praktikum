@@ -8,7 +8,7 @@ namespace AlgoDatDictionaries.Trees
     {
         protected const char IntendString = '\t';
         protected const string Eol = "\n";
-        protected const string Branch = "----";
+        protected string Branch = "----";
         private TreeNode _root;
         
         public enum Direction
