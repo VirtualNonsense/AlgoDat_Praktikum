@@ -147,7 +147,7 @@ namespace AlgoDatDictionaries.Trees
         /// <param name="dir">Direction| Side on which the new Node should be put</param>
         /// <param name="value">new Value</param>
         /// <returns></returns>
-        protected bool Insert(TreeNode pre, Direction dir, int value)
+        internal bool Insert(TreeNode pre, Direction dir, int value)
         {
             switch(dir)
             {
