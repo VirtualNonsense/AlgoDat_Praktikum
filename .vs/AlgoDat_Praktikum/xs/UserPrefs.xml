@@ -1,0 +1,33 @@
+﻿<Properties StartupConfiguration="{404ECE2A-9260-4EBB-B671-D82D8CFD95B4}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AlgoDatConsole/Program.cs">
+    <Files>
+      <File FileName="AlgoDatConsole/Program.cs" Line="18" Column="31" />
+      <File FileName="AlgoDatConsole/Menu.cs" Line="103" Column="57" />
+      <File FileName="AlgoDatDictionaries/Arrays/ServiceArray.cs" Line="1" Column="1" />
+      <File FileName="AlgoDatDictionaries/Arrays/SetSortedArray.cs" Line="14" Column="34" />
+      <File FileName="AlgoDatDictionaries/Arrays/MultiSetUnsortedArray.cs" Line="1" Column="1" />
+      <File FileName="AlgoDatDictionaries/Arrays/MultiSetSortedArray.cs" Line="31" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="AlgoDat_Praktikum" expanded="True">
+            <Node name="AlgoDatConsole" expanded="True">
+              <Node name="Program.cs" selected="True" />
+            </Node>
+            <Node name="AlgoDatDictionaries" expanded="True">
+              <Node name="Arrays" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.AlgoDatConsole PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

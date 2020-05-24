@@ -33,21 +33,30 @@ namespace AlgoDatConsole
 
         public static void Printbanner2()
         {
-
+            //Ascii Art Lists
+            Console.WriteLine(@"<ASCII LISTS here>");
         }
         public static void Printbanner3()
         {
-
+            //Ascii Art binary tree
+            Console.WriteLine(@"<ASCII BinaryTree here>");
         }
         public static void Printbanner4()
         {
-
+            //Ascii Art AVL Tree
+            Console.WriteLine(@"<ASCII AVLTree here>");
         }
         public static void Printbanner5()
         {
-
+            //Ascii Art Treap
+            Console.WriteLine(@"<ASCII TREAP here>");
         }
-        public static void PrintSuggestions()
+        public static void Printbanner6()
+        {
+            //Ascii Art Hash Algorithm
+            Console.WriteLine(@"<ASCII Hash here>");
+        }
+        public static void PrintDicSuggestions()
         {
             Console.WriteLine("Press 1 for Array program");
             Console.WriteLine("Press 2 for Lists program");
@@ -57,7 +66,42 @@ namespace AlgoDatConsole
             Console.WriteLine("Press 6 for Hash Algorithm" );
         }
 
-
+        public static void PrintTypeSuggestion()
+        {
+            Console.WriteLine("Press 1 for MultiSet sorted");
+            Console.WriteLine("Press 2 for MultiSet unsorted");
+            Console.WriteLine("Press 3 for Set Sorted");
+            Console.WriteLine("Press 4 for Set unsorted");
+        }
+        public static void PrintOperationSuggestions()
+        {
+            Console.WriteLine("Press S to search");
+            Console.WriteLine("Press I to insert");
+            Console.WriteLine("Press D to delete");
+            Console.WriteLine("Press P to print");
+        }
+        public static void PrintSearchSuggestions()
+        {
+            Console.WriteLine("-- You selected Search --");
+            Console.WriteLine("please enter the Integer you want to search:");
+            Console.WriteLine();
+        }
+        public static void PrintInsertSuggestions()
+        {
+            Console.WriteLine("-- You selected Insert --");
+            Console.WriteLine("please enter the Integer you want to insert:");
+            Console.WriteLine();
+        }
+        public static void PrintDeleteSuggestions()
+        {
+            Console.WriteLine("-- You selected Delete --");
+            Console.WriteLine("please enter the integer you want to delete");
+            Console.WriteLine();
+        }
+        public static void PrintPrintMessage()
+        {
+            Console.WriteLine("-- You selected Print --");
+        }
 
     }
 }
