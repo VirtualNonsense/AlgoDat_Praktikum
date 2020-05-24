@@ -12,12 +12,12 @@ namespace AlgoDatDictionaries.Arrays
            
         // idee: int length =0; //bei insert ==> ++       bei delete ==> --
         
-        protected int GetLastIndex(int[] array)
-        {
-            int currentIndex = 0;
-            while (array[currentIndex] != 0) currentIndex++; //darf 0 vorkommen??
-            return currentIndex-1;    //current index is not a number -> -1
-        }
+        // protected int GetLastIndex(int[] array)
+        // {
+        //     int currentIndex = 0;
+        //     while (array[currentIndex] != 0) currentIndex++; //darf 0 vorkommen??
+        //     return currentIndex-1;    //current index is not a number -> -1
+        // }
 
         protected int Length { get; set; } = -1; // Default value -1
         
