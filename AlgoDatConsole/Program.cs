@@ -10,7 +10,8 @@ namespace AlgoDatConsole
         static void Main(string[] args)
         {
             SetSortedArray testarray = new SetSortedArray();
-            testarray.Insert(2);
+            Console.WriteLine("insert 2");
+            Console.WriteLine(testarray.Insert(2));
             testarray.Insert(5);
             testarray.Insert(7);
             testarray.Insert(7);
