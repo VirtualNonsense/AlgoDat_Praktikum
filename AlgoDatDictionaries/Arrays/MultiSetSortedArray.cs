@@ -7,15 +7,14 @@ namespace AlgoDatDictionaries.Arrays
 {
     public class MultiSetSortedArray:ServiceArray, IMultiSetSorted
     {
-        protected override (int, bool) search(int value)
+        protected override (int, bool) search(int value)    //binary search
         {
             int midIndex;
-            double leftIndex = 0;
-            double rightIndex = GetLastIndex(array)-1;//Array very long, search for first item == null
+            int leftIndex = 0;
+            int rightIndex = Length;//Array very long, search for first item == null
             do
             {
-                var doubleMidIndex = (leftIndex + rightIndex) / 2;
-                midIndex = Convert.ToInt32(Math.Ceiling(doubleMidIndex)); 
+                midIndex = (leftIndex + rightIndex) / 2;
                 if (array[midIndex] < value)
                 {
                     leftIndex = midIndex + 1;
@@ -31,13 +30,20 @@ namespace AlgoDatDictionaries.Arrays
 
         public virtual bool Insert(int num)
         {
+            if (Length<0)    //checking if array empty
+            {
+                array[0] = num;
+                Length++;
+                return true;
+            }
             int index = search(num).Item1;
-            for (int i = GetLastIndex(array); i > index-1; i--)
+            for (int i = (Length++) + 1; i >= index; i--)    //move all elements from the end to the index
             {
                 array[i + 1] = array[i];
             }
 
-            array[index] = num;
+            if (array[index] > num) array[index] = num;    //checking where to put the element
+            else array[index+1] = num;
             return true;
         }
 

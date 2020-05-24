@@ -1,3 +1,4 @@
+using System;
 using AlgoDatDictionaries.Arrays;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -32,6 +33,7 @@ namespace Tests.Arrays
             Assert.IsTrue(array.Search(3));
             Assert.IsTrue(array.Search(2));
             Assert.IsFalse(array.Search(5));
+            array.Print();
         }
 
         [TestMethod]

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AlgoDatDictionaries.Arrays;
 
@@ -14,8 +15,21 @@ namespace Tests.Arrays
             SetSortedArray setSortedArray = new SetSortedArray();
             setSortedArray.Insert(7);
         }
-        
-        
+
+        [TestMethod]
+
+        public void BugTest()
+        {
+            SetSortedArray testarray = new SetSortedArray();
+            testarray.Insert(2);
+            testarray.Insert(5);
+            testarray.Insert(7);
+            testarray.Insert(7);
+            testarray.Insert(1);
+            testarray.Print();
+            
+        }
+
         [TestMethod]
         public void SearchTest()
         {
@@ -33,6 +47,7 @@ namespace Tests.Arrays
             Assert.IsTrue(set.Search(3));
             Assert.IsTrue(set.Search(2));
             Assert.IsFalse(set.Search(5));
+            set.Print();
         }
 
         [TestMethod]

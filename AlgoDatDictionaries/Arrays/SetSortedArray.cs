@@ -12,7 +12,6 @@ namespace AlgoDatDictionaries.Arrays
             if (!Search(num))
             {
                 base.Insert(num);
-                return true;
             }
             return false;
         }
