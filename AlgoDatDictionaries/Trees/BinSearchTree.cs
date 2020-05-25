@@ -103,10 +103,6 @@ namespace AlgoDatDictionaries.Trees
             return (pre, a, dir, a != null);
         }
 
-        // ###############################################
-        // Private / Protected stuff
-        // ###############################################
-
         /// <summary>
         /// Actual insert method
         /// </summary>
@@ -170,6 +166,20 @@ namespace AlgoDatDictionaries.Trees
         }
         
         /// <summary>
+        /// Generate a string representation of the current tree
+        /// </summary>
+        /// <returns></returns>
+        internal string GeneratePrintString()
+        {
+            return GeneratePrintString(Root, 0, Direction.Unset);
+        }
+        
+        // ###############################################
+        // Private / Protected stuff
+        // ###############################################
+
+        
+        /// <summary>
         /// Helper method.
         /// Use to "remove" node when node has two children
         /// Basic idea is to copy 
@@ -205,14 +215,7 @@ namespace AlgoDatDictionaries.Trees
 
         
 
-        /// <summary>
-        /// Generate a string representation of the current tree
-        /// </summary>
-        /// <returns></returns>
-        internal string GeneratePrintString()
-        {
-            return GeneratePrintString(Root, 0, Direction.Unset);
-        }
+        
 
         /// <summary>
         /// Generate a string representation of the current tree
