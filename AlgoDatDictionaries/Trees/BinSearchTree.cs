@@ -6,9 +6,9 @@ namespace AlgoDatDictionaries.Trees
 {
     public class BinSearchTree : ISetSorted
     {
-        protected const char IntendString = '\t';
-        protected const string Eol = "\n";
-        protected string Branch = "---";
+        private const char IntendString = '\t';
+        private const string Eol = "\n";
+        private const string Branch = "---";
         protected TreeNode Root;
         
         public enum Direction
