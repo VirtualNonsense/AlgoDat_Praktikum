@@ -1,4 +1,5 @@
-﻿using AlgoDatDictionaries.Trees;
+﻿using System;
+using AlgoDatDictionaries.Trees;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace tests.SearchTrees
@@ -265,7 +266,7 @@ namespace tests.SearchTrees
         }
 
         [TestMethod]
-        public void GeneratePrintSting_TreeTest()
+        public void GeneratePrintString_TreeTest()
         {
             BinSearchTree t = new BinSearchTree();
             string tree =
@@ -295,5 +296,325 @@ namespace tests.SearchTrees
             
         }
 
+        [TestMethod]
+        public void GeneratePrintString_EmptyTree()
+        {
+            // Setup
+            var t = new BinSearchTree();
+            // Action
+            var s = t.GeneratePrintString();
+            // Assert
+            Assert.AreEqual("", s);
+            
+        }
+
+        [TestMethod]
+        public void TurnRightTest_TurnAroundRoot_SymNode()
+        {
+            // Setup
+            var t = new BinSearchTree();
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(15);
+            Console.WriteLine("bevor");
+            t.Print();
+
+            // Action
+            var (prePre, pre, node, dir, _) = t.EvenMoreDetailedSearch(10);
+            t.TurnRight(prePre, pre, node, dir);
+            Console.WriteLine("after");
+            t.Print();
+            
+            // Assert
+            var a = new BinSearchTree();
+            a.Insert(5);
+            a.Insert(10);
+            a.Insert(15);
+            
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
+        
+        [TestMethod]
+        public void TurnRightTest_TurnAroundRootChild_Leaf()
+        {
+            // Setup
+            var t = new BinSearchTree();
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(15);
+            Console.WriteLine("bevor");
+            t.Print();
+
+            // Action
+            var (prePre,pre, node, dir, _) = t.EvenMoreDetailedSearch(5);
+            t.TurnRight(prePre, pre, node, dir);
+            Console.WriteLine("after");
+            t.Print();
+            
+            // Assert
+            var a = new BinSearchTree();
+            a.Insert(5);
+            a.Insert(10);
+            a.Insert(15);
+            
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
+        
+        [TestMethod]
+        public void TurnRightTest_TurnAround2LvlRootChild_Leaf()
+        {
+            // Setup
+            var t = new BinSearchTree();
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(15);
+            t.Insert(3);
+            Console.WriteLine("bevor");
+            t.Print();
+
+            // Action
+            var (prePre,pre, node, dir, _) = t.EvenMoreDetailedSearch(3);
+            t.TurnRight(prePre, pre, node, dir);
+            Console.WriteLine("after");
+            t.Print();
+            
+            // Assert
+            var a = new BinSearchTree();
+            a.Insert(10);
+            a.Insert(3);
+            a.Insert(15);
+            a.Insert(5);
+            
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
+        
+        [TestMethod]
+        public void TurnRightTest_TurnAround2LvlRootChild_OneChild_Left()
+        {
+            // Setup
+            var t = new BinSearchTree();
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(15);
+            t.Insert(3);
+            t.Insert(1);
+            Console.WriteLine("bevor");
+            t.Print();
+
+            // Action
+            var (prePre,pre, node, dir, _) = t.EvenMoreDetailedSearch(3);
+            t.TurnRight(prePre, pre, node, dir);
+            Console.WriteLine("after");
+            t.Print();
+            
+            // Assert
+            var a = new BinSearchTree();
+            a.Insert(10);
+            a.Insert(3);
+            a.Insert(15);
+            a.Insert(1);
+            a.Insert(5);
+            
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
+        [TestMethod]
+        public void TurnRightTest_TurnAround2LvlRootChild_OneChild_Right()
+        {
+            // Setup
+            var t = new BinSearchTree();
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(15);
+            t.Insert(3);
+            t.Insert(4);
+            Console.WriteLine("bevor");
+            t.Print();
+
+            // Action
+            var (prePre,pre, node, dir, _) = t.EvenMoreDetailedSearch(3);
+            t.TurnRight(prePre, pre, node, dir);
+            Console.WriteLine("after");
+            t.Print();
+            
+            // Assert
+            var a = new BinSearchTree();
+            a.Insert(10);
+            a.Insert(3);
+            a.Insert(15);
+            a.Insert(5);
+            a.Insert(4);
+            
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
+        [TestMethod]
+        public void TurnRightTest_TurnAround2LvlRootChild_SymNode()
+        {
+            // Setup
+            var t = new BinSearchTree();
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(15);
+            t.Insert(3);
+            t.Insert(1);
+            t.Insert(4);
+            Console.WriteLine("bevor");
+            t.Print();
+
+            // Action
+            var (prePre,pre, node, dir, _) = t.EvenMoreDetailedSearch(3);
+            t.TurnRight(prePre, pre, node, dir);
+            Console.WriteLine("after");
+            t.Print();
+            
+            // Assert
+            var a = new BinSearchTree();
+            a.Insert(10);
+            a.Insert(3);
+            a.Insert(1);
+            a.Insert(15);
+            a.Insert(5);
+            a.Insert(4);
+            
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
+        
+        
+        
+        [TestMethod]
+        public void TurnRightTest_TurnAround3LvlRootChild_Leaf()
+        {
+            // Setup
+            var t = new BinSearchTree();
+            t.Insert(20);
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(3);
+            Console.WriteLine("bevor");
+            t.Print();
+
+            // Action
+            var (prePre,pre, node, dir, _) = t.EvenMoreDetailedSearch(3);
+            t.TurnRight(prePre, pre, node, dir);
+            Console.WriteLine("after");
+            t.Print();
+            
+            // Assert
+            var a = new BinSearchTree();
+            a.Insert(20);
+            a.Insert(10);
+            a.Insert(3);
+            a.Insert(5);
+            
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
+        [TestMethod]
+        public void TurnRightTest_TurnAround3LvlRootChild_OneChild_Left()
+        {
+            // Setup
+            var t = new BinSearchTree();
+            t.Insert(20);
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(3);
+            t.Insert(1);
+            Console.WriteLine("bevor");
+            t.Print();
+
+            // Action
+            var (prePre,pre, node, dir, _) = t.EvenMoreDetailedSearch(3);
+            t.TurnRight(prePre, pre, node, dir);
+            Console.WriteLine("after");
+            t.Print();
+            
+            // Assert
+            var a = new BinSearchTree();
+            a.Insert(20);
+            a.Insert(10);
+            a.Insert(3);
+            a.Insert(1);
+            a.Insert(5);
+            
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
+        
+        [TestMethod]
+        public void TurnRightTest_TurnAround3LvlRootChild_OneChild_Right()
+        {
+            // Setup
+            var t = new BinSearchTree();
+            t.Insert(20);
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(3);
+            t.Insert(4);
+            Console.WriteLine("bevor");
+            t.Print();
+
+            // Action
+            var (prePre,pre, node, dir, _) = t.EvenMoreDetailedSearch(3);
+            t.TurnRight(prePre, pre, node, dir);
+            Console.WriteLine("after");
+            t.Print();
+            
+            // Assert
+            var a = new BinSearchTree();
+            a.Insert(20);
+            a.Insert(10);
+            a.Insert(3);
+            a.Insert(5);
+            a.Insert(4);
+            
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
+        
+        
+        [TestMethod]
+        public void TurnRightTest_TurnAround3LvlRootChild_SymNode()
+        {
+            // Setup
+            var t = new BinSearchTree();
+            t.Insert(20);
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(3);
+            t.Insert(1);
+            t.Insert(4);
+            Console.WriteLine("bevor");
+            t.Print();
+
+            // Action
+            var (prePre,pre, node, dir, _) = t.EvenMoreDetailedSearch(3);
+            t.TurnRight(prePre, pre, node, dir);
+            Console.WriteLine("after");
+            t.Print();
+            
+            // Assert
+            var a = new BinSearchTree();
+            a.Insert(20);
+            a.Insert(10);
+            a.Insert(3);
+            a.Insert(1);
+            a.Insert(5);
+            a.Insert(4);
+            
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
+        
+        [TestMethod]
+        public void TurnRightTest_TurnAroundRightChild_InvalidOperationException()
+        {
+            // Setup
+            var t = new BinSearchTree();
+            t.Insert(10);
+            t.Insert(5);
+            t.Insert(15);
+            t.Print();
+
+            // Action
+            var (pre, node, dir, _) = t.DetailedSearch(15);
+            Assert.ThrowsException<InvalidOperationException>(() => t.TurnRight(null, pre, node, dir));
+        }
+        
+        
     }
 }
