@@ -285,7 +285,7 @@ namespace AlgoDatDictionaries.Trees
         /// <returns></returns>
         internal string GeneratePrintString()
         {
-            return GeneratePrintString(Root, 0, Direction.Unset);
+            return  Root != null? GeneratePrintString(Root, 0, Direction.Unset) : "";
         }
         
         // ###############################################
