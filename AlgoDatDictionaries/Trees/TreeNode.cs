@@ -34,7 +34,7 @@ namespace AlgoDatDictionaries.Trees
                     case NodeType.Symmetric:
                         return Right.MaxHeight - Left.MaxHeight;
                     default:
-                        throw new NotImplementedException();
+                        throw new ArgumentOutOfRangeException(nameof(Type), Type, null);
                 }
             }
         }
@@ -55,7 +55,7 @@ namespace AlgoDatDictionaries.Trees
                         int max = (leftHeight > rightHeight) ? leftHeight : rightHeight;
                         return 1 + max;
                     default:
-                        throw new NotImplementedException();
+                        throw new ArgumentOutOfRangeException(nameof(Type), Type, null);
                 }
             }
         }
