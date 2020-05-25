@@ -83,24 +83,43 @@ namespace AlgoDatDictionaries.Trees
         /// <returns>Item1 PreNode, Item2 Node, Item3 Direction, Item4 found</returns>
         internal (TreeNode, TreeNode, Direction, bool) DetailedSearch(int value)
         {
+            var(_, pre, node, dir, found) = EvenMoreDetailedSearch(value);
+            return (pre, node, dir, found);
+        }
+        
+        
+        /// <summary>
+        /// Searches inside tree for value;
+        /// if value is found the method returns its predecessor, the node value, the direction relative to pre and
+        /// true
+        /// if value is not within the tree structure the method will return the TreeNode where it Should be, null, the
+        /// direction where the direction where the value should be found and false
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Item1 PreNode, Item2 Node, Item3 Direction, Item4 found</returns>
+        internal (TreeNode, TreeNode, TreeNode, Direction, bool) EvenMoreDetailedSearch(int value)
+        {
             TreeNode a = Root;
             TreeNode pre = null;
+            TreeNode prePre = null;
             Direction dir = Direction.Unset;
             while(a != null && a.Value != value)
             {
                 if (value < a.Value)
                 {
+                    prePre = pre;
                     pre = a;
                     dir = Direction.Left;
                     a = a.Left;
                     continue;
                 }
+                prePre = pre;
                 pre = a;
                 dir = Direction.Right;
                 a = a.Right;
             }
 
-            return (pre, a, dir, a != null);
+            return (prePre, pre, a, dir, a != null);
         }
 
         /// <summary>
@@ -131,6 +150,54 @@ namespace AlgoDatDictionaries.Trees
             }
             return true;
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="prePreNode"></param>
+        /// <param name="preNode">Predecessor of Node</param>
+        /// <param name="node"></param>
+        /// <param name="dir"></param>
+        internal TreeNode TurnRight(TreeNode prePreNode, TreeNode preNode, TreeNode node, Direction dir)
+        {
+            // node is root
+            if(dir == Direction.Unset)
+            {
+                Root = node.Left;
+                node.Left = Root.Right;
+                Root.Right = node;
+                return Root;
+            }
+
+            // PreNode is Root
+            if(prePreNode == null)
+                switch (dir)
+                {
+                    case Direction.Left:
+                        Root = node;
+                        preNode.Left = node.Right;
+                        Root.Right = preNode;
+                        return Root;
+                    default:
+                        throw new InvalidOperationException("Turning right on left neighbour is not possible");
+                }
+            
+            switch (dir)
+            {
+                case Direction.Left:
+                    if (prePreNode.Left?.Value == preNode.Value)
+                        prePreNode.Left = node;
+                    else 
+                        prePreNode.Right = node;
+                    preNode.Left = node.Right;
+                    node.Right = preNode;
+                    return prePreNode;
+                default:
+                    throw new InvalidOperationException("Turning right on left neighbour is not possible");
+            }
+        }
+        
 
         /// <summary>
         /// Actual delete method.
