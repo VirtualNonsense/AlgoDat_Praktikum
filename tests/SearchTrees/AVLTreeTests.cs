@@ -141,5 +141,12 @@ namespace tests.SearchTrees
             Assert.AreEqual(-2, balance);
             
         }
+
+        [TestMethod]
+        public void InsertTest()
+        {
+            var t = new AVLTree();
+            t.Insert(20);
+        }
     }
 }

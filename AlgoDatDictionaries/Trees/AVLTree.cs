@@ -33,6 +33,7 @@ namespace AlgoDatDictionaries.Trees
             var (pre, node, dir, found) = base.DetailedSearch(value);
             var result = Insert(pre, dir, value);
             if (!result || !_enableBalance) return result;
+            if (dir == Direction.Unset) return true;
             var (treeNode, balance) = GetUnbalancedNode((dir == Direction.Left)? pre.Left : pre.Right);
             // if (unbalanced) Balance(pre, treeNode, balance);
             return true;
