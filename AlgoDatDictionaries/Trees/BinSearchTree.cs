@@ -9,7 +9,7 @@ namespace AlgoDatDictionaries.Trees
         protected const char IntendString = '\t';
         protected const string Eol = "\n";
         protected string Branch = "----";
-        private TreeNode _root;
+        protected TreeNode Root;
         
         public enum Direction
         {
@@ -83,7 +83,7 @@ namespace AlgoDatDictionaries.Trees
         /// <returns>Item1 PreNode, Item2 Node, Item3 Direction, Item4 found</returns>
         internal (TreeNode, TreeNode, Direction, bool) DetailedSearch(int value)
         {
-            TreeNode a = _root;
+            TreeNode a = Root;
             TreeNode pre = null;
             Direction dir = Direction.Unset;
             while(a != null && a.Value != value)
@@ -109,7 +109,7 @@ namespace AlgoDatDictionaries.Trees
         /// <returns></returns>
         internal string GeneratePrintString()
         {
-            return GeneratePrintString(_root, 0);
+            return GeneratePrintString(Root, 0);
         }
         
         /// <summary>
@@ -147,23 +147,21 @@ namespace AlgoDatDictionaries.Trees
         /// <param name="dir">Direction| Side on which the new Node should be put</param>
         /// <param name="value">new Value</param>
         /// <returns></returns>
-        internal bool Insert(TreeNode pre, Direction dir, int value)
+        internal virtual bool Insert(TreeNode pre, Direction dir, int value)
         {
             switch(dir)
             {
                 case Direction.Unset:
-                    if (_root != null) return false;
-                    _root = new TreeNode(value);
+                    if (Root != null) return false;
+                    Root = new TreeNode(value);
                     break;
                 case Direction.Left:
                     if (pre.Left != null) return false;
                     pre.Left = new TreeNode(value);
-                    pre.Left.Previous = pre;
                     break;
                 case Direction.Right:
                     if (pre.Right != null) return false;
                     pre.Right = new TreeNode(value);
-                    pre.Right.Previous = pre;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dir), dir, null);
@@ -178,7 +176,7 @@ namespace AlgoDatDictionaries.Trees
         /// <param name="a"></param>
         /// <param name="dir"></param>
         /// <returns></returns>
-        internal (bool, TreeNode) Delete(TreeNode pre, TreeNode a, Direction dir)
+        internal virtual (bool, TreeNode) Delete(TreeNode pre, TreeNode a, Direction dir)
         {
             if (a == null)
                 return (false, pre);
@@ -189,23 +187,17 @@ namespace AlgoDatDictionaries.Trees
 
             if (pre == null)
             {
-                _root = b;
-                if (b !=null)
-                    _root.Previous = null;
-                return (true, _root);
+                Root = b;
+                return (true, Root);
             }
 
             if (dir == Direction.Left)
             {
                 pre.Left = b;
-                if (b !=null)
-                    pre.Left.Previous = pre;
             }
             else
             {
                 pre.Right = b;
-                if (b !=null)
-                    pre.Right.Previous = pre;
             }
             return (true, pre);
         }
@@ -217,14 +209,12 @@ namespace AlgoDatDictionaries.Trees
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        private static (bool, TreeNode) DelSymPred(TreeNode node)
+        protected virtual (bool, TreeNode) DelSymPred(TreeNode node)
         {
-            // get symmetric predecessor
-            var symPred = MaxNode(node.Left);
-            
-            // get node bevor symPred
-            var preSymPre = symPred.Previous;
-            symPred.Previous = null;
+
+            var (preSymPre, symPred) = MaxNode(node.Left);
+
+            preSymPre ??= node;
             
             // Steal value from symPred
             var tmp = symPred.Value;
@@ -235,15 +225,11 @@ namespace AlgoDatDictionaries.Trees
             {
                 // remove symPred
                 node.Left = node.Left.Left;
-                if (node.Left != null)
-                   node.Left.Previous = node;
             }
             else
             {
                 // remove symPred
                 preSymPre.Right = symPred.Left;
-                if (preSymPre.Right != null)
-                    preSymPre.Right.Previous = preSymPre.Right;
             }
 
             node.Value = tmp;
@@ -263,31 +249,35 @@ namespace AlgoDatDictionaries.Trees
         }
         
         /// <summary>
-        /// Returns the most right node from a given start
+        /// Returns the most right node and its predecessor from a given start node
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        private static TreeNode MaxNode(TreeNode n)
+        protected static (TreeNode, TreeNode) MaxNode(TreeNode n)
         {
+            TreeNode pre = null;
             while (n.Right != null)
             {
+                pre = n;
                 n = n.Right;
             }
-            return n;
+            return (pre, n);
         }
         
         /// <summary>
-        /// Returns the most left node from a given start
+        /// Returns the most left node and its predecessor from a given start node
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        protected static TreeNode MinNode(TreeNode n)
+        protected static (TreeNode, TreeNode) MinNode(TreeNode n)
         {
+            TreeNode pre = null;
             while (n.Left != null)
             {
+                pre = n;
                 n = n.Left;
             }
-            return n;
+            return (pre, n);
         }
     }
 }

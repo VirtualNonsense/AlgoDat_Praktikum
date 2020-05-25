@@ -14,7 +14,6 @@ namespace AlgoDatDictionaries.Trees
         }
         public int Value;
 
-        public TreeNode Previous;
         public TreeNode Left;
         public TreeNode Right;
 
@@ -78,16 +77,14 @@ namespace AlgoDatDictionaries.Trees
             }        
         }
 
-        internal bool IsRoot => Previous == null;
 
         public override string ToString()
         {
-            string root = IsRoot ? "ROOT " : "";
             string children = Right != null? 
                 (Left != null ? $"; {Left.Value}, {Right.Value}" : $"; {Right.Value}") 
                 : (Left != null ? $"; {Left.Value}" : $"");
             
-            return $"{root}{Value}{children}";
+            return $"{Value}{children}";
         }
     }
 }
