@@ -8,7 +8,7 @@ namespace AlgoDatDictionaries.Trees
     {
         protected const char IntendString = '\t';
         protected const string Eol = "\n";
-        protected string Branch = "----";
+        protected string Branch = "---";
         protected TreeNode Root;
         
         public enum Direction
@@ -101,39 +101,6 @@ namespace AlgoDatDictionaries.Trees
             }
 
             return (pre, a, dir, a != null);
-        }
-
-        /// <summary>
-        /// Generate a string representation of the current tree
-        /// </summary>
-        /// <returns></returns>
-        internal string GeneratePrintString()
-        {
-            return GeneratePrintString(Root, 0);
-        }
-        
-        /// <summary>
-        /// Generate a string representation of the current tree
-        /// </summary>
-        /// <param name="node">Start node</param>
-        /// <param name="intend">Initial intend</param>
-        /// <returns></returns>
-        private string GeneratePrintString(TreeNode node, int intend)
-        {
-            switch (node.Type)
-            {
-                case TreeNode.NodeType.Leaf:
-                    return IntendPrint(node, intend);
-                default:
-                    var tmp = "";
-                    if (node.Right != null)
-                        tmp += GeneratePrintString(node.Right, intend + 1);
-                    tmp += IntendPrint(node, intend);
-                    if (node.Left != null)
-                        tmp += GeneratePrintString(node.Left, intend + 1);
-                    return tmp;
-            }
-            
         }
 
         // ###############################################
@@ -236,18 +203,73 @@ namespace AlgoDatDictionaries.Trees
             return (true, preSymPre);
         }
 
+        
+
+        /// <summary>
+        /// Generate a string representation of the current tree
+        /// </summary>
+        /// <returns></returns>
+        internal string GeneratePrintString()
+        {
+            return GeneratePrintString(Root, 0, Direction.Unset);
+        }
+
+        /// <summary>
+        /// Generate a string representation of the current tree
+        /// </summary>
+        /// <param name="node">Start node</param>
+        /// <param name="intend">Initial intend</param>
+        /// <param name="dir"></param>
+        /// <returns></returns>
+        private string GeneratePrintString(TreeNode node, int intend, Direction dir)
+        {
+            switch (node.Type)
+            {
+                case TreeNode.NodeType.Leaf:
+                    return IntendPrint(node, intend, dir: dir);
+                default:
+                    var tmp = "";
+                    if (node.Right != null)
+                        tmp += GeneratePrintString(node.Right, intend + 1, Direction.Right);
+                    tmp += IntendPrint(node, intend, dir: dir);
+                    if (node.Left != null)
+                        tmp += GeneratePrintString(node.Left, intend + 1, Direction.Left);
+                    return tmp;
+            }
+            
+        }
+        
         /// <summary>
         /// Pretty print with variable intend
         /// </summary>
         /// <param name="node"></param>
         /// <param name="intend"></param>
         /// <param name="endOfLine"></param>
+        /// <param name="dir"></param>
         /// <returns></returns>
-        protected virtual string IntendPrint(TreeNode node, int intend, bool endOfLine = true)
+        protected virtual string IntendPrint(TreeNode node, int intend, bool endOfLine = true, Direction dir = Direction.Unset)
         {
-            return new string(IntendString, intend) + (intend > 0? Branch : "") + node.Value + (endOfLine? Eol : "");
+            return IntendPrint(node.Value.ToString(), intend, endOfLine, dir);
         }
         
+        
+        /// <summary>
+        /// Pretty print with variable intend
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="intend"></param>
+        /// <param name="endOfLine"></param>
+        /// <param name="dir"></param>
+        /// <returns></returns>
+        protected virtual string IntendPrint(string node, int intend, bool endOfLine = true, Direction dir = Direction.Unset)
+        {
+            var sDir = "-";
+            if (dir == Direction.Left)
+                sDir = @"╰";
+            else if (dir == Direction.Right)
+                sDir = @"╭";
+            return new string(IntendString, intend>0?intend-1:0) + (intend > 0? sDir + Branch : "") + node + (endOfLine? Eol : "");
+        }
         /// <summary>
         /// Returns the most right node and its predecessor from a given start node
         /// </summary>

@@ -226,6 +226,7 @@ namespace tests.SearchTrees
             var t = new BinSearchTree(); 
             t.Insert(5);
             var s = t.GeneratePrintString();
+            t.Print();
             Assert.AreEqual("5\n", s);
         }
 
@@ -236,7 +237,8 @@ namespace tests.SearchTrees
             t.Insert(5);
             t.Insert(7);
             string s = t.GeneratePrintString();
-            Assert.AreEqual("\t----7\n" + "5\n", s);
+            t.Print();
+            Assert.AreEqual("╭---7\n" + "5\n", s);
         }
         [TestMethod]
         public void GeneratePrintString_RootAndLeftChild()
@@ -245,7 +247,8 @@ namespace tests.SearchTrees
             t.Insert(5);
             t.Insert(2);
             string s = t.GeneratePrintString();
-            Assert.AreEqual( "5\n" + "\t----2\n", s);
+            t.Print();
+            Assert.AreEqual( "5\n" + "╰---2\n", s);
         }
         
         
@@ -257,7 +260,8 @@ namespace tests.SearchTrees
             t.Insert(7);
             t.Insert(2);
             string s = t.GeneratePrintString();
-            Assert.AreEqual("\t----7\n" + "5\n" + "\t----2\n", s);
+            t.Print();
+            Assert.AreEqual("╭---7\n" + "5\n" + "╰---2\n", s);
         }
 
         [TestMethod]
@@ -265,16 +269,16 @@ namespace tests.SearchTrees
         {
             BinSearchTree t = new BinSearchTree();
             string tree =
-                "\t\t\t----15\n" +
-                "\t\t\t\t----12\n" +
-                "\t\t----10\n" +
-                "\t\t\t----8\n" +
-                "\t----7\n" +
-                "\t\t----6\n" +
+                "\t\t╭---15\n" +
+                "\t\t\t╰---12\n" +
+                "\t╭---10\n" +
+                "\t\t╰---8\n" +
+                "╭---7\n" +
+                "\t╰---6\n" +
                 "5\n" +
-                "\t\t----3\n" +
-                "\t----2\n" +
-                "\t\t----1\n";
+                "\t╭---3\n" +
+                "╰---2\n" +
+	            "\t╰---1\n";
 
             t.Insert(5);
             t.Insert(7);
@@ -286,6 +290,7 @@ namespace tests.SearchTrees
             t.Insert(12);
             t.Insert(8);
             t.Insert(6);
+            t.Print();
             Assert.AreEqual(tree, t.GeneratePrintString());
             
         }
