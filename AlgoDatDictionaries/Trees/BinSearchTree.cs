@@ -198,6 +198,53 @@ namespace AlgoDatDictionaries.Trees
             }
         }
         
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="prePreNode"></param>
+        /// <param name="preNode">Predecessor of Node</param>
+        /// <param name="node"></param>
+        /// <param name="dir"></param>
+        internal TreeNode TurnLeft(TreeNode prePreNode, TreeNode preNode, TreeNode node, Direction dir)
+        {
+            // node is root
+            if(dir == Direction.Unset)
+            {
+                Root = node.Right;
+                node.Right = Root.Left;
+                Root.Left = node;
+                return Root;
+            }
+
+            // PreNode is Root
+            if(prePreNode == null)
+                switch (dir)
+                {
+                    case Direction.Right:
+                        Root = node;
+                        preNode.Right = node.Left;
+                        Root.Left = preNode;
+                        return Root;
+                    default:
+                        throw new InvalidOperationException("Turning left on right neighbour is not possible");
+                }
+            
+            switch (dir)
+            {
+                case Direction.Right:
+                    if (prePreNode.Left?.Value == preNode.Value)
+                        prePreNode.Left = node;
+                    else 
+                        prePreNode.Right = node;
+                    preNode.Right = node.Left;
+                    node.Left = preNode;
+                    return prePreNode;
+                default:
+                    throw new InvalidOperationException("Turning left on right neighbour is not possible");
+            }
+        }
+        
 
         /// <summary>
         /// Actual delete method.
