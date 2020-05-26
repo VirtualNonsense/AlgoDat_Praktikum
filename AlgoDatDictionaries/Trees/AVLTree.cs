@@ -96,12 +96,17 @@ namespace AlgoDatDictionaries.Trees
                 if (subBalance <= 0)
                 {
                     TurnRight(pre, node, node.Left, Direction.Left);
-                    return true;
+                    (prePre, pre, node, dir, _) = pre == null? EvenMoreDetailedSearch(Root.Value) : EvenMoreDetailedSearch(pre.Value); 
+                    (prePre, pre, node, dir, balance) = GetUnbalancedNode(prePre, pre, node, dir);
+                    return Balance(prePre, pre, node, dir, balance);
                     
                 }
                 // SubNode tilted to the right
                 TurnLeft(node, node.Left, node.Left.Right, Direction.Right);
                 TurnRight(pre, node, node.Left, Direction.Left);
+                (prePre, pre, node, dir, _) = pre == null? EvenMoreDetailedSearch(Root.Value) : EvenMoreDetailedSearch(pre.Value); 
+                (prePre, pre, node, dir, balance) = GetUnbalancedNode(prePre, pre, node, dir);
+                return Balance(prePre, pre, node, dir, balance);
             }
             
             // Tilted to the right
@@ -112,11 +117,16 @@ namespace AlgoDatDictionaries.Trees
                 if (subBalance >= 0)
                 {
                     TurnLeft(pre, node, node.Right, Direction.Right);
-                    return true;
+                    (prePre, pre, node, dir, _) = pre == null? EvenMoreDetailedSearch(Root.Value) : EvenMoreDetailedSearch(pre.Value); 
+                    (prePre, pre, node, dir, balance) = GetUnbalancedNode(prePre, pre, node, dir);
+                    return Balance(prePre, pre, node, dir, balance);
                 }
                 // SubNode tilted left
                 TurnRight(node, node.Right, node.Right.Left, Direction.Left);
                 TurnLeft(pre, node, node.Right, Direction.Right);
+                (prePre, pre, node, dir, _) = pre == null? EvenMoreDetailedSearch(Root.Value) : EvenMoreDetailedSearch(pre.Value); 
+                (prePre, pre, node, dir, balance) = GetUnbalancedNode(prePre, pre, node, dir);
+                return Balance(prePre, pre, node, dir, balance);
             }
             
             return true;
