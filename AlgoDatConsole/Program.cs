@@ -3,6 +3,7 @@ using AlgoDatDictionaries.Lists;
 using AlgoDatDictionaries.Arrays;
 using AlgoDatDictionaries;
 using AlgoDatDictionaries.Trees;
+using System.Text;
 
 namespace AlgoDatConsole
 {
@@ -10,6 +11,7 @@ namespace AlgoDatConsole
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.Unicode; 
             ConsoleKeyInfo input;
             ConsoleKeyInfo input2;
 
