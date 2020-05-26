@@ -21,9 +21,12 @@ namespace tests.SearchTrees
             t.Insert(20); // 0 
             t.Insert(12); // 0
             // Action
-            var (prePre, pre, node, dir, _) = t.EvenMoreDetailedSearch(2);
+            TreeNode prePre;
+            TreeNode pre;
+            BinSearchTree.Direction dir;
+            (prePre, pre, _, dir, _) = t.EvenMoreDetailedSearch(2);
             t.Insert(pre, dir, 2);
-            node = dir == BinSearchTree.Direction.Left ? pre.Left : pre.Right;
+            var node = dir == BinSearchTree.Direction.Left ? pre.Left : pre.Right;
             (prePre, pre, node, _, _) = t.GetUnbalancedNode(prePre, pre, node, dir);
             t.Print();
 
@@ -246,7 +249,7 @@ namespace tests.SearchTrees
             // Action
             var (prePre, pre, node, dir, _) = t.EvenMoreDetailedSearch(67);
             (_, pre) = t.Delete(pre, node, dir);
-            var (uPrePre, uPre, unbalanced, uDir, balance) =
+            var (_, _, unbalanced, _, balance) =
                 t.GetUnbalancedNode(prePre, pre, node, dir);
             Console.WriteLine("After delete 67");
             t.Print();
