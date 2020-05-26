@@ -142,7 +142,7 @@ namespace AlgoDatDictionaries.Trees
             // Check if children for threshold bevor going up the tree
             if (node.Type != TreeNode.NodeType.Leaf)
             {
-                if (node.Type != TreeNode.NodeType.Symmetric)
+                if (node.Type == TreeNode.NodeType.Symmetric)
                 {
                     var lB = node.Left.Balance;
                     var rB = node.Right.Balance;
