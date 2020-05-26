@@ -49,18 +49,37 @@ namespace AlgoDatDictionaries.Trees
             (prePre, pre, node, dir, balance) = GetUnbalancedNode(prePre, pre, node, dir);
             
             // Balance
-            return Balance(prePre, pre, node, dir, balance);
+            Balance(prePre, pre, node, dir, balance);
+            
+            // Insert successful
+            return true;
         }
 
         public override bool Delete(int value)
         {
-            // var (pre, node, dir, found) = base.DetailedSearch(value);
-            // var (result, newPre) = Delete(pre, node, dir);
-            // if (!result || !_enableBalance) return result;
-            // var (treeNode, balance) = GetUnbalancedNode(newPre);
-            // Balance(treeNode, balance);
-            // return true;
-            throw new NotImplementedException();
+            // Search vor insert node pre
+            var (prePre, pre, node, dir, _) = EvenMoreDetailedSearch(value);
+            var (result, newPre) = Delete(pre, node, dir);
+            
+            // overwriting pre to avoid confusion about what to use
+            pre = newPre;
+            
+            // Step out if
+            if (!result // Delete was unsuccessful
+                || !_enableBalance // Balance debug is enabled
+                || dir == Direction.Unset) // Root was removed 
+                return result;
+            
+            // Search vor unbalanced node
+            int balance;
+            (prePre, pre, node, dir, balance) = GetUnbalancedNode(prePre, pre, node, dir);
+            
+            // Balance tree
+            Balance(prePre, pre, node, dir, balance);
+            
+            // Delete Successful
+            return true;
+            
         }
 
         private bool Balance(TreeNode prePre, TreeNode pre, TreeNode node, Direction dir, int balance)
