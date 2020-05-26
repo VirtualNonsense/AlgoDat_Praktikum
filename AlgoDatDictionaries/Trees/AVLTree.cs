@@ -9,8 +9,8 @@ namespace AlgoDatDictionaries.Trees
     public class AVLTree : BinSearchTree
     {
         private readonly int _balanceThreshold = 2;
-        private readonly bool _enableBalance = true;
-        
+        internal bool EnableBalance { get; set; } = true;
+
 
         public AVLTree()
         {
@@ -23,8 +23,8 @@ namespace AlgoDatDictionaries.Trees
         /// <param name="enableBalance"></param>
         internal AVLTree(bool enableBalance)
         {
-            _enableBalance = enableBalance;
-            if(!_enableBalance)
+            EnableBalance = enableBalance;
+            if(!EnableBalance)
                 Console.WriteLine("UNBALANCED MODE ENABLED");
         }
         public override bool Insert(int value)
@@ -37,7 +37,7 @@ namespace AlgoDatDictionaries.Trees
             
             // Step out if
             if (!result // Insert was unsuccessful
-                || !_enableBalance // Balance debug is enabled
+                || !EnableBalance // Balance debug is enabled
                 || dir == Direction.Unset) // Root was inserted 
                 return result;
             
@@ -66,8 +66,7 @@ namespace AlgoDatDictionaries.Trees
             
             // Step out if
             if (!result // Delete was unsuccessful
-                || !_enableBalance // Balance debug is enabled
-                || dir == Direction.Unset) // Root was removed 
+                || !EnableBalance) // Balance debug is enabled)
                 return result;
             
             // Search vor unbalanced node
