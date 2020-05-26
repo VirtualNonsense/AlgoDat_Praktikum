@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 
 
@@ -10,12 +9,11 @@ namespace AlgoDatDictionaries.Trees
     public class AVLTree : BinSearchTree
     {
         private readonly int _balanceThreshold = 2;
-        private bool _enableBalance = true;
+        private readonly bool _enableBalance = true;
         
 
         public AVLTree()
         {
-            Branch = "---";
         }
         
         /// <summary>
@@ -26,45 +24,118 @@ namespace AlgoDatDictionaries.Trees
         internal AVLTree(bool enableBalance)
         {
             _enableBalance = enableBalance;
-            Branch = "---";
+            if(!_enableBalance)
+                Console.WriteLine("UNBALANCED MODE ENABLED");
         }
         public override bool Insert(int value)
         {
-            var (pre, node, dir, found) = base.DetailedSearch(value);
+            // Search vor insert node pre
+            var (prePre, pre, _, dir, _) = EvenMoreDetailedSearch(value);
+            
+            // Perform insert
             var result = Insert(pre, dir, value);
-            if (!result || !_enableBalance || dir == Direction.Unset) return result;
-            var (treeNode, balance) = GetUnbalancedNode((dir == Direction.Left)? pre.Left : pre.Right);
-            // if (unbalanced) Balance(pre, treeNode, balance);
-            return true;
+            
+            // Step out if
+            if (!result // Insert was unsuccessful
+                || !_enableBalance // Balance debug is enabled
+                || dir == Direction.Unset) // Root was inserted 
+                return result;
+            
+            // Get inserted node
+            var node = pre == null? Root : (dir == Direction.Left ? pre.Left : pre.Right);
+            
+            // Search vor unbalanced node
+            int balance;
+            (prePre, pre, node, dir, balance) = GetUnbalancedNode(prePre, pre, node, dir);
+            
+            // Balance
+            return Balance(prePre, pre, node, dir, balance);
         }
 
         public override bool Delete(int value)
         {
-            var (pre, node, dir, found) = base.DetailedSearch(value);
-            var (result, newPre) = Delete(pre, node, dir);
-            if (!result || !_enableBalance) return result;
-            var (treeNode, balance) = GetUnbalancedNode(newPre);
-            Balance(treeNode, balance);
-            return true;
-        }
-
-        private bool Balance(TreeNode node, int balance)
-        {
+            // var (pre, node, dir, found) = base.DetailedSearch(value);
+            // var (result, newPre) = Delete(pre, node, dir);
+            // if (!result || !_enableBalance) return result;
+            // var (treeNode, balance) = GetUnbalancedNode(newPre);
+            // Balance(treeNode, balance);
+            // return true;
             throw new NotImplementedException();
         }
 
-        internal (TreeNode, int) GetUnbalancedNode(TreeNode changedNote)
+        private bool Balance(TreeNode prePre, TreeNode pre, TreeNode node, Direction dir, int balance)
         {
-            if (changedNote == null) return (null, 0);
+            // Check if balancing is necessary
+            if (Math.Abs(balance) < _balanceThreshold)
+                return false;
+            
+            // Tilted to the left
+            if (balance < 0)
+            {
+                var subBalance = node.Left.Balance;
+                
+                // SubNode neutral or tilted to the left
+                if (subBalance <= 0)
+                {
+                    // node is right child of pre node
+                    if (dir == Direction.Right)
+                    {
+                        TurnRight(pre, node, node.Left, Direction.Left);
+                        return true;
+                    }
+                    TurnRight(prePre, pre, node, dir);
+                    return true;
+                }
+                // SubNode tilted to the right
+                TurnLeft(node, node.Left, node.Left.Right, Direction.Right);
+                TurnRight(pre, node, node.Left, Direction.Left);
+            }
+            
+            // Tilted to the right
+            else if (balance > 0)
+            {
+                var subBalance = node.Right.Balance;
+                // SubNode neutral or tilted to the right
+                if (subBalance >= 0)
+                {
+                    // node is Left child of pre node
+                    if (dir == Direction.Left)
+                    {
+                        TurnLeft(pre, node, node.Right, Direction.Right);
+                        return true;
+                    }
+                    TurnLeft(prePre, pre, node, dir);
+                    return true;
+                }
+                // SubNode tilted left
+                TurnRight(node, node.Right, node.Right.Left, Direction.Left);
+                TurnLeft(pre, node, node.Right, Direction.Right);
+            }
+            
+            return true;
+        }
+
+        internal (TreeNode, TreeNode, TreeNode, Direction, int) GetUnbalancedNode(TreeNode prePre, 
+                                                                            TreeNode pre, 
+                                                                            TreeNode node,
+                                                                            Direction dir)
+        {
+            // Step out if node is root
+            if (prePre == null || pre == null)
+                return (prePre, pre, node, dir, node.Balance);
+            
+            // Iterate until node is root or steps over threshold.
             while (true)
             {
-                var balance = changedNote.Balance;
-                if (Math.Abs(balance) >= _balanceThreshold || changedNote.IsRoot) return (changedNote, balance);
-                changedNote = changedNote.Previous;
+                var balance = node.Balance;
+                if (Math.Abs(balance) >= _balanceThreshold || pre == null)
+                    return (prePre, pre, node, dir, balance);
+                (prePre, pre, node, dir, _) = EvenMoreDetailedSearch(pre.Value);
             }
         }
 
-        protected override string IntendPrint(TreeNode node, int intend, bool endOfLine = true)
+
+        protected override string IntendPrint(TreeNode node, int intend, bool endOfLine = true, Direction dir = Direction.Unset)
         {
             var b = node.Balance;
             var bString = "0";
@@ -73,14 +144,7 @@ namespace AlgoDatDictionaries.Trees
             else if (b > 0)
                 bString = new string('+', b);
 
-            var dir = "";
-            var pre = node.Previous;
-            if (pre?.Left?.Value == node.Value)
-                dir = @" ╰";
-            else if (pre?.Right?.Value == node.Value)
-                dir = @" ╭";
-            
-            return new string(IntendString, intend) + dir + (intend > 0? Branch : "") + $"{node.Value}[{bString}]" + (endOfLine? Eol : "");
+            return base.IntendPrint($"{node.Value}[{bString}]", intend, endOfLine, dir);
         }
     }
 }
