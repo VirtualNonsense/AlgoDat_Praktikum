@@ -9,7 +9,7 @@ namespace AlgoDatConsole
     {
         public static void PrintBanner()
         {
-            Console.WriteLine();
+            Console.WriteLine(" ");
             Console.WriteLine(@"  _____  _      _   _                        _");
             Console.WriteLine(@" |  __ \(_)    | | (_)                      (_)          ");
             Console.WriteLine(@" | |  | |_  ___| |_ _  ___  _ __   __ _ _ __ _  ___  ___ ");
