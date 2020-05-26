@@ -14,7 +14,6 @@ namespace AlgoDatDictionaries.Trees
         }
         public int Value;
 
-        public TreeNode Previous;
         public TreeNode Left;
         public TreeNode Right;
 
@@ -35,7 +34,7 @@ namespace AlgoDatDictionaries.Trees
                     case NodeType.Symmetric:
                         return Right.MaxHeight - Left.MaxHeight;
                     default:
-                        throw new NotImplementedException();
+                        throw new ArgumentOutOfRangeException(nameof(Type), Type, null);
                 }
             }
         }
@@ -56,7 +55,7 @@ namespace AlgoDatDictionaries.Trees
                         int max = (leftHeight > rightHeight) ? leftHeight : rightHeight;
                         return 1 + max;
                     default:
-                        throw new NotImplementedException();
+                        throw new ArgumentOutOfRangeException(nameof(Type), Type, null);
                 }
             }
         }
@@ -78,16 +77,14 @@ namespace AlgoDatDictionaries.Trees
             }        
         }
 
-        internal bool IsRoot => Previous == null;
 
         public override string ToString()
         {
-            string root = IsRoot ? "ROOT " : "";
             string children = Right != null? 
                 (Left != null ? $"; {Left.Value}, {Right.Value}" : $"; {Right.Value}") 
                 : (Left != null ? $"; {Left.Value}" : $"");
             
-            return $"{root}{Value}{children}";
+            return $"{Value}{children}";
         }
     }
 }
