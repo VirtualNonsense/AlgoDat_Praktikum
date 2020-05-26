@@ -95,14 +95,9 @@ namespace AlgoDatDictionaries.Trees
                 // SubNode neutral or tilted to the left
                 if (subBalance <= 0)
                 {
-                    // node is right child of pre node
-                    if (dir == Direction.Right)
-                    {
-                        TurnRight(pre, node, node.Left, Direction.Left);
-                        return true;
-                    }
-                    TurnRight(prePre, pre, node, dir);
+                    TurnRight(pre, node, node.Left, Direction.Left);
                     return true;
+                    
                 }
                 // SubNode tilted to the right
                 TurnLeft(node, node.Left, node.Left.Right, Direction.Right);
@@ -116,13 +111,7 @@ namespace AlgoDatDictionaries.Trees
                 // SubNode neutral or tilted to the right
                 if (subBalance >= 0)
                 {
-                    // node is Left child of pre node
-                    if (dir == Direction.Left)
-                    {
-                        TurnLeft(pre, node, node.Right, Direction.Right);
-                        return true;
-                    }
-                    TurnLeft(prePre, pre, node, dir);
+                    TurnLeft(pre, node, node.Right, Direction.Right);
                     return true;
                 }
                 // SubNode tilted left

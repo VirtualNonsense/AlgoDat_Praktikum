@@ -32,6 +32,68 @@ namespace tests.SearchTrees
             
             Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
         }
+
+        [TestMethod]
+        public void BalancedInsert_InsertAscending()
+        {
+            
+            // Setup
+            var t = new AVLTree();
+            t.Insert(5);
+            t.Insert(10);
+            t.Insert(12);
+            t.Insert(20);
+            t.Insert(40);
+            Console.WriteLine("bevor");
+            t.Print();
+            
+            t.Insert(70);
+            Console.WriteLine("after");
+            t.Print();
+            
+            var a = new AVLTree(false);
+            a.Insert(20);
+            a.Insert(10);
+            a.Insert(40);
+            a.Insert(5);
+            a.Insert(12);
+            a.Insert(70);
+            Console.WriteLine("reference");
+            a.Print();
+            
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
+        
+
+        [TestMethod]
+        public void BalancedInsert_InsertDescending()
+        {
+            
+            // Setup
+            var t = new AVLTree();
+            t.Insert(5);
+            t.Insert(4);
+            t.Insert(3);
+            t.Insert(2);
+            
+            Console.WriteLine("bevor");
+            t.Print();
+            t.Insert(1);
+            
+            Console.WriteLine("after");
+            t.Print();
+            
+            var a = new AVLTree(false);
+            Console.WriteLine("reference");
+            a.Insert(4);
+            a.Insert(2);
+            a.Insert(5);
+            a.Insert(1);
+            a.Insert(3);
+            a.Print();
+            
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
         
         [TestMethod]
         public void BalancedInsert_LeftUnbalancedAfterInsert_LeftRight()
