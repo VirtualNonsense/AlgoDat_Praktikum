@@ -7,38 +7,6 @@ namespace tests.SearchTrees
     [TestClass]
     public class AVLTreeTests
     {
-        [TestMethod]
-        public void GetUnBalancedNodeTest_UnbalancedAfterInsert_2Lvl_OneChild_Left()
-        {
-            // Setup
-            var t = new AVLTree(false);
-            t.Insert(10); // 0
-            t.Insert(5); // - 
-            t.Insert(7); // 0  
-            t.Insert(3); // - 
-            t.Insert(1); // 0 
-            t.Insert(15); // -
-            t.Insert(20); // 0 
-            t.Insert(12); // 0
-            // Action
-            TreeNode prePre;
-            TreeNode pre;
-            BinSearchTree.Direction dir;
-            (prePre, pre, _, dir, _) = t.EvenMoreDetailedSearch(2);
-            t.Insert(pre, dir, 2);
-            var node = dir == BinSearchTree.Direction.Left ? pre.Left : pre.Right;
-            (prePre, pre, node, _, _) = t.GetUnbalancedNode(prePre, pre, node, dir);
-            t.Print();
-
-            // Assert
-            Assert.AreEqual(3, node.Value);
-            Assert.AreEqual(5, pre.Value);
-            Assert.AreEqual(10, prePre.Value);
-            Assert.AreEqual(-2, node.Balance);
-            Assert.AreEqual(-2, pre.Balance);
-            Assert.AreEqual(-2, prePre.Balance);
-
-        }
         
         [TestMethod]
         public void BalancedInsert_LeftUnbalancedAfterInsert_TurnRootRight()
@@ -150,7 +118,24 @@ namespace tests.SearchTrees
 
 
         [TestMethod]
-        public void BalancedInsertTest_Unbalanced_afterDeleteRoot_SymmetricPredecessorIsChild_HiddenSymPre_CheckForPredecessors()
+        public void BalancedInsertTest_InsertRoot()
+        {
+            var t = new AVLTree();
+            t.Insert(20);
+            Assert.IsTrue(t.Search(20));
+        }
+        
+        [TestMethod]
+        public void BalancedDeleteTest_DeleteRoot()
+        {
+            var t = new AVLTree();
+            t.Insert(20);
+            t.Delete(20);
+            
+            Assert.IsFalse(t.Search(20));
+        }
+        [TestMethod]
+        public void BalancedDeleteTest_Unbalanced_afterDeleteRoot_SymmetricPredecessorIsChild_HiddenSymPre_CheckForPredecessors()
         {
             var t = new AVLTree(false);
             t.Insert(67);
@@ -298,12 +283,40 @@ namespace tests.SearchTrees
             Assert.AreEqual(-2, balance);
             
         }
-
+        
+        
         [TestMethod]
-        public void InsertTest()
+        public void GetUnBalancedNodeTest_UnbalancedAfterInsert_2Lvl_OneChild_Left()
         {
-            var t = new AVLTree();
-            t.Insert(20);
+            // Setup
+            var t = new AVLTree(false);
+            t.Insert(10); // 0
+            t.Insert(5); // - 
+            t.Insert(7); // 0  
+            t.Insert(3); // - 
+            t.Insert(1); // 0 
+            t.Insert(15); // -
+            t.Insert(20); // 0 
+            t.Insert(12); // 0
+            // Action
+            TreeNode prePre;
+            TreeNode pre;
+            BinSearchTree.Direction dir;
+            (prePre, pre, _, dir, _) = t.EvenMoreDetailedSearch(2);
+            t.Insert(pre, dir, 2);
+            var node = dir == BinSearchTree.Direction.Left ? pre.Left : pre.Right;
+            (prePre, pre, node, _, _) = t.GetUnbalancedNode(prePre, pre, node, dir);
+            t.Print();
+
+            // Assert
+            Assert.AreEqual(3, node.Value);
+            Assert.AreEqual(5, pre.Value);
+            Assert.AreEqual(10, prePre.Value);
+            Assert.AreEqual(-2, node.Balance);
+            Assert.AreEqual(-2, pre.Balance);
+            Assert.AreEqual(-2, prePre.Balance);
+
         }
+
     }
 }
