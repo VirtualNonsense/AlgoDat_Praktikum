@@ -120,9 +120,27 @@ namespace AlgoDatDictionaries.Trees
                                                                             TreeNode node,
                                                                             Direction dir)
         {
-            // Step out if node is root
-            if (prePre == null || pre == null)
-                return (prePre, pre, node, dir, node.Balance);
+            
+            // Check if children for threshold bevor going up the tree
+            if (node.Type != TreeNode.NodeType.Leaf)
+            {
+                if (node.Type != TreeNode.NodeType.Symmetric)
+                {
+                    var lB = node.Left.Balance;
+                    var rB = node.Right.Balance;
+                    if (Math.Abs(lB) > Math.Abs(rB) && Math.Abs(lB) > _balanceThreshold)
+                        return (pre, node, node.Left, Direction.Left, lB);
+                    if (Math.Abs(rB) > _balanceThreshold)
+                        return (pre, node, node.Right, Direction.Right, rB);
+                }
+
+                var c = node.Left ?? node.Right;
+                dir = node.Left != null ? Direction.Left : Direction.Right; 
+                var b = c.Balance;
+                if (Math.Abs(b) > _balanceThreshold)
+                    return (pre, node, c, dir ,b);
+            }
+            
             
             // Iterate until node is root or steps over threshold.
             while (true)
