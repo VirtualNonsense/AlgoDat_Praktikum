@@ -1,6 +1,7 @@
 ﻿using AlgoDatDictionaries.Trees;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Numerics;
 using System.Security.Cryptography;
 
 namespace tests.SearchTrees
@@ -271,6 +272,47 @@ namespace tests.SearchTrees
             Console.WriteLine("reference");
             a.Print();
             Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
+
+        [TestMethod]
+        public void BalanceDelete_RootPlusPlus_ChildPlus()
+        {
+            // 
+            var t = new AVLTree();
+            t.Insert(1);
+            t.Insert(2);
+            t.Insert(3);
+            t.Insert(4);
+            t.Insert(5);
+            t.Insert(6);
+            t.Insert(7);
+            t.Insert(8);
+            t.Insert(9);
+            t.Delete(4);
+            Console.WriteLine("bevor");
+            t.Print();
+            
+            // Action
+            Console.WriteLine("removed 3");
+            t.Delete(3);
+            t.Print();
+            
+            // Assert 
+            var a = new AVLTree(false);
+            a.Insert(6);
+            a.Insert(2);
+            a.Insert(8);
+            a.Insert(1);
+            a.Insert(5);
+            a.Insert(7);
+            a.Insert(9);
+            Console.WriteLine("reference");
+            a.Print();
+            
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+
+
+
         }
 
         [TestMethod]

@@ -61,14 +61,14 @@ namespace AlgoDatDictionaries.Trees
             var (prePre, pre, node, dir, _) = EvenMoreDetailedSearch(value);
             var (result, newPre) = Delete(pre, node, dir);
             
-            // overwriting pre to avoid confusion about what to use
-            pre = newPre;
             
             // Step out if
             if (!result // Delete was unsuccessful
-                || !EnableBalance) // Balance debug is enabled)
+                || !EnableBalance // Balance debug is enabled
+                || Root == null)  // Tree is empty
                 return result;
             
+            (prePre, pre, node, dir, _) = EvenMoreDetailedSearch(newPre.Value);
             // Search vor unbalanced node
             int balance;
             (prePre, pre, node, dir, balance) = GetUnbalancedNode(prePre, pre, node, dir);
@@ -137,6 +137,8 @@ namespace AlgoDatDictionaries.Trees
                                                                             TreeNode node,
                                                                             Direction dir)
         {
+            if (node == null)
+                return (null, null, null, Direction.Unset, 0);
             
             // Check if children for threshold bevor going up the tree
             if (node.Type != TreeNode.NodeType.Leaf)
