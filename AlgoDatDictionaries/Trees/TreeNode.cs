@@ -13,9 +13,11 @@ namespace AlgoDatDictionaries.Trees
             Symmetric
         }
         public int Value;
+        public int priority;
 
         public TreeNode Left;
         public TreeNode Right;
+        
 
         public int Balance
         {
