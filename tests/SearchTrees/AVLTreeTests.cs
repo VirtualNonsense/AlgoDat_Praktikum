@@ -1,6 +1,7 @@
 ﻿using AlgoDatDictionaries.Trees;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Security.Cryptography;
 
 namespace tests.SearchTrees
 {
@@ -32,6 +33,114 @@ namespace tests.SearchTrees
             
             Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
         }
+
+        [TestMethod]
+        public void BalancedInsert_InsertAscending()
+        {
+            
+            // Setup
+            var t = new AVLTree();
+            t.Insert(5);
+            t.Insert(10);
+            t.Insert(12);
+            t.Insert(20);
+            t.Insert(40);
+            Console.WriteLine("bevor");
+            t.Print();
+            
+            t.Insert(70);
+            Console.WriteLine("after");
+            t.Print();
+            
+            var a = new AVLTree(false);
+            a.Insert(20);
+            a.Insert(10);
+            a.Insert(40);
+            a.Insert(5);
+            a.Insert(12);
+            a.Insert(70);
+            Console.WriteLine("reference");
+            a.Print();
+            
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
+
+        [TestMethod]
+        public void BalancedInsert_PlusPlusMinus_DoubleRotation()
+        {
+            //Setup
+            var t = new AVLTree(false);
+            t.Insert(50);
+            t.Insert(17);
+            t.Insert(55);
+            t.Insert(12);
+            t.Insert(37);
+            t.Insert(54);
+            t.Insert(69);
+            t.Insert(2);
+            t.Insert(34);
+            t.Insert(63);
+            t.Insert(71);
+            
+            Console.WriteLine("bevor");
+            t.Print();
+
+            t.EnableBalance = true;
+            t.Insert(67);
+            
+            Console.WriteLine("after");
+            t.Print();
+            
+            // Assert
+            var a = new AVLTree(false);
+            a.Insert(50);
+            a.Insert(17);
+            a.Insert(63);
+            a.Insert(12);
+            a.Insert(37);
+            a.Insert(55);
+            a.Insert(69);
+            a.Insert(2);
+            a.Insert(34);
+            a.Insert(54);
+            a.Insert(67);
+            a.Insert(71);
+            Console.WriteLine("reference");
+            a.Print();
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
+        
+
+        [TestMethod]
+        public void BalancedInsert_InsertDescending()
+        {
+            
+            // Setup
+            var t = new AVLTree();
+            t.Insert(5);
+            t.Insert(4);
+            t.Insert(3);
+            t.Insert(2);
+            
+            Console.WriteLine("bevor");
+            t.Print();
+            t.Insert(1);
+            
+            Console.WriteLine("after");
+            t.Print();
+            
+            var a = new AVLTree(false);
+            Console.WriteLine("reference");
+            a.Insert(4);
+            a.Insert(2);
+            a.Insert(5);
+            a.Insert(1);
+            a.Insert(3);
+            a.Print();
+            
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
+        
         
         [TestMethod]
         public void BalancedInsert_LeftUnbalancedAfterInsert_LeftRight()
@@ -116,6 +225,53 @@ namespace tests.SearchTrees
             Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
         }
 
+        [TestMethod]
+        public void BalancedInsert_DoubleRotation_PlusPlusMinus()
+        {
+            var t = new AVLTree(false);
+            t.Insert(50);
+            t.Insert(17);
+            t.Insert(55);
+            t.Insert(12);
+            t.Insert(37);
+            t.Insert(54);
+            t.Insert(69);
+            t.Insert(2);
+            t.Insert(16);
+            t.Insert(34);
+            t.Insert(41);
+            t.Insert(63);
+            t.Insert(71);
+
+            Console.WriteLine("bevor");
+            t.Print();
+
+            t.EnableBalance = true;
+            t.Insert(64);
+
+            Console.WriteLine("after");
+            t.Print();
+            
+            var a = new AVLTree(false);
+            a.Insert(50);
+            a.Insert(17);
+            a.Insert(63);
+            a.Insert(12);
+            a.Insert(37);
+            a.Insert(55);
+            a.Insert(69);
+            a.Insert(2);
+            a.Insert(16);
+            a.Insert(34);
+            a.Insert(41);
+            a.Insert(54);
+            a.Insert(64);
+            a.Insert(71);
+            
+            Console.WriteLine("reference");
+            a.Print();
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+        }
 
         [TestMethod]
         public void BalancedInsertTest_InsertRoot()
@@ -134,6 +290,101 @@ namespace tests.SearchTrees
             
             Assert.IsFalse(t.Search(20));
         }
+
+        [TestMethod]
+        public void BalancedDeleteTest_DoubleRotation_DoubleMinus()
+        {
+            var t = new AVLTree(false);
+            t.Insert(11);
+            t.Insert(7);
+            t.Insert(15);
+            t.Insert(5);
+            t.Insert(9);
+            t.Insert(14);
+            t.Insert(17);
+            t.Insert(3);
+            t.Insert(6);
+            t.Insert(8);
+            t.Insert(12);
+            t.Insert(1);
+            Console.WriteLine("bevor");
+            t.Print();
+
+            t.EnableBalance = true;
+            t.Delete(17);
+            Console.WriteLine("after");
+            t.Print();
+            
+            // Assert
+            var a = new AVLTree(false);
+            a.Insert(7);
+            a.Insert(5);
+            a.Insert(11);
+            a.Insert(3);
+            a.Insert(6);
+            a.Insert(9);
+            a.Insert(14);
+            a.Insert(1);
+            a.Insert(8);
+            a.Insert(12);
+            a.Insert(15);
+
+            Console.WriteLine("reference");
+            a.Print();
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+            
+            
+        }
+
+        [TestMethod]
+        public void BalancedDelete_DoubleRotation()
+        {
+            var t = new AVLTree(false);
+            t.Insert(50);
+            t.Insert(14);
+            t.Insert(63);
+            t.Insert(12);
+            t.Insert(20);
+            t.Insert(55);
+            t.Insert(69);
+            t.Insert(13);
+            t.Insert(52);
+            t.Insert(60);
+            t.Insert(67);
+            t.Insert(71);
+            t.Insert(57);
+
+            Console.WriteLine("bevor");
+            t.Print();
+
+            t.EnableBalance = true;
+            t.Delete(20);
+            
+            
+            Console.WriteLine("after");
+            t.Print();
+            
+            var a = new AVLTree(false);
+            a.Insert(55);
+            a.Insert(50);
+            a.Insert(63);
+            a.Insert(13);
+            a.Insert(52);
+            a.Insert(60);
+            a.Insert(69);
+            a.Insert(12);
+            a.Insert(14);
+            a.Insert(57);
+            a.Insert(67);
+            a.Insert(71);
+            
+            
+            Console.WriteLine("reference");
+            a.Print();
+            Assert.AreEqual(a.GeneratePrintString(), t.GeneratePrintString());
+
+        }
+        
         [TestMethod]
         public void BalancedDeleteTest_Unbalanced_afterDeleteRoot_SymmetricPredecessorIsChild_HiddenSymPre_CheckForPredecessors()
         {

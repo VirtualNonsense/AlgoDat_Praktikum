@@ -96,18 +96,18 @@ namespace AlgoDatDictionaries.Trees
                 // SubNode neutral or tilted to the left
                 if (subBalance <= 0)
                 {
-                    // node is right child of pre node
-                    if (dir == Direction.Right)
-                    {
-                        TurnRight(pre, node, node.Left, Direction.Left);
-                        return true;
-                    }
-                    TurnRight(prePre, pre, node, dir);
-                    return true;
+                    TurnRight(pre, node, node.Left, Direction.Left);
+                    (prePre, pre, node, dir, _) = pre == null? EvenMoreDetailedSearch(Root.Value) : EvenMoreDetailedSearch(pre.Value); 
+                    (prePre, pre, node, dir, balance) = GetUnbalancedNode(prePre, pre, node, dir);
+                    return Balance(prePre, pre, node, dir, balance);
+                    
                 }
                 // SubNode tilted to the right
                 TurnLeft(node, node.Left, node.Left.Right, Direction.Right);
                 TurnRight(pre, node, node.Left, Direction.Left);
+                (prePre, pre, node, dir, _) = pre == null? EvenMoreDetailedSearch(Root.Value) : EvenMoreDetailedSearch(pre.Value); 
+                (prePre, pre, node, dir, balance) = GetUnbalancedNode(prePre, pre, node, dir);
+                return Balance(prePre, pre, node, dir, balance);
             }
             
             // Tilted to the right
@@ -117,18 +117,17 @@ namespace AlgoDatDictionaries.Trees
                 // SubNode neutral or tilted to the right
                 if (subBalance >= 0)
                 {
-                    // node is Left child of pre node
-                    if (dir == Direction.Left)
-                    {
-                        TurnLeft(pre, node, node.Right, Direction.Right);
-                        return true;
-                    }
-                    TurnLeft(prePre, pre, node, dir);
-                    return true;
+                    TurnLeft(pre, node, node.Right, Direction.Right);
+                    (prePre, pre, node, dir, _) = pre == null? EvenMoreDetailedSearch(Root.Value) : EvenMoreDetailedSearch(pre.Value); 
+                    (prePre, pre, node, dir, balance) = GetUnbalancedNode(prePre, pre, node, dir);
+                    return Balance(prePre, pre, node, dir, balance);
                 }
                 // SubNode tilted left
                 TurnRight(node, node.Right, node.Right.Left, Direction.Left);
                 TurnLeft(pre, node, node.Right, Direction.Right);
+                (prePre, pre, node, dir, _) = pre == null? EvenMoreDetailedSearch(Root.Value) : EvenMoreDetailedSearch(pre.Value); 
+                (prePre, pre, node, dir, balance) = GetUnbalancedNode(prePre, pre, node, dir);
+                return Balance(prePre, pre, node, dir, balance);
             }
             
             return true;
@@ -143,7 +142,7 @@ namespace AlgoDatDictionaries.Trees
             // Check if children for threshold bevor going up the tree
             if (node.Type != TreeNode.NodeType.Leaf)
             {
-                if (node.Type != TreeNode.NodeType.Symmetric)
+                if (node.Type == TreeNode.NodeType.Symmetric)
                 {
                     var lB = node.Left.Balance;
                     var rB = node.Right.Balance;
