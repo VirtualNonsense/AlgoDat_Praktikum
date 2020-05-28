@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace AlgoDatDictionaries.Trees
 {
     public class Treap : BinSearchTree
     {
+        private Random _random = new System.Random();
         public override bool Insert(int value)
         {
             throw new NotImplementedException();
@@ -13,6 +13,11 @@ namespace AlgoDatDictionaries.Trees
         public override bool Delete(int value)
         {
             throw new NotImplementedException();
+        }
+        
+        protected override BinSearchTreeNode ConstructTreeNode(int value)
+        {
+            return new TreapNode(value, _random.Next());
         }
 
         public void DownHeap(BinSearchTreeNode node)
