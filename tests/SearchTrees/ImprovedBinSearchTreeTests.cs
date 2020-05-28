@@ -221,10 +221,10 @@ namespace tests.SearchTrees
             var (pre6, node6, _, _) = t.DetailedSearch(6);
             var (pre4, node4, _, _) = t.DetailedSearch(4);
             
-            Assert.AreEqual(pre6.Value, ((DoubleLinkTreeNode)node6).Previous.Value);
-            Assert.AreEqual(4, ((DoubleLinkTreeNode)node6).Previous.Value);
-            Assert.AreEqual(10, ((DoubleLinkTreeNode)node4).Previous.Value);
-            Assert.AreEqual(pre4.Value, ((DoubleLinkTreeNode)node4).Previous.Value);
+            Assert.AreEqual(pre6.Value, ((DoubleLinkBinSearchTreeNode)node6).Previous.Value);
+            Assert.AreEqual(4, ((DoubleLinkBinSearchTreeNode)node6).Previous.Value);
+            Assert.AreEqual(10, ((DoubleLinkBinSearchTreeNode)node4).Previous.Value);
+            Assert.AreEqual(pre4.Value, ((DoubleLinkBinSearchTreeNode)node4).Previous.Value);
         }
 
         [TestMethod]
@@ -256,12 +256,12 @@ namespace tests.SearchTrees
             var (pre97, node97, _, _) = t.DetailedSearch(97);
             
             
-            Assert.AreEqual(pre66.Value, ((DoubleLinkTreeNode)node66).Previous.Value);
-            Assert.AreEqual(45, ((DoubleLinkTreeNode)node66).Previous.Value);
-            Assert.AreEqual(pre56.Value, ((DoubleLinkTreeNode)node56).Previous.Value);
-            Assert.AreEqual(66, ((DoubleLinkTreeNode)node56).Previous.Value);
-            Assert.AreEqual(pre97.Value, ((DoubleLinkTreeNode)node97).Previous.Value);
-            Assert.AreEqual(66, ((DoubleLinkTreeNode)node97).Previous.Value);
+            Assert.AreEqual(pre66.Value, ((DoubleLinkBinSearchTreeNode)node66).Previous.Value);
+            Assert.AreEqual(45, ((DoubleLinkBinSearchTreeNode)node66).Previous.Value);
+            Assert.AreEqual(pre56.Value, ((DoubleLinkBinSearchTreeNode)node56).Previous.Value);
+            Assert.AreEqual(66, ((DoubleLinkBinSearchTreeNode)node56).Previous.Value);
+            Assert.AreEqual(pre97.Value, ((DoubleLinkBinSearchTreeNode)node97).Previous.Value);
+            Assert.AreEqual(66, ((DoubleLinkBinSearchTreeNode)node97).Previous.Value);
 
         }
 

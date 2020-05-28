@@ -1,13 +1,13 @@
 ﻿namespace AlgoDatDictionaries.Trees
 {
-    public class DoubleLinkTreeNode : TreeNode
+    public class DoubleLinkBinSearchTreeNode : BinSearchTreeNode
     {
-        public DoubleLinkTreeNode(int value) : base(value)
+        public DoubleLinkBinSearchTreeNode(int value) : base(value)
         {
         }
         
         
-        public DoubleLinkTreeNode Previous;
+        public DoubleLinkBinSearchTreeNode Previous;
         
         
         public bool IsRoot => Previous == null;

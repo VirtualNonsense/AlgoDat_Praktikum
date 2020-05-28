@@ -11,6 +11,13 @@ namespace AlgoDatDictionaries.Trees
         private readonly int _balanceThreshold = 2;
         internal bool EnableBalance { get; set; } = true;
 
+        private AvlBinSearchTreeNode AvlBinSearchRoot
+        {
+            get => (AvlBinSearchTreeNode) Root;
+            set => Root = value;
+        }
+        
+
 
         public AVLTree()
         {
@@ -42,7 +49,7 @@ namespace AlgoDatDictionaries.Trees
                 return result;
             
             // Get inserted node
-            var node = pre == null? Root : (dir == Direction.Left ? pre.Left : pre.Right);
+            var node = pre == null? AvlBinSearchRoot : (dir == Direction.Left ? pre.AvlBinSearchLeft : pre.AvlBinSearchRight);
             
             // Search vor unbalanced node
             int balance;
@@ -53,6 +60,11 @@ namespace AlgoDatDictionaries.Trees
             
             // Insert successful
             return true;
+        }
+
+        protected override BinSearchTreeNode ConstructTreeNode(int value)
+        {
+            return new AvlBinSearchTreeNode(value);
         }
 
         public override bool Delete(int value)
@@ -81,7 +93,7 @@ namespace AlgoDatDictionaries.Trees
             
         }
 
-        private bool Balance(TreeNode prePre, TreeNode pre, TreeNode node, Direction dir, int balance)
+        private bool Balance(AvlBinSearchTreeNode prePre, AvlBinSearchTreeNode pre, AvlBinSearchTreeNode node, Direction dir, int balance)
         {
             // Check if balancing is necessary
             if (Math.Abs(balance) < _balanceThreshold)
@@ -90,7 +102,7 @@ namespace AlgoDatDictionaries.Trees
             // Tilted to the left
             if (balance < 0)
             {
-                var subBalance = node.Left.Balance;
+                var subBalance = node.AvlBinSearchLeft.Balance;
                 
                 // SubNode neutral or tilted to the left
                 if (subBalance <= 0)
@@ -112,7 +124,7 @@ namespace AlgoDatDictionaries.Trees
             // Tilted to the right
             else if (balance > 0)
             {
-                var subBalance = node.Right.Balance;
+                var subBalance = node.AvlBinSearchRight.Balance;
                 // SubNode neutral or tilted to the right
                 if (subBalance >= 0)
                 {
@@ -132,28 +144,29 @@ namespace AlgoDatDictionaries.Trees
             return true;
         }
 
-        internal (TreeNode, TreeNode, TreeNode, Direction, int) GetUnbalancedNode(TreeNode prePre, 
-                                                                            TreeNode pre, 
-                                                                            TreeNode node,
+        internal (AvlBinSearchTreeNode, AvlBinSearchTreeNode, AvlBinSearchTreeNode, Direction, int) GetUnbalancedNode(
+                                                                            AvlBinSearchTreeNode prePre, 
+                                                                            AvlBinSearchTreeNode pre, 
+                                                                            AvlBinSearchTreeNode node,
                                                                             Direction dir)
         {
             if (node == null)
                 return (null, null, null, Direction.Unset, 0);
             
             // Check if children for threshold bevor going up the tree
-            if (node.Type != TreeNode.NodeType.Leaf)
+            if (node.Type != BinSearchTreeNode.NodeType.Leaf)
             {
-                if (node.Type == TreeNode.NodeType.Symmetric)
+                if (node.Type == BinSearchTreeNode.NodeType.Symmetric)
                 {
-                    var lB = node.Left.Balance;
-                    var rB = node.Right.Balance;
+                    var lB = node.AvlBinSearchLeft.Balance;
+                    var rB = node.AvlBinSearchRight.Balance;
                     if (Math.Abs(lB) > Math.Abs(rB) && Math.Abs(lB) > _balanceThreshold)
-                        return (pre, node, node.Left, Direction.Left, lB);
+                        return (pre, node, node.AvlBinSearchLeft, Direction.Left, lB);
                     if (Math.Abs(rB) > _balanceThreshold)
-                        return (pre, node, node.Right, Direction.Right, rB);
+                        return (pre, node, node.AvlBinSearchRight, Direction.Right, rB);
                 }
 
-                var c = node.Left ?? node.Right;
+                var c = node.AvlBinSearchLeft ?? node.AvlBinSearchRight;
                 dir = node.Left != null ? Direction.Left : Direction.Right; 
                 var b = c.Balance;
                 if (Math.Abs(b) > _balanceThreshold)
@@ -167,14 +180,18 @@ namespace AlgoDatDictionaries.Trees
                 var balance = node.Balance;
                 if (Math.Abs(balance) >= _balanceThreshold || pre == null)
                     return (prePre, pre, node, dir, balance);
-                (prePre, pre, node, dir, _) = EvenMoreDetailedSearch(pre.Value);
+                var (nPrePre, nPre, n, nDir, _) =EvenMoreDetailedSearch(pre.Value);
+                (prePre, pre, node, dir) = (nPrePre, nPre, n, nDir);
             }
         }
+        
+        
 
 
-        protected override string IntendPrint(TreeNode node, int intend, bool endOfLine = true, Direction dir = Direction.Unset)
+        protected override string IntendPrint(BinSearchTreeNode node, int intend, bool endOfLine = true, Direction dir = Direction.Unset)
         {
-            var b = node.Balance;
+            var n = (AvlBinSearchTreeNode) node;
+            var b = n.Balance;
             var bString = "0";
             if (b < 0)
                 bString = new string('-', Math.Abs(b));
@@ -183,5 +200,12 @@ namespace AlgoDatDictionaries.Trees
 
             return base.IntendPrint($"{node.Value}[{bString}]", intend, endOfLine, dir);
         }
+
+        internal new (AvlBinSearchTreeNode, AvlBinSearchTreeNode, AvlBinSearchTreeNode, Direction, bool) EvenMoreDetailedSearch(int value)
+        {
+            var (prePre, pre, node, dir, found) = base.EvenMoreDetailedSearch(value);
+            return ((AvlBinSearchTreeNode) prePre, (AvlBinSearchTreeNode) pre, (AvlBinSearchTreeNode) node, dir, found);
+        }
+        
     }
 }
