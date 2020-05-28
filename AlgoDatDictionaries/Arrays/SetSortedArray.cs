@@ -11,7 +11,7 @@ namespace AlgoDatDictionaries.Arrays
         {
             if (!Search(num))
             {
-                base.Insert(num);
+                return base.Insert(num);
             }
             return false;
         }
