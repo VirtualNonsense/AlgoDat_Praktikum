@@ -12,7 +12,7 @@ namespace tests.SearchTrees
         [TestMethod]
         public void MaxHeightTest_RootOnly()
         {
-            var t = new AvlBinSearchTreeNode(5);
+            var t = new AvlTreeNode(5);
             
             Assert.AreEqual(0, t.MaxHeight);
         }
@@ -20,7 +20,7 @@ namespace tests.SearchTrees
         [TestMethod]
         public void MaxHeightTest_RootLeft()
         {
-            var t = new AvlBinSearchTreeNode(5) {Left = new AvlBinSearchTreeNode(4)};
+            var t = new AvlTreeNode(5) {Left = new AvlTreeNode(4)};
             Assert.AreEqual(1, t.MaxHeight);
             
         }
@@ -28,7 +28,7 @@ namespace tests.SearchTrees
         [TestMethod]
         public void MaxHeightTest_RootRight()
         {
-            var t = new AvlBinSearchTreeNode(5) {Right = new AvlBinSearchTreeNode(6)};
+            var t = new AvlTreeNode(5) {Right = new AvlTreeNode(6)};
             Assert.AreEqual(1, t.MaxHeight);
             
         }
@@ -36,20 +36,20 @@ namespace tests.SearchTrees
         [TestMethod]
         public void MaxHeightTest_RootTwoChildren()
         {
-            var t = new AvlBinSearchTreeNode(5) {Left = new AvlBinSearchTreeNode(4), Right = new AvlBinSearchTreeNode(6)};
+            var t = new AvlTreeNode(5) {Left = new AvlTreeNode(4), Right = new AvlTreeNode(6)};
             Assert.AreEqual(1, t.MaxHeight);
         }
         
         [TestMethod]
         public void MaxHeightTest()
         {
-            var t = new AvlBinSearchTreeNode(5) {
-                Left = new AvlBinSearchTreeNode(3)
+            var t = new AvlTreeNode(5) {
+                Left = new AvlTreeNode(3)
                 {
-                    Left= new AvlBinSearchTreeNode(2),
-                    Right = new AvlBinSearchTreeNode(4)
+                    Left= new AvlTreeNode(2),
+                    Right = new AvlTreeNode(4)
                 }, 
-                Right = new AvlBinSearchTreeNode(6)
+                Right = new AvlTreeNode(6)
             };
             Assert.AreEqual(2, t.MaxHeight);
         }
@@ -59,7 +59,7 @@ namespace tests.SearchTrees
         public void BalanceTest_RootOnly()
         {
             
-            var t = new AvlBinSearchTreeNode(5);
+            var t = new AvlTreeNode(5);
             
             Assert.AreEqual(0, t.Balance);
         }
@@ -67,7 +67,7 @@ namespace tests.SearchTrees
         [TestMethod]
         public void BalanceTest_RootLeft()
         {
-            var t = new AvlBinSearchTreeNode(5) {Left = new AvlBinSearchTreeNode(4)};
+            var t = new AvlTreeNode(5) {Left = new AvlTreeNode(4)};
             Assert.AreEqual(-1, t.Balance);
             
         }
@@ -75,7 +75,7 @@ namespace tests.SearchTrees
         [TestMethod]
         public void BalanceTest_RootRight()
         {
-            var t = new AvlBinSearchTreeNode(5) {Right = new AvlBinSearchTreeNode(6)};
+            var t = new AvlTreeNode(5) {Right = new AvlTreeNode(6)};
             Assert.AreEqual(1, t.Balance);
             
         }
@@ -83,7 +83,7 @@ namespace tests.SearchTrees
         [TestMethod]
         public void BalanceTestTest_RootTwoChildren()
         {
-            var t = new AvlBinSearchTreeNode(5) {Left = new AvlBinSearchTreeNode(4), Right = new AvlBinSearchTreeNode(6)};
+            var t = new AvlTreeNode(5) {Left = new AvlTreeNode(4), Right = new AvlTreeNode(6)};
             Assert.AreEqual(0, t.Balance);
         }
         
@@ -91,13 +91,13 @@ namespace tests.SearchTrees
         [TestMethod]
         public void BalanceTest()
         {
-            var t = new AvlBinSearchTreeNode(5) {
-                Left = new AvlBinSearchTreeNode(3)
+            var t = new AvlTreeNode(5) {
+                Left = new AvlTreeNode(3)
                 {
-                    Left= new AvlBinSearchTreeNode(2),
-                    Right = new AvlBinSearchTreeNode(4)
+                    Left= new AvlTreeNode(2),
+                    Right = new AvlTreeNode(4)
                 }, 
-                Right = new AvlBinSearchTreeNode(6)
+                Right = new AvlTreeNode(6)
             };
             Assert.AreEqual(-1, t.Balance);
         }
@@ -105,20 +105,20 @@ namespace tests.SearchTrees
         [TestMethod]
         public void BalanceTest_ComplexTree()
         {
-            var t = new AvlBinSearchTreeNode(5) {
-                Left = new AvlBinSearchTreeNode(3)
+            var t = new AvlTreeNode(5) {
+                Left = new AvlTreeNode(3)
                 {
-                    Left= new AvlBinSearchTreeNode(1)
+                    Left= new AvlTreeNode(1)
                     {
-                        Left = new AvlBinSearchTreeNode(0)
+                        Left = new AvlTreeNode(0)
                     },
-                    Right = new AvlBinSearchTreeNode(4)
+                    Right = new AvlTreeNode(4)
                 }, 
-                Right = new AvlBinSearchTreeNode(6)
+                Right = new AvlTreeNode(6)
                 {
-                    Right = new AvlBinSearchTreeNode(10)
+                    Right = new AvlTreeNode(10)
                     {
-                        Left = new AvlBinSearchTreeNode(8)
+                        Left = new AvlTreeNode(8)
                     }
                     
                 }

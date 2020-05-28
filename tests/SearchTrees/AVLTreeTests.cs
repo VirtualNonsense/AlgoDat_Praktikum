@@ -493,7 +493,7 @@ namespace tests.SearchTrees
             
             // Using this method deliberately to test GetUnBalancedNode
             var (_, nPre) = t.Delete(pre, node, dir);
-            pre = (AvlBinSearchTreeNode) nPre;
+            pre = (AvlTreeNode) nPre;
 
             var (_, _, unbalanced, _, balance) =
                 t.GetUnbalancedNode(prePre, pre, node, dir);
@@ -535,7 +535,7 @@ namespace tests.SearchTrees
             // Action
             var (prePre, pre, node, dir, _) = t.EvenMoreDetailedSearch(67);
             var (_, nPre) = t.Delete(pre, node, dir);
-            pre = (AvlBinSearchTreeNode) nPre;
+            pre = (AvlTreeNode) nPre;
             var (_, _, unbalanced, _, balance) =
                 t.GetUnbalancedNode(prePre, pre, node, dir);
             Console.WriteLine("After delete 67");
@@ -568,7 +568,7 @@ namespace tests.SearchTrees
             // Action
             var (prePre, pre, node, dir, _) = t.EvenMoreDetailedSearch(67);
             var (_, nPre) = t.Delete(pre, node, dir);
-            pre = (AvlBinSearchTreeNode) nPre;
+            pre = (AvlTreeNode) nPre;
             var (_, _, unbalanced, _, balance) =
                 t.GetUnbalancedNode(prePre, pre, node, dir);
             Console.WriteLine("After delete 67");
@@ -595,12 +595,12 @@ namespace tests.SearchTrees
             t.Insert(20); // 0 
             t.Insert(12); // 0
             // Action
-            AvlBinSearchTreeNode prePre;
-            AvlBinSearchTreeNode pre;
+            AvlTreeNode prePre;
+            AvlTreeNode pre;
             BinSearchTree.Direction dir;
             (prePre, pre, _, dir, _) = t.EvenMoreDetailedSearch(2);
             t.Insert(pre, dir, 2);
-            var node = dir == BinSearchTree.Direction.Left ? pre.AvlBinSearchLeft : pre.AvlBinSearchRight;
+            var node = dir == BinSearchTree.Direction.Left ? pre.Left : pre.Right;
             (prePre, pre, node, _, _) = t.GetUnbalancedNode(prePre, pre, node, dir);
             t.Print();
 

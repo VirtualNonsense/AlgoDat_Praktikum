@@ -2,22 +2,22 @@
 
 namespace AlgoDatDictionaries.Trees
 {
-    public class AvlBinSearchTreeNode : BinSearchTreeNode
+    public class AvlTreeNode : BinSearchTreeNode
     {
-        public AvlBinSearchTreeNode(int value) : base(value)
+        public AvlTreeNode(int value) : base(value)
         {
         }
 
-        public AvlBinSearchTreeNode AvlBinSearchRight
+        public new AvlTreeNode Right
         {
-            get => (AvlBinSearchTreeNode) Right;
-            set => Right = value;
+            get => (AvlTreeNode) base.Right;
+            set => base.Right = value;
         }
         
-        public AvlBinSearchTreeNode AvlBinSearchLeft
+        public new AvlTreeNode Left
         {
-            get => (AvlBinSearchTreeNode) Left;
-            set => Left = value;
+            get => (AvlTreeNode) base.Left;
+            set => base.Left = value;
         }
         
         public int Balance
@@ -31,11 +31,11 @@ namespace AlgoDatDictionaries.Trees
                     case NodeType.OneChild:
                         if (Left != null)
                         {
-                            return -(1 + AvlBinSearchLeft.MaxHeight);
+                            return -(1 + Left.MaxHeight);
                         }
-                        return  1 + AvlBinSearchRight.MaxHeight;
+                        return  1 + Right.MaxHeight;
                     case NodeType.Symmetric:
-                        return AvlBinSearchRight.MaxHeight - AvlBinSearchLeft.MaxHeight;
+                        return Right.MaxHeight - Left.MaxHeight;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(Type), Type, null);
                 }
@@ -52,11 +52,11 @@ namespace AlgoDatDictionaries.Trees
                     case NodeType.Leaf:
                         return 0;
                     case NodeType.OneChild:
-                        var node = AvlBinSearchLeft ?? AvlBinSearchRight;
+                        var node = Left ?? Right;
                         return 1 + node.MaxHeight;
                     case NodeType.Symmetric:
-                        var leftHeight = AvlBinSearchLeft.MaxHeight;
-                        var rightHeight = AvlBinSearchRight.MaxHeight;
+                        var leftHeight = Left.MaxHeight;
+                        var rightHeight = Right.MaxHeight;
                         var max = (leftHeight > rightHeight) ? leftHeight : rightHeight;
                         return 1 + max;
                     default:
