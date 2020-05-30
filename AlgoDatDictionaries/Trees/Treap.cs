@@ -104,26 +104,66 @@ namespace AlgoDatDictionaries.Trees
             if(node.Type == BinSearchTreeNode.NodeType.Leaf)
                 return (preNode, node, dir);
 
-            // Case 2: swap node with its left successor if
-            else if(node.Type == BinSearchTreeNode.NodeType.OneChild && node.Left != null                               // it is the only successor 
-                    || node.Type == BinSearchTreeNode.NodeType.Symmetric && node.Left.Priority <= node.Right.Priority   // it has a lower priority than the right one
-                    )
+            // Case 2: node has one successor => swap node with it
+            else if (node.Type == BinSearchTreeNode.NodeType.OneChild)
             {
-                temporary = node.Left;
-                node.Left = node;
-                node = temporary;
+                if (node.Left == null)
+                {
+                    temporary = node.Right;
+                    temporary.Left = node.Left;
 
-                return DownHeap(node, node.Left, Direction.Left);
+                    node.Left = node.Right.Left;
+                    node.Right = node.Right.Right;
+
+                    temporary.Right = node;
+                    node = temporary;
+
+                    if (preNode != null)
+                    {
+                        if (dir == Direction.Left)
+                            preNode.Left = node;
+                        else
+                            preNode.Right = node;
+                    }
+
+                    return DownHeap(node, node.Right, Direction.Right);
+                }
+                else
+                {
+                    temporary = node.Left;
+                    temporary.Right = node.Right;
+
+                    node.Right = node.Left.Right;
+                    node.Left = node.Left.Left;
+
+                    temporary.Left = node;
+                    node = temporary;
+
+                    if (preNode != null)
+                    {
+                        if (dir == Direction.Left)
+                            preNode.Left = node;
+                        else
+                            preNode.Right = node;
+                    }
+
+                    return DownHeap(node, node.Left, Direction.Left);
+
+                }
+
             }
 
-            // Case 3: swap node with its right successor
+            // Case 3: node has two successors => swap node with the successor that has a smaller priority
             else
             {
-                temporary = node.Right;
-                node.Right = node;
-                node = temporary;
-
-                return DownHeap(node, node.Right, Direction.Right);
+                if (node.Left.Priority <= node.Right.Priority)
+                {
+                    throw new NotImplementedException();
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
             }
 
         }
