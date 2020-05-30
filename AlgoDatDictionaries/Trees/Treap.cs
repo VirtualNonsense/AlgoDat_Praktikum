@@ -18,8 +18,6 @@ namespace AlgoDatDictionaries.Trees
             var (prePre, pre, node, dir, found) = base.EvenMoreDetailedSearch(value);
             return ((TreapNode)prePre, (TreapNode)pre, (TreapNode)node, dir, found);
         }
-
-
         // Insert methods
 
         // Insert method for random priority
@@ -37,7 +35,7 @@ namespace AlgoDatDictionaries.Trees
                 return result;
 
             // Get inserted node
-            var node = pre == null ? Root : (dir == Direction.Left ? pre.Left : pre.Right);>
+            var node = pre == null ? Root : (dir == Direction.Left ? pre.Left : pre.Right);
 
             // Check Heap condition
             CheckHeap(value);
@@ -52,7 +50,7 @@ namespace AlgoDatDictionaries.Trees
         {
             var (prePre, pre, node, dir, _) = EvenMoreDetailedSearch(value);
 
-            if(pre.Priority > node.Priority)
+            if(pre !=null && pre.Priority > node.Priority)
             {
                 if (dir == Direction.Left)
                     TurnRight(prePre, pre, node, dir);
@@ -65,7 +63,7 @@ namespace AlgoDatDictionaries.Trees
 
         protected override BinSearchTreeNode ConstructTreeNode(int value)
         {
-            return new TreapNode(value, _random.Next());
+            return new TreapNode(value, _random.Next(1,101));
         }
 
 
