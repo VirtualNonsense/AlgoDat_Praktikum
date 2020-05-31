@@ -67,108 +67,44 @@ namespace AlgoDatDictionaries.Trees
         }
 
 
-        // Delete methods
-
         // Delete method
         public override bool Delete(int value)
         {
-            // Case 1: node with given value does not exist => nothing can be done
-            if (!Search(value))
-                return false;
+            //Rotate node to leaf
+            RotationHeap(value);
 
-            // Case 2: Node with given value exist 
-            // 1) Swap node with successor that has the lower priority until node is a leaf
-            // 2) Delete node
-            else
-            {
-                // 1)
-                // Search vor delete node and pre
-                var (_, pre, node, dir, _) = EvenMoreDetailedSearch(value);
-                
-                // DownHeap
-                var (deletePre, deleteNode, direction) = DownHeap(pre, node, dir);
-
-                // 2)
-                var (_, _) = Delete(deletePre, deleteNode, direction);
-                return true;
-            }
-
+            //Delete Node
+            var (prePre, pre, node, dir, _) = EvenMoreDetailedSearch(value);
+            var (result, newPre) = Delete(pre, node, dir);
+           
+             // Step out if
+            if (!result // Delete was unsuccessful
+                || Root == null)  // Tree is empty
+                return result;     
+            
+            // Delete Successful
+            return true;          
         }
 
-
-        public (TreapNode, TreapNode, Direction) DownHeap(TreapNode preNode, TreapNode node, Direction dir)
+        public void RotationHeap(int value)
         {
-            TreapNode temporary;
-
-            // Case 1: node is already a leaf => nothing needs to be done
-            if(node.Type == BinSearchTreeNode.NodeType.Leaf)
-                return (preNode, node, dir);
-
-            // Case 2: node has one successor => swap node with it
-            else if (node.Type == BinSearchTreeNode.NodeType.OneChild)
+            var (_, pre, node, _, _) = EvenMoreDetailedSearch(value);
+            if ((node.Type == BinSearchTreeNode.NodeType.OneChild && node.Left !=null)
+                ||(node.Type == BinSearchTreeNode.NodeType.Symmetric && node.Left.Priority <= node.Right.Priority))
             {
-                if (node.Left == null)
-                {
-                    temporary = node.Right;
-                    temporary.Left = node.Left;
-
-                    node.Left = node.Right.Left;
-                    node.Right = node.Right.Right;
-
-                    temporary.Right = node;
-                    node = temporary;
-
-                    if (preNode != null)
-                    {
-                        if (dir == Direction.Left)
-                            preNode.Left = node;
-                        else
-                            preNode.Right = node;
-                    }
-
-                    return DownHeap(node, node.Right, Direction.Right);
-                }
-                else
-                {
-                    temporary = node.Left;
-                    temporary.Right = node.Right;
-
-                    node.Right = node.Left.Right;
-                    node.Left = node.Left.Left;
-
-                    temporary.Left = node;
-                    node = temporary;
-
-                    if (preNode != null)
-                    {
-                        if (dir == Direction.Left)
-                            preNode.Left = node;
-                        else
-                            preNode.Right = node;
-                    }
-
-                    return DownHeap(node, node.Left, Direction.Left);
-
-                }
-
+                TurnRight(pre, node,node.Left, Direction.Left);
+                RotationHeap(value);
             }
 
-            // Case 3: node has two successors => swap node with the successor that has a smaller priority
-            else
+            else if ((node.Type == BinSearchTreeNode.NodeType.OneChild && node.Right != null)
+                || (node.Type == BinSearchTreeNode.NodeType.Symmetric && node.Left.Priority > node.Right.Priority))
             {
-                if (node.Left.Priority <= node.Right.Priority)
-                {
-                    throw new NotImplementedException();
-                }
-                else
-                {
-                    throw new NotImplementedException();
-                }
+                TurnLeft(pre, node, node.Right, Direction.Right);
+                RotationHeap(value);
             }
 
         }
-
-        
+       
         protected override string IntendPrint(BinSearchTreeNode node, int intend, bool endOfLine = true, Direction dir = Direction.Unset)
         {
             var n = (TreapNode) node;
