@@ -38,7 +38,7 @@ namespace AlgoDatDictionaries.Trees
             var node = pre == null ? Root : (dir == Direction.Left ? pre.Left : pre.Right);
 
             // Check Heap condition
-            CheckHeap(value);
+            CorrectHeap(value);
 
             // Insert successful
             return true;
