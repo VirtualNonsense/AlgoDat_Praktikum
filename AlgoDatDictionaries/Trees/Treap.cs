@@ -60,15 +60,15 @@ namespace AlgoDatDictionaries.Trees
             // Get inserted node
             var node = pre == null ? Root : (dir == Direction.Left ? pre.Left : pre.Right);
 
-            // Check Heap condition
-            CheckHeap(value);
+            // Correct Heap condition
+            CorrectHeap(value);
 
             // Insert successful
             return true;
         }
 
         // Recursive method that rotates the node until the heap condition is met
-        public void CheckHeap(int value)
+        public void CorrectHeap(int value)
         {
             var (prePre, pre, node, dir, _) = EvenMoreDetailedSearch(value);
 
@@ -79,7 +79,7 @@ namespace AlgoDatDictionaries.Trees
                 else
                     TurnLeft(prePre, pre, node, dir);
 
-                CheckHeap(value);
+                CorrectHeap(value);
             }     
         }
 
