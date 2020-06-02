@@ -40,7 +40,7 @@ namespace AlgoDatDictionaries.Trees
             var (prePre, pre, _, dir, _) = EvenMoreDetailedSearch(value);
             
             // Perform insert
-            var result = Insert(pre, dir, value);
+            var result = Insert(pre, dir, new AvlTreeNode(value));
             
             // Step out if
             if (!result // Insert was unsuccessful
@@ -62,10 +62,6 @@ namespace AlgoDatDictionaries.Trees
             return true;
         }
 
-        protected override BinSearchTreeNode ConstructTreeNode(int value)
-        {
-            return new AvlTreeNode(value);
-        }
 
         public override bool Delete(int value)
         {

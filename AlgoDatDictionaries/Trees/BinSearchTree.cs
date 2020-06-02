@@ -45,7 +45,7 @@ namespace AlgoDatDictionaries.Trees
         public virtual bool Insert(int value)
         {
             var (pre, _, dir, _) = DetailedSearch(value);
-            return Insert(pre, dir, value);
+            return Insert(pre, dir, new BinSearchTreeNode(value));
         }
 
         /// <summary>
@@ -127,36 +127,29 @@ namespace AlgoDatDictionaries.Trees
         /// </summary>
         /// <param name="pre">Predecessor| Node append new TreeNode on</param>
         /// <param name="dir">Direction| Side on which the new Node should be put</param>
-        /// <param name="value">new Value</param>
+        /// <param name="node"></param>
         /// <returns></returns>
-        internal virtual bool Insert(BinSearchTreeNode pre, Direction dir, int value)
+        internal virtual bool Insert(BinSearchTreeNode pre, Direction dir, BinSearchTreeNode node)
         {
             switch(dir)
             {
                 case Direction.Unset:
                     if (Root != null) return false;
-                    Root = ConstructTreeNode(value);
+                    Root = node;
                     break;
                 case Direction.Left:
                     if (pre.Left != null) return false;
-                    pre.Left = ConstructTreeNode(value);
+                    pre.Left = node;
                     break;
                 case Direction.Right:
                     if (pre.Right != null) return false;
-                    pre.Right = ConstructTreeNode(value);
+                    pre.Right = node;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dir), dir, null);
             }
             return true;
         }
-
-        protected virtual BinSearchTreeNode ConstructTreeNode(int value)
-        {
-            return new BinSearchTreeNode(value);
-        }
-        
-        
 
 
         /// <summary>

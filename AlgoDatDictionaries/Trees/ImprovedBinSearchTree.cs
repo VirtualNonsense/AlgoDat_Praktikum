@@ -6,9 +6,13 @@ namespace AlgoDatDictionaries.Trees
 {
     public class ImprovedBinSearchTree : BinSearchTree
     {
-        
-        
-        
+        public override bool Insert(int value)
+        {
+            var (pre, _, dir, _) = DetailedSearch(value);
+            return Insert(pre, dir, new DoubleLinkBinSearchTreeNode(value));
+        }
+
+
         // ###############################################
         // Private / Protected stuff
         // ###############################################
@@ -18,24 +22,24 @@ namespace AlgoDatDictionaries.Trees
         /// </summary>
         /// <param name="pre">Predecessor| Node append new TreeNode on</param>
         /// <param name="dir">Direction| Side on which the new Node should be put</param>
-        /// <param name="value">new Value</param>
+        /// <param name="node"></param>
         /// <returns></returns>
-        internal override bool Insert(BinSearchTreeNode pre, Direction dir, int value)
+        private bool Insert(BinSearchTreeNode pre, Direction dir, DoubleLinkBinSearchTreeNode node)
         {
             switch(dir)
             {
                 case Direction.Unset:
                     if (Root != null) return false;
-                    Root = new DoubleLinkBinSearchTreeNode(value);
+                    Root = node;
                     break;
                 case Direction.Left:
                     if (pre.Left != null) return false;
-                    pre.Left = new DoubleLinkBinSearchTreeNode(value);
+                    pre.Left = node;
                     ((DoubleLinkBinSearchTreeNode)pre.Left).Previous = (DoubleLinkBinSearchTreeNode) pre;
                     break;
                 case Direction.Right:
                     if (pre.Right != null) return false;
-                    pre.Right = new DoubleLinkBinSearchTreeNode(value);
+                    pre.Right = node;
                     ((DoubleLinkBinSearchTreeNode)pre.Right).Previous = (DoubleLinkBinSearchTreeNode) pre;
                     break;
                 default:
