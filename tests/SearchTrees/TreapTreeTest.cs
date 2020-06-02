@@ -81,5 +81,55 @@ namespace tests.SearchTrees
             //after delete
             t.Print();
         }
+        [TestMethod]
+        public void Deletepriotesttreevomscript()
+        {
+            var t = new Treap();
+            t.Insert(7, 6);
+            t.Insert(5, 9);
+            t.Insert(11, 10);
+            t.Insert(3, 11);
+            t.Insert(6, 13);
+            t.Insert(1, 18);
+            t.Insert(9, 12);
+            t.Insert(14, 14);
+            t.Insert(8, 15);
+            t.Insert(12, 15);
+            t.Insert(15, 17);
+
+            //before Delete
+            Console.WriteLine("Before Delete (7)");
+            t.Print();
+            t.Delete(7);
+
+            Console.WriteLine("After Delete (7)");
+            //after delete
+            t.Print();
+        }
+        [TestMethod]
+        public void insertpriotesttreevomscript()
+        {
+            var t = new Treap();
+            t.Insert(7, 6);
+            t.Insert(5, 9);
+            t.Insert(11, 10);
+            t.Insert(3, 11);
+            t.Insert(6, 13);
+            t.Insert(1, 18);
+            t.Insert(9, 12);
+            t.Insert(14, 14);
+            t.Insert(8, 15);
+            t.Insert(12, 15);
+            t.Insert(15, 17);
+            //befor insert
+            Console.WriteLine("Before Insert (13,7)");
+            t.Print();
+
+            //after
+            Console.WriteLine("After Insert (13,7)");
+            t.Insert(13, 7);
+            t.Print();
+        }
+
     }
 }
