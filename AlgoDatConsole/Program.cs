@@ -15,7 +15,7 @@ namespace AlgoDatConsole
             ConsoleKeyInfo input;
             ConsoleKeyInfo input2;
 
-            do // Outer Loop - Dictionary
+            while(true) // Outer Loop - Dictionary
             {
                 Console.Clear();
                 Menu.PrintBanner();
@@ -66,7 +66,18 @@ namespace AlgoDatConsole
                             if (input2.Key == ConsoleKey.S)
                             {
                                 Menu.PrintSearchSuggestions();
-                                int inputint = Convert.ToInt32(Console.ReadLine());
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                
                                 bool success=array.Search(inputint);
                                 if (success ==true)
                                 {
@@ -82,7 +93,17 @@ namespace AlgoDatConsole
                             {
                                 Menu.PrintInsertSuggestions();
                                 Console.WriteLine();
-                                int inputint = Convert.ToInt32(Console.ReadLine());
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
                                 bool success = array.Insert(inputint);
                                 if (success == true)
                                 {
@@ -97,7 +118,17 @@ namespace AlgoDatConsole
                             {
                                 Menu.PrintDeleteSuggestions();
                                 Console.WriteLine();
-                                int inputint = Convert.ToInt32(Console.ReadLine());
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
                                 bool success = array.Delete(inputint);
                                 if (success == true)
                                 {
@@ -167,7 +198,17 @@ namespace AlgoDatConsole
                             {
                                 Menu.PrintSearchSuggestions();
                                 Console.WriteLine();
-                                int inputint = Convert.ToInt32(Console.ReadLine());
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
                                 bool success = list.Search(inputint);
                                 if (success == true)
                                 {
@@ -183,7 +224,17 @@ namespace AlgoDatConsole
                             {
                                 Menu.PrintInsertSuggestions();
                                 Console.WriteLine();
-                                int inputint = Convert.ToInt32(Console.ReadLine());
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
                                 bool success = list.Insert(inputint);
                                 if (success == true)
                                 {
@@ -198,7 +249,17 @@ namespace AlgoDatConsole
                             {
                                 Menu.PrintDeleteSuggestions();
                                 Console.WriteLine();
-                                int inputint = Convert.ToInt32(Console.ReadLine());
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
                                 bool success = list.Delete(inputint);
                                 if (success == true)
                                 {
@@ -239,7 +300,17 @@ namespace AlgoDatConsole
                             {
                                 Menu.PrintSearchSuggestions();
                                 Console.WriteLine();
-                                int inputint = Convert.ToInt32(Console.ReadLine());
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
                                 bool success = bintree.Search(inputint);
                                 if (success == true)
                                 {
@@ -255,7 +326,17 @@ namespace AlgoDatConsole
                             {
                                 Menu.PrintInsertSuggestions();
                                 Console.WriteLine();
-                                int inputint = Convert.ToInt32(Console.ReadLine());
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
                                 bool success = bintree.Insert(inputint);
                                 if (success == true)
                                 {
@@ -270,7 +351,17 @@ namespace AlgoDatConsole
                             {
                                 Menu.PrintDeleteSuggestions();
                                 Console.WriteLine();
-                                int inputint = Convert.ToInt32(Console.ReadLine());
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
                                 bool success = bintree.Delete(inputint);
                                 if (success == true)
                                 {
@@ -309,7 +400,17 @@ namespace AlgoDatConsole
                         {
                             Menu.PrintSearchSuggestions();
                             Console.WriteLine();
-                            int inputint = Convert.ToInt32(Console.ReadLine());
+                            int inputint;
+                            try
+                            {
+                                inputint = Convert.ToInt32(Console.ReadLine());
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                Console.ReadKey();
+                                continue;
+                            }
                             bool success = avltree.Search(inputint);
                             if (success == true)
                             {
@@ -325,7 +426,17 @@ namespace AlgoDatConsole
                         {
                             Menu.PrintInsertSuggestions();
                             Console.WriteLine();
-                            int inputint = Convert.ToInt32(Console.ReadLine());
+                            int inputint;
+                            try
+                            {
+                                inputint = Convert.ToInt32(Console.ReadLine());
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                Console.ReadKey();
+                                continue;
+                            }
                             bool success = avltree.Insert(inputint);
                             if (success == true)
                             {
@@ -340,7 +451,17 @@ namespace AlgoDatConsole
                         {
                             Menu.PrintDeleteSuggestions();
                             Console.WriteLine();
-                            int inputint = Convert.ToInt32(Console.ReadLine());
+                            int inputint;
+                            try
+                            {
+                                inputint = Convert.ToInt32(Console.ReadLine());
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                Console.ReadKey();
+                                continue;
+                            }
                             bool success = avltree.Delete(inputint);
                             if (success == true)
                             {
@@ -366,7 +487,7 @@ namespace AlgoDatConsole
                 {
                     do // Inner Loop Treap
                     {
-
+                        //bei initialisierung inputint > trycatch block oben
                     } while (input.Key != ConsoleKey.Backspace);
                 }
                 if (input.Key == ConsoleKey.D6)
@@ -380,7 +501,7 @@ namespace AlgoDatConsole
 
                 //input = Console.ReadKey();
 
-            } while (input.Key != ConsoleKey.Escape);
+            }
 
            
         }
