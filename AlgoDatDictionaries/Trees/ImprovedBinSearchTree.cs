@@ -20,23 +20,23 @@ namespace AlgoDatDictionaries.Trees
         /// <param name="dir">Direction| Side on which the new Node should be put</param>
         /// <param name="value">new Value</param>
         /// <returns></returns>
-        internal override bool Insert(TreeNode pre, Direction dir, int value)
+        internal override bool Insert(BinSearchTreeNode pre, Direction dir, int value)
         {
             switch(dir)
             {
                 case Direction.Unset:
                     if (Root != null) return false;
-                    Root = new DoubleLinkTreeNode(value);
+                    Root = new DoubleLinkBinSearchTreeNode(value);
                     break;
                 case Direction.Left:
                     if (pre.Left != null) return false;
-                    pre.Left = new DoubleLinkTreeNode(value);
-                    ((DoubleLinkTreeNode)pre.Left).Previous = (DoubleLinkTreeNode) pre;
+                    pre.Left = new DoubleLinkBinSearchTreeNode(value);
+                    ((DoubleLinkBinSearchTreeNode)pre.Left).Previous = (DoubleLinkBinSearchTreeNode) pre;
                     break;
                 case Direction.Right:
                     if (pre.Right != null) return false;
-                    pre.Right = new DoubleLinkTreeNode(value);
-                    ((DoubleLinkTreeNode)pre.Right).Previous = (DoubleLinkTreeNode) pre;
+                    pre.Right = new DoubleLinkBinSearchTreeNode(value);
+                    ((DoubleLinkBinSearchTreeNode)pre.Right).Previous = (DoubleLinkBinSearchTreeNode) pre;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dir), dir, null);
@@ -51,11 +51,11 @@ namespace AlgoDatDictionaries.Trees
         /// <param name="a"></param>
         /// <param name="dir"></param>
         /// <returns></returns>
-        internal override (bool, TreeNode) Delete(TreeNode pre, TreeNode a, Direction dir)
+        internal override (bool, BinSearchTreeNode) Delete(BinSearchTreeNode pre, BinSearchTreeNode a, Direction dir)
         {
             if (a == null)
                 return (false, pre);
-            if (a.Type == TreeNode.NodeType.Symmetric)
+            if (a.Type == BinSearchTreeNode.NodeType.Symmetric)
                 return DelSymPred(a);
             
             var b = a.Left ?? a.Right;
@@ -64,7 +64,7 @@ namespace AlgoDatDictionaries.Trees
             {
                 Root = b;
                 if (b !=null)
-                    ((DoubleLinkTreeNode)Root).Previous = null;
+                    ((DoubleLinkBinSearchTreeNode)Root).Previous = null;
                 return (true, Root);
             }
 
@@ -72,13 +72,13 @@ namespace AlgoDatDictionaries.Trees
             {
                 pre.Left = b;
                 if (b !=null)
-                    ((DoubleLinkTreeNode)pre.Left).Previous = (DoubleLinkTreeNode)pre;
+                    ((DoubleLinkBinSearchTreeNode)pre.Left).Previous = (DoubleLinkBinSearchTreeNode)pre;
             }
             else
             {
                 pre.Right = b;
                 if (b !=null)
-                    ((DoubleLinkTreeNode)pre.Right).Previous = (DoubleLinkTreeNode)pre;
+                    ((DoubleLinkBinSearchTreeNode)pre.Right).Previous = (DoubleLinkBinSearchTreeNode)pre;
             }
             return (true, pre);
         }
@@ -90,10 +90,10 @@ namespace AlgoDatDictionaries.Trees
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        protected override (bool, TreeNode) DelSymPred(TreeNode node)
+        protected override (bool, BinSearchTreeNode) DelSymPred(BinSearchTreeNode node)
         {
             // get symmetric predecessor
-            var symPred = (DoubleLinkTreeNode)(MaxNode(node.Left)).Item2;
+            var symPred = (DoubleLinkBinSearchTreeNode)(MaxNode(node.Left)).Item2;
             
             // get node bevor symPred
             var preSymPre = symPred.Previous;
@@ -109,14 +109,14 @@ namespace AlgoDatDictionaries.Trees
                 // remove symPred
                 node.Left = node.Left.Left;
                 if (node.Left != null)
-                    ((DoubleLinkTreeNode)node.Left).Previous = (DoubleLinkTreeNode)node;
+                    ((DoubleLinkBinSearchTreeNode)node.Left).Previous = (DoubleLinkBinSearchTreeNode)node;
             }
             else
             {
                 // remove symPred
                 preSymPre.Right = symPred.Left;
                 if (preSymPre.Right != null)
-                    ((DoubleLinkTreeNode)preSymPre.Right).Previous = (DoubleLinkTreeNode)preSymPre.Right;
+                    ((DoubleLinkBinSearchTreeNode)preSymPre.Right).Previous = (DoubleLinkBinSearchTreeNode)preSymPre.Right;
             }
 
             node.Value = tmp;

@@ -12,6 +12,13 @@ namespace AlgoDatDictionaries.Trees
         private readonly int _balanceThreshold = 2;
         internal bool EnableBalance { get; set; } = true;
 
+        protected new AvlTreeNode Root
+        {
+            get => (AvlTreeNode) base.Root;
+            set => base.Root = value;
+        }
+        
+
 
         public AVLTree()
         {
@@ -56,6 +63,11 @@ namespace AlgoDatDictionaries.Trees
             return true;
         }
 
+        protected override BinSearchTreeNode ConstructTreeNode(int value)
+        {
+            return new AvlTreeNode(value);
+        }
+
         public override bool Delete(int value)
         {
             // Search vor insert node pre
@@ -82,7 +94,7 @@ namespace AlgoDatDictionaries.Trees
             
         }
 
-        private bool Balance(TreeNode prePre, TreeNode pre, TreeNode node, Direction dir, int balance)
+        private bool Balance(AvlTreeNode prePre, AvlTreeNode pre, AvlTreeNode node, Direction dir, int balance)
         {
             // Check if balancing is necessary
             if (Math.Abs(balance) < _balanceThreshold)
@@ -133,18 +145,19 @@ namespace AlgoDatDictionaries.Trees
             return true;
         }
 
-        internal (TreeNode, TreeNode, TreeNode, Direction, int) GetUnbalancedNode(TreeNode prePre, 
-                                                                            TreeNode pre, 
-                                                                            TreeNode node,
+        internal (AvlTreeNode, AvlTreeNode, AvlTreeNode, Direction, int) GetUnbalancedNode(
+                                                                            AvlTreeNode prePre, 
+                                                                            AvlTreeNode pre, 
+                                                                            AvlTreeNode node,
                                                                             Direction dir)
         {
             if (node == null)
                 return (null, null, null, Direction.Unset, 0);
             
             // Check if children for threshold bevor going up the tree
-            if (node.Type != TreeNode.NodeType.Leaf)
+            if (node.Type != BinSearchTreeNode.NodeType.Leaf)
             {
-                if (node.Type == TreeNode.NodeType.Symmetric)
+                if (node.Type == BinSearchTreeNode.NodeType.Symmetric)
                 {
                     var lB = node.Left.Balance;
                     var rB = node.Right.Balance;
@@ -168,14 +181,18 @@ namespace AlgoDatDictionaries.Trees
                 var balance = node.Balance;
                 if (Math.Abs(balance) >= _balanceThreshold || pre == null)
                     return (prePre, pre, node, dir, balance);
-                (prePre, pre, node, dir, _) = EvenMoreDetailedSearch(pre.Value);
+                var (nPrePre, nPre, n, nDir, _) =EvenMoreDetailedSearch(pre.Value);
+                (prePre, pre, node, dir) = (nPrePre, nPre, n, nDir);
             }
         }
+        
+        
 
 
-        protected override string IntendPrint(TreeNode node, int intend, bool endOfLine = true, Direction dir = Direction.Unset)
+        protected override string IntendPrint(BinSearchTreeNode node, int intend, bool endOfLine = true, Direction dir = Direction.Unset)
         {
-            var b = node.Balance;
+            var n = (AvlTreeNode) node;
+            var b = n.Balance;
             var bString = "0";
             if (b < 0)
                 bString = new string('-', Math.Abs(b));
@@ -184,5 +201,12 @@ namespace AlgoDatDictionaries.Trees
 
             return base.IntendPrint($"{node.Value}[{bString}]", intend, endOfLine, dir);
         }
+
+        internal new (AvlTreeNode, AvlTreeNode, AvlTreeNode, Direction, bool) EvenMoreDetailedSearch(int value)
+        {
+            var (prePre, pre, node, dir, found) = base.EvenMoreDetailedSearch(value);
+            return ((AvlTreeNode) prePre, (AvlTreeNode) pre, (AvlTreeNode) node, dir, found);
+        }
+        
     }
 }

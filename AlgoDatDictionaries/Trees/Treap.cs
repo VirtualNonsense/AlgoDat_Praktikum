@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace AlgoDatDictionaries.Trees
 {
-    class Treap : BinSearchTree
+    public class Treap : BinSearchTree
     {
+        private Random _random = new System.Random();
         public override bool Insert(int value)
         {
             throw new NotImplementedException();
@@ -14,23 +14,26 @@ namespace AlgoDatDictionaries.Trees
         {
             throw new NotImplementedException();
         }
+        
+        protected override BinSearchTreeNode ConstructTreeNode(int value)
+        {
+            return new TreapNode(value, _random.Next());
+        }
 
-        public void DownHeap(TreeNode node)
+        public void DownHeap(BinSearchTreeNode node)
         {
             throw new NotImplementedException();
         }
 
-        public void RotationHeap(TreeNode node)
+        public void RotationHeap(BinSearchTreeNode node)
         {
             throw new NotImplementedException();
         }
 
-        protected override string IntendPrint(TreeNode node, int intend, bool endOfLine = true, Direction dir = Direction.Unset)
+        protected override string IntendPrint(BinSearchTreeNode node, int intend, bool endOfLine = true, Direction dir = Direction.Unset)
         {
-            var value = node.Value;
-            var priority = node.priority;
-
-            return base.IntendPrint($"{value},{priority}", intend, endOfLine, dir);
+            var n = (TreapNode) node;
+            return base.IntendPrint($"{n.Value},{n.Priority}", intend, endOfLine, dir);
         }
     }
 }

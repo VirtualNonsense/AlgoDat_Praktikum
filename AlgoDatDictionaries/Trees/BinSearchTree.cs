@@ -10,7 +10,7 @@ namespace AlgoDatDictionaries.Trees
         private const char IntendString = '\t';
         private const string Eol = "\n";
         private const string Branch = "---";
-        protected TreeNode Root;
+        protected BinSearchTreeNode Root;
         
         public enum Direction
         {
@@ -82,7 +82,7 @@ namespace AlgoDatDictionaries.Trees
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Item1 PreNode, Item2 Node, Item3 Direction, Item4 found</returns>
-        internal (TreeNode, TreeNode, Direction, bool) DetailedSearch(int value)
+        internal (BinSearchTreeNode, BinSearchTreeNode, Direction, bool) DetailedSearch(int value)
         {
             var(_, pre, node, dir, found) = EvenMoreDetailedSearch(value);
             return (pre, node, dir, found);
@@ -98,11 +98,11 @@ namespace AlgoDatDictionaries.Trees
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Item1 PreNode, Item2 Node, Item3 Direction, Item4 found</returns>
-        internal (TreeNode, TreeNode, TreeNode, Direction, bool) EvenMoreDetailedSearch(int value)
+        internal (BinSearchTreeNode, BinSearchTreeNode, BinSearchTreeNode, Direction, bool) EvenMoreDetailedSearch(int value)
         {
-            TreeNode a = Root;
-            TreeNode pre = null;
-            TreeNode prePre = null;
+            BinSearchTreeNode a = Root;
+            BinSearchTreeNode pre = null;
+            BinSearchTreeNode prePre = null;
             Direction dir = Direction.Unset;
             while(a != null && a.Value != value)
             {
@@ -130,27 +130,34 @@ namespace AlgoDatDictionaries.Trees
         /// <param name="dir">Direction| Side on which the new Node should be put</param>
         /// <param name="value">new Value</param>
         /// <returns></returns>
-        internal virtual bool Insert(TreeNode pre, Direction dir, int value)
+        internal virtual bool Insert(BinSearchTreeNode pre, Direction dir, int value)
         {
             switch(dir)
             {
                 case Direction.Unset:
                     if (Root != null) return false;
-                    Root = new TreeNode(value);
+                    Root = ConstructTreeNode(value);
                     break;
                 case Direction.Left:
                     if (pre.Left != null) return false;
-                    pre.Left = new TreeNode(value);
+                    pre.Left = ConstructTreeNode(value);
                     break;
                 case Direction.Right:
                     if (pre.Right != null) return false;
-                    pre.Right = new TreeNode(value);
+                    pre.Right = ConstructTreeNode(value);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dir), dir, null);
             }
             return true;
         }
+
+        protected virtual BinSearchTreeNode ConstructTreeNode(int value)
+        {
+            return new BinSearchTreeNode(value);
+        }
+        
+        
 
 
         /// <summary>
@@ -160,7 +167,7 @@ namespace AlgoDatDictionaries.Trees
         /// <param name="preNode">Predecessor of Node</param>
         /// <param name="node"></param>
         /// <param name="dir"></param>
-        internal TreeNode TurnRight(TreeNode prePreNode, TreeNode preNode, TreeNode node, Direction dir)
+        internal BinSearchTreeNode TurnRight(BinSearchTreeNode prePreNode, BinSearchTreeNode preNode, BinSearchTreeNode node, Direction dir)
         {
             // node is root
             if(dir == Direction.Unset)
@@ -207,7 +214,7 @@ namespace AlgoDatDictionaries.Trees
         /// <param name="preNode">Predecessor of Node</param>
         /// <param name="node"></param>
         /// <param name="dir"></param>
-        internal TreeNode TurnLeft(TreeNode prePreNode, TreeNode preNode, TreeNode node, Direction dir)
+        internal BinSearchTreeNode TurnLeft(BinSearchTreeNode prePreNode, BinSearchTreeNode preNode, BinSearchTreeNode node, Direction dir)
         {
             // node is root
             if(dir == Direction.Unset)
@@ -254,11 +261,11 @@ namespace AlgoDatDictionaries.Trees
         /// <param name="a"></param>
         /// <param name="dir"></param>
         /// <returns></returns>
-        internal virtual (bool, TreeNode) Delete(TreeNode pre, TreeNode a, Direction dir)
+        internal virtual (bool, BinSearchTreeNode) Delete(BinSearchTreeNode pre, BinSearchTreeNode a, Direction dir)
         {
             if (a == null)
                 return (false, pre);
-            if (a.Type == TreeNode.NodeType.Symmetric)
+            if (a.Type == BinSearchTreeNode.NodeType.Symmetric)
                 return DelSymPred(a);
             
             var b = a.Left ?? a.Right;
@@ -301,7 +308,7 @@ namespace AlgoDatDictionaries.Trees
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        protected virtual (bool, TreeNode) DelSymPred(TreeNode node)
+        protected virtual (bool, BinSearchTreeNode) DelSymPred(BinSearchTreeNode node)
         {
 
             var (preSymPre, symPred) = MaxNode(node.Left);
@@ -339,11 +346,11 @@ namespace AlgoDatDictionaries.Trees
         /// <param name="intend">Initial intend</param>
         /// <param name="dir"></param>
         /// <returns></returns>
-        private string GeneratePrintString(TreeNode node, int intend, Direction dir)
+        private string GeneratePrintString(BinSearchTreeNode node, int intend, Direction dir)
         {
             switch (node.Type)
             {
-                case TreeNode.NodeType.Leaf:
+                case BinSearchTreeNode.NodeType.Leaf:
                     return IntendPrint(node, intend, dir: dir);
                 default:
                     var tmp = "";
@@ -365,7 +372,7 @@ namespace AlgoDatDictionaries.Trees
         /// <param name="endOfLine"></param>
         /// <param name="dir"></param>
         /// <returns></returns>
-        protected virtual string IntendPrint(TreeNode node, int intend, bool endOfLine = true, Direction dir = Direction.Unset)
+        protected virtual string IntendPrint(BinSearchTreeNode node, int intend, bool endOfLine = true, Direction dir = Direction.Unset)
         {
             return IntendPrint(node.Value.ToString(), intend, endOfLine, dir);
         }
@@ -393,9 +400,9 @@ namespace AlgoDatDictionaries.Trees
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        protected static (TreeNode, TreeNode) MaxNode(TreeNode n)
+        protected static (BinSearchTreeNode, BinSearchTreeNode) MaxNode(BinSearchTreeNode n)
         {
-            TreeNode pre = null;
+            BinSearchTreeNode pre = null;
             while (n.Right != null)
             {
                 pre = n;
@@ -409,9 +416,9 @@ namespace AlgoDatDictionaries.Trees
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        protected static (TreeNode, TreeNode) MinNode(TreeNode n)
+        protected static (BinSearchTreeNode, BinSearchTreeNode) MinNode(BinSearchTreeNode n)
         {
-            TreeNode pre = null;
+            BinSearchTreeNode pre = null;
             while (n.Left != null)
             {
                 pre = n;
