@@ -2,6 +2,8 @@
 using AlgoDatDictionaries.Lists;
 using AlgoDatDictionaries.Arrays;
 using AlgoDatDictionaries;
+using AlgoDatDictionaries.Trees;
+using System.Text;
 
 namespace AlgoDatConsole
 {
@@ -9,171 +11,499 @@ namespace AlgoDatConsole
     {
         static void Main(string[] args)
         {
-            // Sorry Leute ich will ne Ausgabe
-            // Können wir verschieben in die Tests
+            Console.OutputEncoding = Encoding.Unicode; 
+            ConsoleKeyInfo input;
+            ConsoleKeyInfo input2;
 
-            // Check MultiSetUnsorted
-            Console.WriteLine("MultiSetUnsorted:");
-            IDictionary msu = new MultiSetUnsortedLinkedList();
+            while(true) // Outer Loop - Dictionary
+            {
+                Console.Clear();
+                Menu.PrintBanner();
+                Menu.PrintDicSuggestions();
+                input = Console.ReadKey();
+                if (input.Key == ConsoleKey.D1)
+                {
+                    do // Array decision which dictionary
+                    {
+                        Console.Clear();
+                        Menu.Printbanner1();
+                        Menu.PrintTypeSuggestion();
+                        IDictionary array;
+                        ConsoleKeyInfo type = Console.ReadKey();
+                        if (type.Key == ConsoleKey.D1)
+                        {
+                            array = new MultiSetSortedArray ();
+                        }
+                        else if (type.Key == ConsoleKey.D2)
+                        {
+                            array = new MultiSetUnsortedArray();
+                        }
+                        else if (type.Key == ConsoleKey.D3)
+                        {
+                            array = new SetSortedArray(); 
+                        }
+                        else if(type.Key == ConsoleKey.D4)
+                        {
+                            array= new SetUnsortedArray();
+                        }
+                        else if ((type.Key == ConsoleKey.Backspace) || (type.Key == ConsoleKey.Escape))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine("input not accepted try again");
+                            Console.ReadKey();
+                            continue;
+                        }
+                            do // Inner Loop Array
+                            {
+                                Console.Clear();
+                                Menu.Printbanner1();
+                                Menu.PrintOperationSuggestions();
+                                input2 = Console.ReadKey();
+                            if (input2.Key == ConsoleKey.S)
+                            {
+                                Menu.PrintSearchSuggestions();
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                
+                                bool success=array.Search(inputint);
+                                if (success ==true)
+                                {
+                                    Console.WriteLine("found your integer!");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Did not find your integer");
+                                }
 
-            Console.Write(msu.Insert(400) + " ");
-            Console.Write(msu.Insert(1) + " ");
-            Console.Write(msu.Insert(50) + " ");
-            Console.Write(msu.Insert(2) + " ");
-            Console.Write(msu.Insert(869) + " ");
-            Console.Write(msu.Insert(400) + " ");
-            Console.WriteLine(msu.Insert(2));
+                            }
+                            else if (input2.Key == ConsoleKey.I)
+                            {
+                                Menu.PrintInsertSuggestions();
+                                Console.WriteLine();
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                bool success = array.Insert(inputint);
+                                if (success == true)
+                                {
+                                    Console.WriteLine("successfully inserted " + inputint);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("could not insert" +inputint);
+                                }
+                            }
+                            else if (input2.Key == ConsoleKey.D)
+                            {
+                                Menu.PrintDeleteSuggestions();
+                                Console.WriteLine();
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                bool success = array.Delete(inputint);
+                                if (success == true)
+                                {
+                                    Console.WriteLine("successfully deleted " + inputint);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("could not delete" + inputint);
+                                }
+                            }
+                            else if (input2.Key == ConsoleKey.P)
+                            {
+                                Menu.PrintPrintMessage();
+                                Console.WriteLine();
+                                array.Print();
+                            }
+                            Console.WriteLine("press any key to continue");
+                            Console.ReadKey();
+                        } while (input2.Key != ConsoleKey.Backspace);
 
-            msu.Print();
+                    }
+                    while (input.Key != ConsoleKey.Backspace);
+                }
+                if (input.Key == ConsoleKey.D2)
+                {
+                    do // Lists decision which dictionary
+                    {
+                        Console.Clear();
+                        Menu.Printbanner2();
+                        Menu.PrintTypeSuggestion();
+                        IDictionary list;
+                        ConsoleKeyInfo type = Console.ReadKey();
+                        if (type.Key == ConsoleKey.D1)
+                        {
+                            list = new MultiSetSortedLinkedList();
+                        }
+                        else if (type.Key == ConsoleKey.D2)
+                        {
+                            list = new MultiSetUnsortedLinkedList();
+                        }
+                        else if (type.Key == ConsoleKey.D3)
+                        {
+                            list = new SetSortedLinkedList();
+                        }
+                        else if (type.Key == ConsoleKey.D4)
+                        {
+                            list = new SetUnsortedLinkedList();
+                        }
+                        else if ((type.Key == ConsoleKey.Backspace) || (type.Key == ConsoleKey.Escape))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine("input not accepted try again");
+                            Console.ReadKey();
+                            continue;
+                        }
+                        do // Inner Loop Array
+                        {
+                            Console.Clear();
+                            Menu.Printbanner2();
+                            Menu.PrintOperationSuggestions();
+                            input2 = Console.ReadKey();
+                            if (input2.Key == ConsoleKey.S)
+                            {
+                                Menu.PrintSearchSuggestions();
+                                Console.WriteLine();
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                bool success = list.Search(inputint);
+                                if (success == true)
+                                {
+                                    Console.WriteLine("found your integer!");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Did not find your integer");
+                                }
 
-            Console.Write(msu.Search(400) + " ");
-            Console.Write(msu.Search(1) + " ");
-            Console.WriteLine(msu.Search(800));
+                            }
+                            else if (input2.Key == ConsoleKey.I)
+                            {
+                                Menu.PrintInsertSuggestions();
+                                Console.WriteLine();
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                bool success = list.Insert(inputint);
+                                if (success == true)
+                                {
+                                    Console.WriteLine("successfully inserted " + inputint);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("could not insert" + inputint);
+                                }
+                            }
+                            else if (input2.Key == ConsoleKey.D)
+                            {
+                                Menu.PrintDeleteSuggestions();
+                                Console.WriteLine();
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                bool success = list.Delete(inputint);
+                                if (success == true)
+                                {
+                                    Console.WriteLine("successfully deleted " + inputint);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("could not delete" + inputint);
+                                }
+                            }
+                            else if (input2.Key == ConsoleKey.P)
+                            {
+                                Console.WriteLine();
+                                Menu.PrintPrintMessage();
+                                Console.WriteLine();
+                                list.Print();
+                            }
+                            Console.WriteLine("press any key to continue");
+                            Console.ReadKey();
+                        } while (input2.Key != ConsoleKey.Backspace);
 
-            Console.Write(msu.Delete(400) + " ");
-            Console.Write(msu.Delete(400) + " ");
-            Console.Write(msu.Delete(1) + " ");
-            Console.WriteLine(msu.Delete(500) + " ");
+                    }
+                    while (input.Key != ConsoleKey.Backspace);
+                }
+                if (input.Key == ConsoleKey.D3)
+                {
+                    do // BinaryTree decision which dictionary
+                    {
+                        IDictionary bintree= new BinSearchTree();
+                        
+                        do // Inner Loop BinaryTree
+                        {
+                            Console.Clear();
+                            Menu.Printbanner3();
+                            Menu.PrintOperationSuggestions();
+                            input2 = Console.ReadKey();
+                            if (input2.Key == ConsoleKey.S)
+                            {
+                                Menu.PrintSearchSuggestions();
+                                Console.WriteLine();
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                bool success = bintree.Search(inputint);
+                                if (success == true)
+                                {
+                                    Console.WriteLine("found your integer!");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Did not find your integer");
+                                }
 
-            msu.Print();
-            Console.WriteLine();
+                            }
+                            else if (input2.Key == ConsoleKey.I)
+                            {
+                                Menu.PrintInsertSuggestions();
+                                Console.WriteLine();
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                bool success = bintree.Insert(inputint);
+                                if (success == true)
+                                {
+                                    Console.WriteLine("successfully inserted " + inputint);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("could not insert" + inputint);
+                                }
+                            }
+                            else if (input2.Key == ConsoleKey.D)
+                            {
+                                Menu.PrintDeleteSuggestions();
+                                Console.WriteLine();
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                bool success = bintree.Delete(inputint);
+                                if (success == true)
+                                {
+                                    Console.WriteLine("successfully deleted " + inputint);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("could not delete" + inputint);
+                                }
+                            }
+                            else if (input2.Key == ConsoleKey.P)
+                            {
+                                Console.WriteLine();
+                                Menu.PrintPrintMessage();
+                                Console.WriteLine();
+                                bintree.Print();
+                            }
+                            Console.WriteLine("press any key to continue");
+                            Console.ReadKey();
+                        } while (input2.Key != ConsoleKey.Backspace);
 
-            // Check MultiSetSorted
-            Console.WriteLine("MultiSetSorted:");
-            IDictionary mss = new MultiSetSortedLinkedList();
+                    }
+                    while (input.Key != ConsoleKey.Backspace);
+                }
+                if (input.Key == ConsoleKey.D4)
+                {
+                    IDictionary avltree = new AVLTree();
 
-            Console.Write(mss.Insert(400) + " ");
-            Console.Write(mss.Insert(2) + " ");
-            Console.Write(mss.Insert(50) + " ");
-            Console.Write(mss.Insert(1) + " ");
-            Console.Write(mss.Insert(869) + " ");
-            Console.Write(mss.Insert(400) + " ");
-            Console.WriteLine(mss.Insert(2));
+                    do // Inner Loop AVL
+                    {
+                        Console.Clear();
+                        Menu.Printbanner4();
+                        Menu.PrintOperationSuggestions();
+                        input2 = Console.ReadKey();
+                        if (input2.Key == ConsoleKey.S)
+                        {
+                            Menu.PrintSearchSuggestions();
+                            Console.WriteLine();
+                            int inputint;
+                            try
+                            {
+                                inputint = Convert.ToInt32(Console.ReadLine());
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                Console.ReadKey();
+                                continue;
+                            }
+                            bool success = avltree.Search(inputint);
+                            if (success == true)
+                            {
+                                Console.WriteLine("found your integer!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Did not find your integer");
+                            }
 
-            mss.Print();
+                        }
+                        else if (input2.Key == ConsoleKey.I)
+                        {
+                            Menu.PrintInsertSuggestions();
+                            Console.WriteLine();
+                            int inputint;
+                            try
+                            {
+                                inputint = Convert.ToInt32(Console.ReadLine());
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                Console.ReadKey();
+                                continue;
+                            }
+                            bool success = avltree.Insert(inputint);
+                            if (success == true)
+                            {
+                                Console.WriteLine("successfully inserted " + inputint);
+                            }
+                            else
+                            {
+                                Console.WriteLine("could not insert" + inputint);
+                            }
+                        }
+                        else if (input2.Key == ConsoleKey.D)
+                        {
+                            Menu.PrintDeleteSuggestions();
+                            Console.WriteLine();
+                            int inputint;
+                            try
+                            {
+                                inputint = Convert.ToInt32(Console.ReadLine());
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                Console.ReadKey();
+                                continue;
+                            }
+                            bool success = avltree.Delete(inputint);
+                            if (success == true)
+                            {
+                                Console.WriteLine("successfully deleted " + inputint);
+                            }
+                            else
+                            {
+                                Console.WriteLine("could not delete" + inputint);
+                            }
+                        }
+                        else if (input2.Key == ConsoleKey.P)
+                        {
+                            Console.WriteLine();
+                            Menu.PrintPrintMessage();
+                            Console.WriteLine();
+                            avltree.Print();
+                        }
+                        Console.WriteLine("press any key to continue");
+                        Console.ReadKey();
+                    } while (input2.Key != ConsoleKey.Backspace);
+                }
+                if (input.Key == ConsoleKey.D5)
+                {
+                    do // Inner Loop Treap
+                    {
+                        //bei initialisierung inputint > trycatch block oben
+                    } while (input.Key != ConsoleKey.Backspace);
+                }
+                if (input.Key == ConsoleKey.D6)
+                {
+                    do // Inner Loop Hash
+                    {
 
-            Console.Write(mss.Search(400) + " ");
-            Console.Write(mss.Search(1) + " ");
-            Console.Write(mss.Search(800) + " ");
-            Console.WriteLine(mss.Search(869));
-
-            Console.Write(mss.Delete(400) + " ");
-            Console.Write(mss.Delete(400) + " ");
-            Console.Write(mss.Delete(1) + " ");
-            Console.Write(mss.Delete(400) + " ");
-            Console.Write(mss.Delete(859) + " ");
-            Console.WriteLine(mss.Delete(500) + " ");
-
-            mss.Print();
-            Console.WriteLine();
-
-            // Check SetUnsorted
-            Console.WriteLine("SetUnsorted:");
-            IDictionary su = new SetUnsortedLinkedList();
-
-            Console.Write(su.Insert(400) + " ");
-            Console.Write(su.Insert(2) + " ");
-            Console.Write(su.Insert(50) + " ");
-            Console.Write(su.Insert(1) + " ");
-            Console.Write(su.Insert(869) + " ");
-            Console.Write(su.Insert(400) + " ");
-            Console.WriteLine(su.Insert(2));
-
-            su.Print();
-
-            Console.Write(su.Search(400) + " ");
-            Console.Write(su.Search(1) + " ");
-            Console.Write(su.Search(800) + " ");
-            Console.WriteLine(su.Search(869));
-
-            Console.Write(su.Delete(400) + " ");
-            Console.Write(su.Delete(400) + " ");
-            Console.Write(su.Delete(1) + " ");
-            Console.Write(su.Delete(400) + " ");
-            Console.Write(su.Delete(959) + " ");
-            Console.Write(su.Delete(500) + " ");
-            Console.WriteLine(su.Delete(869) + " ");
-
-            su.Print();
-            Console.WriteLine();
-
-            // Check SetUnsorted
-            Console.WriteLine("SetSorted:");
-            IDictionary ss = new SetSortedLinkedList();
-
-            Console.Write(ss.Insert(400) + " ");
-            Console.Write(ss.Insert(2) + " ");
-            Console.Write(ss.Insert(50) + " ");
-            Console.Write(ss.Insert(50) + " ");
-            Console.Write(ss.Insert(1) + " ");
-            Console.Write(ss.Insert(869) + " ");
-            Console.Write(ss.Insert(400) + " ");
-            Console.WriteLine(ss.Insert(2));
-
-            ss.Print();
-
-            Console.Write(ss.Search(400) + " ");
-            Console.Write(ss.Search(1) + " ");
-            Console.Write(ss.Search(800) + " ");
-            Console.WriteLine(ss.Search(869));
-
-            Console.Write(ss.Delete(400) + " ");
-            Console.Write(ss.Delete(400) + " ");
-            Console.Write(ss.Delete(1) + " ");
-            Console.Write(ss.Delete(400) + " ");
-            Console.Write(ss.Delete(959) + " ");
-            Console.Write(ss.Delete(500) + " ");
-            Console.WriteLine(ss.Delete(869) + " ");
-
-            ss.Print();
-            Console.WriteLine();
-
-            IDictionary dummy = new MultiSetSortedLinkedList();
-            dummy.Delete(5);
-            dummy.Print();
+                    } while (input.Key != ConsoleKey.Backspace);
+                }
 
 
-            ////bin zu dämlich für die unit tests
-            //int[] nums = { 1, 2, 3, 4, 4, 5, };
-            //MultiSetSortedLinkedList testlist = new MultiSetSortedLinkedList();
-            //foreach (int  item in nums)
-            //{
-            //    testlist.Insert(item);
-            //}
-            //testlist.Print();
+                //input = Console.ReadKey();
 
-            //Console.WriteLine("deleting root");
-            //testlist.Delete(1);
-            //testlist.Print();
+            }
 
-            //Console.WriteLine("deleting inbetween");
-            //testlist.Delete(4);
-
-            //testlist.Print();
-
-            //Console.WriteLine("deleting last");
-            //testlist.Delete(5);
-
-            //testlist.Print();
-
-            //SetUnSortedLinkedList setun = new SetUnSortedLinkedList();
-            //setun.Insert(100);
-
-            //setun.Print();
-
-            //IDictionary listone = new SetUnSortedLinkedList();
-            //listone.Insert(200);
-            //listone.Insert(100);
-            //listone.Insert(10);
-            //listone.Insert(99);
-            //listone.Insert(50);
-            //listone.Insert(20);
-
-            //listone.Print();
-
-            //listone.Insert(10);
-
-            //listone.Print();
+           
         }
     }
 }
