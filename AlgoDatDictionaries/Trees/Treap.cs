@@ -44,6 +44,28 @@ namespace AlgoDatDictionaries.Trees
             return true;
         }
 
+        public bool Insert(int value, int prio)
+        {
+            // Search vor insert node pre
+            var (prePre, pre, _, dir, _) = EvenMoreDetailedSearch(value);
+
+            // Perform insert
+            var result = Insert(pre, dir, new TreapNode(value, prio));
+
+            // Step out if
+            if (!result // Insert was unsuccessful
+                || dir == Direction.Unset) // Root was inserted 
+                return result;
+
+            // Get inserted node
+            var node = pre == null ? Root : (dir == Direction.Left ? pre.Left : pre.Right);
+
+            // Check Heap condition
+            CheckHeap(value);
+
+            // Insert successful
+            return true;
+        }
 
         // Recursive method that rotates the node until the heap condition is met
         public void CheckHeap(int value)
