@@ -27,7 +27,7 @@ namespace AlgoDatDictionaries.Trees
             var (prePre, pre, _, dir, _) = EvenMoreDetailedSearch(value);
 
             // Perform insert
-            var result = Insert(pre, dir, new TreapNode(value, _random.Next()));
+            var result = Insert(pre, dir, new TreapNode(value, _random.Next(1,101)));
 
             // Step out if
             if (!result // Insert was unsuccessful
