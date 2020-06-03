@@ -44,9 +44,9 @@ namespace tests.SearchTrees
         }
 
         [TestMethod]
-       
-            public void Rotationtest()
-           {
+
+        public void Rotationtest()
+        {
             var t = new Treap();
             t.Insert(10);
             t.Insert(1);
@@ -61,7 +61,7 @@ namespace tests.SearchTrees
             t.RotationHeap(4);
             t.Print();
 
-          }
+        }
 
         [TestMethod]
         public void Deletetestrotatetest()
@@ -131,5 +131,55 @@ namespace tests.SearchTrees
             t.Print();
         }
 
+        [TestMethod]
+        public void TestExercise7ab()
+        {
+            var t = new Treap();
+            t.Insert(8, 2);
+            t.Insert(9, 3);
+            t.Insert(2, 1);
+            t.Insert(5, 7);
+            t.Insert(3, 8);
+            t.Insert(1, 4);
+            t.Insert(4, 5);
+            t.Insert(6, 6);
+
+
+            // Insert (7,0)
+            Console.WriteLine("Before Insert of (7,0)");
+            t.Print();
+            Console.WriteLine();
+
+            t.Insert(7, 0);
+
+            Console.WriteLine("After Insert of (7,0)");
+            t.Print();
+            Console.WriteLine();
+
+
+            // Delete (8,2)
+            Console.WriteLine("Delete of (8,2)");
+            t.Delete(8);
+            t.Print();
+            Console.WriteLine();
+
+        }
+
+        [TestMethod]
+        public void TestExercise7c()
+        {
+            var t = new Treap();
+            t.Insert(7, 0);
+            t.Insert(9, 3);
+            t.Insert(2, 1);
+            t.Insert(5, 7);
+            t.Insert(3, 8);
+            t.Insert(1, 4);
+            t.Insert(4, 5);
+            t.Insert(6, 6);
+
+            t.Print();
+
+        }
     }
 }
