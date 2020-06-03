@@ -6,16 +6,18 @@ using System.Text;
 
 namespace AlgoDatDictionaries.Hash
 {
-    class HashTabSepChain : ISet
+    public class HashTabSepChain : ISet
     {
-        public int Hashfunc(int a)          // Fest???
+        static int k = 8;
+
+        public int Hashfunc(int a)          // Function can be different, change the k - maybe delete term before 'mod k'
         {
-            int b = (3 * a + 3) % 8;
+            int b = (3 * a + 3) % k;
             return b;
         }
 
-        ISet[] harray = new SetUnsortedLinkedList[8];
-        
+        ISet[] harray = new SetUnsortedLinkedList[k];
+            
         public bool Search(int value)
         {
             ISet temp = harray[Hashfunc(value)];
@@ -29,17 +31,45 @@ namespace AlgoDatDictionaries.Hash
 
         public bool Insert(int value)
         {
-            throw new NotImplementedException();
+            int place = Hashfunc(value);
+            
+            bool success = true;                    // for reading purposes
+
+            if (harray[place] == null)
+            {
+                SetUnsortedLinkedList begin = new SetUnsortedLinkedList();
+                success = begin.Insert(value);
+                harray[Hashfunc(value)] = begin;
+                return success;
+            }
+            success = harray[Hashfunc(value)].Insert(value);
+            return success;
         }
 
         public bool Delete(int value)
         {
-            throw new NotImplementedException();
+            int place = Hashfunc(value);
+
+            bool success = true;                                    // for reading purposes
+
+            success = harray[Hashfunc(value)].Delete(value);
+            return success;
         }
 
         public void Print()
-        {
-            throw new NotImplementedException();
+        {         
+           for (int i = 0; i < harray.Length; i++)
+           {
+                Console.Write($"{i}) ");
+                if (harray[i] == null)
+                {
+                    Console.WriteLine("Slot is empty");
+                }
+                else
+                {
+                    harray[i].Print();
+                }
+           }        
         }
     }
 }
