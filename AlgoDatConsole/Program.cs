@@ -14,6 +14,9 @@ namespace AlgoDatConsole
             Console.OutputEncoding = Encoding.Unicode; 
             ConsoleKeyInfo input;
             ConsoleKeyInfo input2;
+            ConsoleKeyInfo CaseInput;
+            ConsoleKeyInfo input3;
+            
 
             while(true) // Outer Loop - Dictionary
             {
@@ -485,10 +488,154 @@ namespace AlgoDatConsole
                 }
                 if (input.Key == ConsoleKey.D5)
                 {
+                    Treap treap = new Treap();
                     do // Inner Loop Treap
                     {
-                        //bei initialisierung inputint > trycatch block oben
-                    } while (input.Key != ConsoleKey.Backspace);
+                        Console.Clear();
+                        Menu.Printbanner5();
+                        Menu.PrintOperationSuggestions();
+                        input2 = Console.ReadKey();
+                        if (input2.Key == ConsoleKey.S)
+                        {
+                            Menu.PrintSearchSuggestions();
+                            Console.WriteLine();
+                            int inputint;
+                            try
+                            {
+                                inputint = Convert.ToInt32(Console.ReadLine());
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                Console.ReadKey();
+                                continue;
+                            }
+                            bool success = treap.Search(inputint);
+                            if (success == true)
+                            {
+                                Console.WriteLine("found your integer!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Did not find your integer");
+                            }
+
+                        }
+                        else if (input2.Key == ConsoleKey.I)
+                        {
+                            while (true) //1 rng , 2 own
+                            {
+                                Console.WriteLine();
+                                Console.WriteLine("Press 1 for random Priorities or 2 for own Priorities");
+                                CaseInput = Console.ReadKey();
+                                if (CaseInput.Key != ConsoleKey.D1 && CaseInput.Key != ConsoleKey.D2)
+                                {
+                                    Console.WriteLine("you did not press 1 or 2, press any key and try again");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                            while(true)
+                            {
+                                Console.Clear();
+                                Menu.Printbanner5();
+                                Menu.PrintInsertSuggestions();
+                                Console.WriteLine();
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+
+                                bool success = false;
+                                if (CaseInput.Key == ConsoleKey.D1)
+                                {
+                                    success = treap.Insert(inputint);
+                                }
+                                else
+                                {
+                                    int inputprio;
+                                    while (true)
+                                    {
+                                        Console.WriteLine("enter your priority as Integer: ");
+                                        try
+                                        {
+                                            inputprio = Convert.ToInt32(Console.ReadLine());
+                                        }
+                                        catch (Exception)
+                                        {
+                                            Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                            Console.ReadKey();
+                                            continue;
+                                        }
+                                        break;
+                                    }
+                                    success = treap.Insert(inputint, inputprio);
+
+                                }
+
+                                if (success == true)
+                                {
+                                    Console.WriteLine("successfully inserted " + inputint);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("could not insert" + inputint);
+                                }
+                                Console.WriteLine("press Backspace to escape loop");
+                                input3 = Console.ReadKey();
+                                if (input3.Key == ConsoleKey.Backspace)
+                                {
+                                    break;
+                                }
+                            } 
+                            
+                        }
+                        else if (input2.Key == ConsoleKey.D)
+                        {
+                            Menu.PrintDeleteSuggestions();
+                            Console.WriteLine();
+                            int inputint;
+                            try
+                            {
+                                inputint = Convert.ToInt32(Console.ReadLine());
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                Console.ReadKey();
+                                continue;
+                            }
+                            bool success = treap.Delete(inputint);
+                            if (success == true)
+                            {
+                                Console.WriteLine("successfully deleted " + inputint);
+                            }
+                            else
+                            {
+                                Console.WriteLine("could not delete" + inputint);
+                            }
+                        }
+                        else if (input2.Key == ConsoleKey.P)
+                        {
+                            Console.WriteLine();
+                            Menu.PrintPrintMessage();
+                            Console.WriteLine();
+                            treap.Print();
+                        }
+                        Console.WriteLine("press any key to continue");
+                        Console.ReadKey();
+                    } while (input2.Key != ConsoleKey.Backspace);
                 }
                 if (input.Key == ConsoleKey.D6)
                 {
