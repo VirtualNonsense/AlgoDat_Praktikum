@@ -10,6 +10,8 @@ namespace AlgoDatDictionaries.Hash
     public class HashTabSepChain : ISet
     {
         static int k = 8;
+        ISet[] harray = new SetUnsortedLinkedList[k];
+
 
         public int Hashfunc(int a)          // Function can be different, change the k - maybe delete term before 'mod k'
         {
@@ -17,7 +19,7 @@ namespace AlgoDatDictionaries.Hash
             return b;
         }
 
-        ISet[] harray = new SetUnsortedLinkedList[k];
+        
             
         public bool Search(int value)
         {

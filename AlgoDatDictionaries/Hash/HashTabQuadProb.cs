@@ -8,6 +8,15 @@ namespace AlgoDatDictionaries.Hash
     public class HashTabQuadProb : ISet
     {
         static int k = 1;
+        int[] arr = new int[4 * k + 3];
+        
+        public HashTabQuadProb()
+        {
+            for (int index = 0; index < arr.Length; index++) //setting all array values to -1
+            {
+                arr[index] = -1;
+            }
+        }
 
         public int HashfuncPos(int a, int tries) 
         { 
@@ -20,7 +29,7 @@ namespace AlgoDatDictionaries.Hash
             return ((a - tries * tries) % (4 * k + 3) + (4* k +3))%(4*k+3); //avoiding negative
         }
 
-        int[] arr = new int[4 * k + 3];
+        
 
         public bool Search(int value)
         {
@@ -30,31 +39,33 @@ namespace AlgoDatDictionaries.Hash
         private (bool, int) search(int value)
         {
             int tries = 0;
-            int place = HashfuncPos(value, tries);
             double max = (4 * k + 3) / 2; //Math.Floor in ugly
             int thinker = -1;
-            int hashfuncpos;
+            int hashfuncpos = HashfuncPos(value, tries);
+            int hashfuncneg = HashfuncNeg(value, tries);
 
             while (tries <= Math.Floor(max))          
             {
-                if (arr[place] == value)
+                if (arr[hashfuncpos] == value)
                 {
-                    return (true, place);
+                    return (true, hashfuncpos);
                 }
-                if (arr[place] == 0 && thinker == -1)
+                if (arr[hashfuncneg] == value)
                 {
-                    thinker = place;
+                    return (true, hashfuncneg);
+                }
+                if (arr[hashfuncpos] == -1 && thinker == -1)
+                {
+                    thinker = hashfuncpos;
+                }
+
+                if (arr[hashfuncneg] == -1 && thinker == -1)
+                {
+                    thinker = hashfuncneg;
                 }
                 tries++;
                 hashfuncpos = HashfuncPos(value, tries);
-                if (arr[hashfuncpos] == 0)
-                {
-                    place = hashfuncpos;
-                }
-                else
-                {
-                    place = HashfuncNeg(value, tries);
-                }
+                hashfuncneg = HashfuncNeg(value, tries);
             }
 
             if (thinker != -1)
@@ -84,7 +95,7 @@ namespace AlgoDatDictionaries.Hash
 
             if(findtup.Item1 == true)
             {
-                arr[findtup.Item2] = 0;                             // Zero-Problem
+                arr[findtup.Item2] = -1;                             // Zero-Problem
                 return true;
             }
 
@@ -96,7 +107,7 @@ namespace AlgoDatDictionaries.Hash
             for (int i = 0; i < arr.Length; i++)
             {
                 Console.Write($"{i}) ");
-                if (arr[i] == 0)                                    // Zero-Problem
+                if (arr[i] == -1)                                    // Zero-Problem
                 {
                     Console.WriteLine("Slot is empty");
                 }
