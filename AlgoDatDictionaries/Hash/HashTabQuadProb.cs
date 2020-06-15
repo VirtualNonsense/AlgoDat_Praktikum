@@ -9,9 +9,15 @@ namespace AlgoDatDictionaries.Hash
     {
         static int k = 1;
 
-        public int Hashfunc(int a, int tries)
+        public int HashfuncPos(int a, int tries) 
         { 
             return (a + tries*tries) % (4 * k + 3);
+            
+        }
+
+        public int HashfuncNeg(int a, int tries)
+        {
+            return ((a - tries * tries) % (4 * k + 3) + (4* k +3))%(4*k+3); //avoiding negative
         }
 
         int[] arr = new int[4 * k + 3];
@@ -24,11 +30,12 @@ namespace AlgoDatDictionaries.Hash
         private (bool, int) search(int value)
         {
             int tries = 0;
-            int place = Hashfunc(value, tries);
-            double max = (4 * k + 3) / 2;
+            int place = HashfuncPos(value, tries);
+            double max = (4 * k + 3) / 2; //Math.Floor in ugly
             int thinker = -1;
+            int hashfuncpos;
 
-            while (tries <= Math.Floor(max))             // Not quite sure if 'Floor' is allowed => Please check in "Algo-Skript"
+            while (tries <= Math.Floor(max))          
             {
                 if (arr[place] == value)
                 {
@@ -39,7 +46,15 @@ namespace AlgoDatDictionaries.Hash
                     thinker = place;
                 }
                 tries++;
-                place = Hashfunc(value, tries);
+                hashfuncpos = HashfuncPos(value, tries);
+                if (arr[hashfuncpos] == 0)
+                {
+                    place = hashfuncpos;
+                }
+                else
+                {
+                    place = HashfuncNeg(value, tries);
+                }
             }
 
             if (thinker != -1)
@@ -67,7 +82,7 @@ namespace AlgoDatDictionaries.Hash
         {
             (bool, int) findtup = search(value);
 
-            if (findtup.Item1 == true)
+            if(findtup.Item1 == true)
             {
                 arr[findtup.Item2] = 0;                             // Zero-Problem
                 return true;
