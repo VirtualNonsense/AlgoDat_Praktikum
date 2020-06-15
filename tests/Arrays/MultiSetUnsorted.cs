@@ -24,6 +24,7 @@ namespace Tests.Arrays
             array.Insert(3);
             array.Insert(4);
             array.Insert(3);
+            array.Insert(0);
             array.Insert(2);
             Assert.IsTrue(array.Search(7));
             Assert.IsTrue(array.Search(6));
@@ -31,6 +32,7 @@ namespace Tests.Arrays
             Assert.IsTrue(array.Search(4));
             Assert.IsTrue(array.Search(3));
             Assert.IsTrue(array.Search(2));
+            Assert.IsTrue(array.Search(0));
             Assert.IsFalse(array.Search(5));
         }
 

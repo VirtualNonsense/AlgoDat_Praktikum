@@ -6,6 +6,7 @@ namespace Tests.Arrays
     [TestClass]
     public class SetUnsorted
     {
+
         [TestMethod]
         public void InsetTest()
         {
@@ -24,12 +25,14 @@ namespace Tests.Arrays
             set.Insert(4);
             set.Insert(3);
             set.Insert(2);
+            set.Insert(0);
             Assert.IsTrue(set.Search(7));
             Assert.IsTrue(set.Search(6));
             Assert.IsTrue(set.Search(3));
             Assert.IsTrue(set.Search(4));
             Assert.IsTrue(set.Search(3));
             Assert.IsTrue(set.Search(2));
+            Assert.IsTrue(set.Search(0));
             Assert.IsFalse(set.Search(5));
         }
 

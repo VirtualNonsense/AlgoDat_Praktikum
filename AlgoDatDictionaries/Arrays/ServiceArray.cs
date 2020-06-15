@@ -8,8 +8,17 @@ namespace AlgoDatDictionaries.Arrays
 {
     public abstract class ServiceArray
     {
-        protected int[] array = new int[100];
-           
+        protected int[] array;
+
+
+        public ServiceArray(int size = 100)
+        {
+            array = new int[size];
+            for(int index = 0; index < array.Length; index++)
+            {
+                array[index] = -1;
+            }
+        }
         // idee: int length =0; //bei insert ==> ++       bei delete ==> --
         
         // protected int GetLastIndex(int[] array)
@@ -19,7 +28,7 @@ namespace AlgoDatDictionaries.Arrays
         //     return currentIndex-1;    //current index is not a number -> -1
         // }
 
-        protected int Length { get; set; } = -1; // Default value -1
+        protected int Length { get; set; } = -1; // Default value -1, length of cells with data
         
         public void Print()
         {
@@ -45,7 +54,7 @@ namespace AlgoDatDictionaries.Arrays
             if (Search(num))    //checking if number is in array
             {
                 int index = search(num).Item1;    //get the position 
-                array[index] = 0;    //delete the number and move all consecutive elements
+                array[index] = -1;    //delete the number and move all consecutive elements
                 for (int i = index; i <= Length +1; i++)
                 {
                     array[i] = array[i + 1];

@@ -26,6 +26,7 @@ namespace Tests.Arrays
             testarray.Insert(7);
             testarray.Insert(7);
             testarray.Insert(1);
+            testarray.Insert(0);
             testarray.Print();
             
         }
@@ -40,12 +41,14 @@ namespace Tests.Arrays
             set.Insert(4);
             set.Insert(3);
             set.Insert(2);
+            set.Insert(0);
             Assert.IsTrue(set.Search(7));
             Assert.IsTrue(set.Search(6));
             Assert.IsTrue(set.Search(3));
             Assert.IsTrue(set.Search(4));
             Assert.IsTrue(set.Search(3));
             Assert.IsTrue(set.Search(2));
+            Assert.IsTrue(set.Search(0));
             Assert.IsFalse(set.Search(5));
             set.Print();
         }
