@@ -96,6 +96,10 @@ namespace Tests.Hash
             a.Delete(21);
             
             Assert.IsTrue(a.Search(28));
+            a.Insert(14);
+            a.Insert(21);
+            Assert.IsFalse(a.Insert(28));
+            Assert.IsTrue(a.Search(28));
             a.Print();
         }
 
