@@ -113,6 +113,14 @@ namespace AlgoDatConsole
             Console.WriteLine("Press 4 for Set unsorted");
             Console.WriteLine();
         }
+
+        public static void PrintHashType()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Press 1 for QuadProb");
+            Console.WriteLine("Press 2 for SepChain");
+            Console.WriteLine();
+        }
         public static void PrintOperationSuggestions()
         {
             Console.WriteLine();

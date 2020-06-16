@@ -4,6 +4,7 @@ using AlgoDatDictionaries.Arrays;
 using AlgoDatDictionaries;
 using AlgoDatDictionaries.Trees;
 using System.Text;
+using AlgoDatDictionaries.Hash;
 
 namespace AlgoDatConsole
 {
@@ -641,6 +642,123 @@ namespace AlgoDatConsole
                 {
                     do // Inner Loop Hash
                     {
+                        Console.Clear();
+                        Menu.Printbanner6();
+                        Menu.PrintHashType();
+                        IDictionary hashstuff;
+                        ConsoleKeyInfo type = Console.ReadKey();
+                        if (type.Key == ConsoleKey.D1)
+                        {
+                            hashstuff = new HashTabQuadProb();
+                        }
+                        else if (type.Key == ConsoleKey.D2)
+                        {
+                            hashstuff = new HashTabSepChain();
+                        }
+                        else if(type.Key == ConsoleKey.Backspace)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Input not accepted");
+                            Console.WriteLine("Press any key to try again");
+                            Console.ReadKey();
+                            continue;
+                        }
+                        do
+                        {
+                            Console.Clear();
+                            Menu.Printbanner6();
+                            Menu.PrintOperationSuggestions();
+                            input2 = Console.ReadKey();
+                            if (input2.Key == ConsoleKey.S)
+                            {
+                                Menu.PrintSearchSuggestions();
+                                Console.WriteLine();
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                bool success = hashstuff.Search(inputint);
+                                if (success == true)
+                                {
+                                    Console.WriteLine("found your integer!");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Did not find your integer");
+                                }
+
+                            }
+                            else if (input2.Key == ConsoleKey.I)
+                            {
+                                Menu.PrintInsertSuggestions();
+                                Console.WriteLine();
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                bool success = hashstuff.Insert(inputint);
+                                if (success == true)
+                                {
+                                    Console.WriteLine("successfully inserted " + inputint);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("could not insert" + inputint);
+                                }
+                            }
+                            else if (input2.Key == ConsoleKey.D)
+                            {
+                                Menu.PrintDeleteSuggestions();
+                                Console.WriteLine();
+                                int inputint;
+                                try
+                                {
+                                    inputint = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Input is not an Integer, press any key and repeat");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                bool success = hashstuff.Delete(inputint);
+                                if (success == true)
+                                {
+                                    Console.WriteLine("successfully deleted " + inputint);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("could not delete" + inputint);
+                                }
+                            }
+                            else if (input2.Key == ConsoleKey.P)
+                            {
+                                Console.WriteLine();
+                                Menu.PrintPrintMessage();
+                                Console.WriteLine();
+                                hashstuff.Print();
+                            }
+                            Console.WriteLine();
+                            Console.ReadKey();
+                        } while (input2.Key != ConsoleKey.Backspace);
+                        ////
 
                     } while (input.Key != ConsoleKey.Backspace);
                 }
