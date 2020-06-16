@@ -82,6 +82,23 @@ namespace Tests.Hash
             a.Print();
         }
 
+        [TestMethod]
+        public void SearchAfterDelete()
+        {
+            HashTabQuadProb a = new HashTabQuadProb();
+            a.Insert(7);
+            a.Insert(14);
+            a.Insert(21);
+            a.Insert(28);
+
+            a.Delete(7);
+            a.Delete(14);
+            a.Delete(21);
+            
+            Assert.IsTrue(a.Search(28));
+            a.Print();
+        }
+
 
 
     }

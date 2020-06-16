@@ -59,7 +59,7 @@ namespace AlgoDatDictionaries.Hash
                     thinker = hashfuncpos;
                 }
 
-                if (arr[hashfuncneg] == -1 && thinker == -1)
+                else if (arr[hashfuncneg] == -1 && thinker == -1)
                 {
                     thinker = hashfuncneg;
                 }
