@@ -133,15 +133,23 @@ namespace AlgoDatConsole
                                     Console.ReadKey();
                                     continue;
                                 }
-                                bool success = array.Delete(inputint);
-                                if (success == true)
+                                try
                                 {
-                                    Console.WriteLine("successfully deleted " + inputint);
+                                    bool success = array.Delete(inputint);
+                                    if (success == true)
+                                    {
+                                        Console.WriteLine("successfully deleted " + inputint);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("could not delete" + inputint);
+                                    }
                                 }
-                                else
+                                catch (Exception)
                                 {
-                                    Console.WriteLine("could not delete" + inputint);
+                                    Console.WriteLine("Array Empty");
                                 }
+                                
                             }
                             else if (input2.Key == ConsoleKey.P)
                             {
@@ -386,7 +394,8 @@ namespace AlgoDatConsole
                             Console.WriteLine("press any key to continue");
                             Console.ReadKey();
                         } while (input2.Key != ConsoleKey.Backspace);
-
+                        Console.WriteLine("if you want to go back, press Backspace");
+                        input = Console.ReadKey();
                     }
                     while (input.Key != ConsoleKey.Backspace);
                 }
