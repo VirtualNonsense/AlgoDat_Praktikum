@@ -99,6 +99,21 @@ namespace Tests.Hash
             a.Print();
         }
 
+        [TestMethod]
+        public void BlockedCells()
+        {
+            HashTabQuadProb a = new HashTabQuadProb();
+            Assert.IsTrue(a.Insert(7));
+            Assert.IsTrue(a.Insert(14));
+            Assert.IsTrue(a.Insert(21));
+            Assert.IsTrue(a.Delete(7));
+            Assert.IsTrue(a.Delete(21));
+            Assert.IsFalse(a.Insert(14));
+            Assert.IsTrue(a.Insert(21));
+            Assert.IsTrue(a.Insert(7));
+            a.Print();
+        }
+
 
 
     }
