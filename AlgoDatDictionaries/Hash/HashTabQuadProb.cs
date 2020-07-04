@@ -18,13 +18,13 @@ namespace AlgoDatDictionaries.Hash
             }
         }
 
-        public int HashfuncPos(int a, int tries) 
+        private int HashfuncPos(int a, int tries) 
         { 
             return (a + tries*tries) % (4 * k + 3);
             
         }
 
-        public int HashfuncNeg(int a, int tries)
+        private int HashfuncNeg(int a, int tries)
         {
             return ((a - tries * tries) % (4 * k + 3) + (4* k +3))%(4*k+3); //avoiding negative
         }
@@ -35,42 +35,41 @@ namespace AlgoDatDictionaries.Hash
         {
             return search(value).Item1;
         }
+        
+        
+       
 
         private (bool, int) search(int value)
         {
+            
             int tries = 0;
-            double max = (4 * k + 3) / 2; //Math.Floor in ugly
-            int thinker = -1;
-            int hashfuncpos = HashfuncPos(value, tries);
-            int hashfuncneg = HashfuncNeg(value, tries);
+            double max = (4 * k + 3) / 2; 
 
-            while (tries <= Math.Floor(max))          
+            while (tries <= Math.Floor(max))
             {
-                if (arr[hashfuncpos] == value)
+                var hashfuncpos = HashfuncPos(value, tries);
+                var hashfuncneg = HashfuncNeg(value, tries);
+                if (arr[hashfuncpos] == value)    //checking if calculated position contains value
                 {
                     return (true, hashfuncpos);
                 }
+
                 if (arr[hashfuncneg] == value)
                 {
                     return (true, hashfuncneg);
                 }
-                if (arr[hashfuncpos] == -1 && thinker == -1)
+
+                if (arr[hashfuncpos] == -1) //if -1 is found, no cell before could contain value, so it's not in array
                 {
-                    thinker = hashfuncpos;
+                    return (false, hashfuncpos); //returning the empty position for runtime optimization
                 }
 
-                else if (arr[hashfuncneg] == -1 && thinker == -1)
+                if (arr[hashfuncneg] == -1)
                 {
-                    thinker = hashfuncneg;
+                    return (false, hashfuncneg);
                 }
+
                 tries++;
-                hashfuncpos = HashfuncPos(value, tries);
-                hashfuncneg = HashfuncNeg(value, tries);
-            }
-
-            if (thinker != -1)
-            {
-                return (false, thinker);
             }
 
             return (false, -1);                 // Instead of -1 "thinker" possible
@@ -93,9 +92,9 @@ namespace AlgoDatDictionaries.Hash
         {
             (bool, int) findtup = search(value);
 
-            if(findtup.Item1 == true)
+            if(findtup.Item1)
             {
-                arr[findtup.Item2] = -1;                             // Zero-Problem
+                arr[findtup.Item2] = -2;                             // delete item and set cell to used (-2)
                 return true;
             }
 
@@ -107,13 +106,17 @@ namespace AlgoDatDictionaries.Hash
             for (int i = 0; i < arr.Length; i++)
             {
                 Console.Write($"{i}) ");
-                if (arr[i] == -1)                                    // Zero-Problem
+                switch (arr[i])
                 {
-                    Console.WriteLine("Slot is empty");
-                }
-                else
-                {
-                    Console.WriteLine($"{arr[i]} ");
+                    case -1:
+                        Console.WriteLine("Slot is empty");
+                        break;
+                    case -2:
+                        Console.WriteLine("Slot is empty, but blocked");
+                        break;
+                    default:
+                        Console.WriteLine($"{arr[i]} ");
+                        break;
                 }
             }
         }
