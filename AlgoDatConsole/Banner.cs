@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AlgoDatConsole
 {
-    class Menu
+    class Banner
     {
         public static void PrintBanner()
         {
