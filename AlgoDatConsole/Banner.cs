@@ -11,11 +11,11 @@ namespace AlgoDatConsole
         public static string AppBanner()
         {
             var s =   @"  _____  _      _   _                        _" + "\n" +
-                            @" |  __ \(_)    | | (_)                      (_)          " + "\n" +
-                            @" | |  | |_  ___| |_ _  ___  _ __   __ _ _ __ _  ___  ___ " + "\n" +
-                            @" | |  | | |/ __| __| |/ _ \| '_ \ / _` | '__| |/ _ \/ __|" + "\n" +
-                            @" | |__| | | (__| |_| | (_) | | | | (_| | |  | |  __/\__ \" + "\n" +
-                            @" |_____/|_|\___|\__|_|\___/|_| |_|\__,_|_|  |_|\___||___/";
+                      @" |  __ \(_)    | | (_)                      (_)          " + "\n" +
+                      @" | |  | |_  ___| |_ _  ___  _ __   __ _ _ __ _  ___  ___ " + "\n" +
+                      @" | |  | | |/ __| __| |/ _ \| '_ \ / _` | '__| |/ _ \/ __|" + "\n" +
+                      @" | |__| | | (__| |_| | (_) | | | | (_| | |  | |  __/\__ \" + "\n" +
+                      @" |_____/|_|\___|\__|_|\___/|_| |_|\__,_|_|  |_|\___||___/";
             return s;
         }
         
@@ -24,80 +24,149 @@ namespace AlgoDatConsole
             Console.WriteLine(AppBanner());
         }
 
+        public static string ArrayBanner()
+        {
+            var s = @"     /\                         " + "\n" +
+                    @"    /  \   _ __ _ __ __ _ _   _ " + "\n" +
+                    @"   / /\ \ | '__| '__/ _` | | | |" + "\n" +
+                    @"  / ____ \| |  | | | (_| | |_| |" + "\n" +
+                    @" /_/    \_\_|  |_|  \__,_|\__, |" + "\n" +
+                    @"                           __/ |" + "\n" +
+                    @"                          |___/ " + "\n";
+            return s;
+        }
         public static void Printbanner1()
         {
-            Console.WriteLine();
-            Console.WriteLine(@"                                ");
-            Console.WriteLine(@"     /\                         ");
-            Console.WriteLine(@"    /  \   _ __ _ __ __ _ _   _ ");
-            Console.WriteLine(@"   / /\ \ | '__| '__/ _` | | | |");
-            Console.WriteLine(@"  / ____ \| |  | | | (_| | |_| |");
-            Console.WriteLine(@" /_/    \_\_|  |_|  \__,_|\__, |");
-            Console.WriteLine(@"                           __/ |");
-            Console.WriteLine(@"                          |___/ ");
-            Console.WriteLine();
+            Console.WriteLine(ArrayBanner());
         }
 
+        public static string ListBanner()
+        {
+            var s = @"  _      _       _            _ _      _     _   " + "\n" +
+                    @" | |    (_)     | |          | | |    (_)   | |  " + "\n" +
+                    @" | |     _ _ __ | | _____  __| | |     _ ___| |_ " + "\n" +
+                    @" | |    | | '_ \| |/ / _ \/ _` | |    | / __| __|" + "\n" +
+                    @" | |____| | | | |   <  __/ (_| | |____| \__ \ |_ " + "\n" +
+                    @" |______|_|_| |_|_|\_\___|\__,_|______|_|___/\__|" + "\n";
+
+            return s;
+        }
         public static void Printbanner2()
         {
-            Console.WriteLine();
-            Console.WriteLine(@"  _      _     _       ");
-            Console.WriteLine(@" | |    (_)   | |      ");
-            Console.WriteLine(@" | |     _ ___| |_ ___ ");
-            Console.WriteLine(@" | |    | / __| __/ __|");
-            Console.WriteLine(@" | |____| \__ \ |_\__ \");
-            Console.WriteLine(@" |______|_|___/\__|___/");
-            Console.WriteLine();
+            Console.WriteLine(ListBanner());
+        }
+
+        public static string BinTreeBanner()
+        {
+            var s = @"  ____  _                     _______            " + "\n" +
+                    @" |  _ \(_)                   |__   __|           " + "\n" +
+                    @" | |_) |_ _ __   __ _ _ __ _   _| |_ __ ___  ___ " + "\n" +
+                    @" |  _ <| | '_ \ / _` | '__| | | | | '__/ _ \/ _ \" + "\n" +
+                    @" | |_) | | | | | (_| | |  | |_| | | | |  __/  __/" + "\n" +
+                    @" |____/|_|_| |_|\__,_|_|   \__, |_|_|  \___|\___|" + "\n" +
+                    @"                            __/ |                " + "\n" +
+                    @"                           |___/                 " + "\n";
+            return s;
         }
         public static void Printbanner3()
         {
-            Console.WriteLine();
-            Console.WriteLine(@"  ____  _                     _______            ");
-            Console.WriteLine(@" |  _ \(_)                   |__   __|           ");
-            Console.WriteLine(@" | |_) |_ _ __   __ _ _ __ _   _| |_ __ ___  ___ ");
-            Console.WriteLine(@" |  _ <| | '_ \ / _` | '__| | | | | '__/ _ \/ _ \");
-            Console.WriteLine(@" | |_) | | | | | (_| | |  | |_| | | | |  __/  __/");
-            Console.WriteLine(@" |____/|_|_| |_|\__,_|_|   \__, |_|_|  \___|\___|");
-            Console.WriteLine(@"                            __/ |                ");
-            Console.WriteLine(@"                           |___/                 ");
-            Console.WriteLine();
+            Console.WriteLine(BinTreeBanner());
+        }
+
+        public static string AVLBanner()
+        {
+            var s = @"      __      ___   _______            " + "\n" +
+                    @"     /\ \    / / | |__   __|           " + "\n" +
+                    @"    /  \ \  / /| |    | |_ __ ___  ___ " + "\n" +
+                    @"   / /\ \ \/ / | |    | | '__/ _ \/ _ \" + "\n" +
+                    @"  / ____ \  /  | |____| | | |  __/  __/" + "\n" +
+                    @" /_/    \_\/   |______|_|_|  \___|\___|" + "\n";
+            return s;
         }
         public static void Printbanner4()
         {
-            Console.WriteLine();
-            Console.WriteLine(@"      __      ___   _______            ");
-            Console.WriteLine(@"     /\ \    / / | |__   __|           ");
-            Console.WriteLine(@"    /  \ \  / /| |    | |_ __ ___  ___ ");
-            Console.WriteLine(@"   / /\ \ \/ / | |    | | '__/ _ \/ _ \");
-            Console.WriteLine(@"  / ____ \  /  | |____| | | |  __/  __/");
-            Console.WriteLine(@" /_/    \_\/   |______|_|_|  \___|\___|");
-            Console.WriteLine();
+            Console.WriteLine(AVLBanner());
+        }
+
+        public static string TreapBanner()
+        {
+            var s = @"  _______                   " + "\n" +
+                    @" |__   __|                  " + "\n" +
+                    @"    | |_ __ ___  __ _ _ __  " + "\n" +
+                    @"    | | '__/ _ \/ _` | '_ \ " + "\n" +
+                    @"    | | | |  __/ (_| | |_) |" + "\n" +
+                    @"    |_|_|  \___|\__,_| .__/ " + "\n" +
+                    @"                     | |    " + "\n" +
+                    @"                     |_|    " + "\n";
+            return s;
         }
         public static void Printbanner5()
         {
-            Console.WriteLine();
-            Console.WriteLine(@"  _______                   ");
-            Console.WriteLine(@" |__   __|                  ");
-            Console.WriteLine(@"    | |_ __ ___  __ _ _ __  ");
-            Console.WriteLine(@"    | | '__/ _ \/ _` | '_ \ ");
-            Console.WriteLine(@"    | | | |  __/ (_| | |_) |");
-            Console.WriteLine(@"    |_|_|  \___|\__,_| .__/ ");
-            Console.WriteLine(@"                     | |    ");
-            Console.WriteLine(@"                     |_|    ");
-            Console.WriteLine();
+            Console.WriteLine(TreapBanner());
+        }
+
+        public static string HashBanner()
+        {
+            var s = @"  _    _           _     " + "\n" +
+                    @" | |  | |         | |    " + "\n" +
+                    @" | |__| | __ _ ___| |__  " + "\n" +
+                    @" |  __  |/ _` / __| '_ \ " + "\n" +
+                    @" | |  | | (_| \__ \ | | |" + "\n" +
+                    @" |_|  |_|\__,_|___/_| |_|" + "\n";
+            return s;
+
         }
         public static void Printbanner6()
         {
-            Console.WriteLine();
-            Console.WriteLine(@"  _    _           _     ");
-            Console.WriteLine(@" | |  | |         | |    ");
-            Console.WriteLine(@" | |__| | __ _ ___| |__  ");
-            Console.WriteLine(@" |  __  |/ _` / __| '_ \ ");
-            Console.WriteLine(@" | |  | | (_| \__ \ | | |");
-            Console.WriteLine(@" |_|  |_|\__,_|___/_| |_|");
-            Console.WriteLine();
+            Console.WriteLine(HashBanner());
             
         }
+
+        public static string MultisetBanner()
+        {
+            var s = @"  __  __       _ _   _          _   " + "\n" +
+                    @" |  \/  |     | | | (_)        | |  " + "\n" +
+                    @" | \  / |_   _| | |_ _ ___  ___| |_ " + "\n" +
+                    @" | |\/| | | | | | __| / __|/ _ \ __|" + "\n" +
+                    @" | |  | | |_| | | |_| \__ \  __/ |_ " + "\n" +
+                    @" |_|  |_|\__,_|_|\__|_|___/\___|\__|" + "\n";
+            return s;
+        }
+
+        public static string MultisetsortedBanner()
+        {
+            var s = @"  __  __       _ _   _          _    _____            _           _ " + "\n" +
+                    @" |  \/  |     | | | (_)        | |  / ____|          | |         | |" + "\n" +
+                    @" | \  / |_   _| | |_ _ ___  ___| |_| (___   ___  _ __| |_ ___  __| |" + "\n" +
+                    @" | |\/| | | | | | __| / __|/ _ \ __|\___ \ / _ \| '__| __/ _ \/ _` |" + "\n" +
+                    @" | |  | | |_| | | |_| \__ \  __/ |_ ____) | (_) | |  | ||  __/ (_| |" + "\n" +
+                    @" |_|  |_|\__,_|_|\__|_|___/\___|\__|_____/ \___/|_|   \__\___|\__,_|" + "\n";
+            return s;
+        }
+
+        public static string SetBanner()
+        {
+            var s = @"   _____      _   " + "\n" +
+                    @"  / ____|    | |  " + "\n" +
+                    @" | (___   ___| |_ " + "\n" +
+                    @"  \___ \ / _ \ __|" + "\n" +
+                    @"  ____) |  __/ |_ " + "\n" +
+                    @" |_____/ \___|\__|" + "\n";
+            return s;
+        }
+
+        public static string SetsortedBanner()
+        {
+            var s = @"   _____      _    _____            _           _ " + "\n" +
+                    @"  / ____|    | |  / ____|          | |         | |" + "\n" +
+                    @" | (___   ___| |_| (___   ___  _ __| |_ ___  __| |" + "\n" +
+                    @"  \___ \ / _ \ __|\___ \ / _ \| '__| __/ _ \/ _` |" + "\n" +
+                    @"  ____) |  __/ |_ ____) | (_) | |  | ||  __/ (_| |" + "\n" +
+                    @" |_____/ \___|\__|_____/ \___/|_|   \__\___|\__,_|" + "\n";
+            return s;
+        }
+
+
         public static void PrintDicSuggestions()
         {
             Console.WriteLine("Press 1 for Array program");
