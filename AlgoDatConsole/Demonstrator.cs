@@ -304,24 +304,16 @@ namespace AlgoDatConsole
                     _machine.Trigger(tmp, tmp != MenuTrigger.Back);
                     break;
                 case MenuState.Delete:
-                    DeleteItems(_instance, "############################################################\n" + 
-                                           "# Delete\n" + 
-                                           "############################################################");
+                    DeleteItems(_instance,Banner.DeleteBanner());
                     return;
                 case MenuState.Insert:
-                    AddItems(_instance, "############################################################\n" + 
-                                        "# Insert\n" + 
-                                        "############################################################");
+                    AddItems(_instance, Banner.InsertBanner());
                     return;
                 case MenuState.Search:
-                    Search(_instance, "############################################################\n" + 
-                                      "# Search\n" + 
-                                      "############################################################");
+                    Search(_instance, Banner.SearchBanner());
                     return;
                 case MenuState.Print:
-                    Print(_instance, "############################################################\n" + 
-                                     "# Print\n" + 
-                                     "############################################################");
+                    Print(_instance, Banner.PrintBannerstr());
                     return;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(s), s, null);
