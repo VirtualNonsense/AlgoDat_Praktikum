@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -74,6 +74,14 @@ namespace AlgoDatConsole
             {
                 _observer[0].OnCompleted();
             }
+        }
+
+        public IEnumerable<(T,S)> GetAvailableTransitions()
+        {
+            var t = from tr in _permittedTransitions
+                where Equals(tr.Item2, _currentState)
+                select (tr.Item1, tr.Item3);
+            return t;
         }
 
         internal bool IsSubscriber(IObserver<S> observer)
