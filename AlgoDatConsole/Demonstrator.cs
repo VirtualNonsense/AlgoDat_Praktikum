@@ -427,6 +427,12 @@ namespace AlgoDatConsole
                     case Control.Down:
                         selectionIndex = (selectionIndex + 1) % trans.Count;
                         break;
+                    case Control.Escape:
+                        var temp = from tr in trans
+                            where tr.Item1 == MenuTrigger.Back
+                            select tr;
+                        if (!temp.Any()) break;
+                        return MenuTrigger.Back;
                 }
 
             } while (input != Control.Enter && input != Control.Escape);
