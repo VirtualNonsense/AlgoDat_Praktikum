@@ -182,103 +182,143 @@ namespace AlgoDatConsole
                 case MenuState.Exit:
                     break;
                 case MenuState.InterfaceSelection:
-                    _machine.Trigger(GetStateTransition(null));
+                    _machine.Trigger(GetStateTransition("############################################################\n" + 
+                                                       "# INTERFACESELECTION\n" + 
+                                                       "############################################################"));
                     break;
                 case MenuState.MultiSet:
-                    _machine.Trigger(GetStateTransition(null));
+                    _machine.Trigger(GetStateTransition("############################################################\n" + 
+                                                        "# MultiSet\n" + 
+                                                        "############################################################"));
                     break;
                 case MenuState.MultiSetSorted:
-                    _machine.Trigger(GetStateTransition(null));
+                    _machine.Trigger(GetStateTransition("############################################################\n" + 
+                                                        "# MultiSetSorted\n" + 
+                                                        "############################################################"));
                     break;
                 case MenuState.Set:
-                    _machine.Trigger(GetStateTransition(null));
+                    _machine.Trigger(GetStateTransition("############################################################\n" + 
+                                                        "# Set\n" + 
+                                                        "############################################################"));
                     break;
                 case MenuState.SetSorted:
-                    _machine.Trigger(GetStateTransition(null));
+                    _machine.Trigger(GetStateTransition("############################################################\n" + 
+                                                        "# SetSorted\n" + 
+                                                        "############################################################"));
                     break;
                 case MenuState.MultiSetSortedArray:
                     _instance = _lastState==s? (MultiSetSortedArray)_instance : new MultiSetSortedArray();
                     _lastState = s;
-                    tmp = GetStateTransition(null);
+                    tmp = GetStateTransition("############################################################\n" + 
+                                             "# MultiSetSortedArray\n" + 
+                                             "############################################################");
                     _machine.Trigger(tmp, tmp != MenuTrigger.Back);
                     break;
                 case MenuState.MultiSetUnsortedArray:
                     _instance = _lastState==s? (MultiSetUnsortedArray)_instance : new MultiSetUnsortedArray();
                     _lastState = s;
-                    tmp = GetStateTransition(null);
+                    tmp = GetStateTransition("############################################################\n" + 
+                                             "# MultiSetUnsortedArray\n" + 
+                                             "############################################################");
                     _machine.Trigger(tmp, tmp != MenuTrigger.Back);
                     break;
                 case MenuState.SetSortedArray:
                     _instance = _lastState==s? (SetSortedArray)_instance : new SetSortedArray();
                     _lastState = s;
-                    tmp = GetStateTransition(null);
+                    tmp = GetStateTransition("############################################################\n" + 
+                                             "# SetSortedArray\n" + 
+                                             "############################################################");
                     _machine.Trigger(tmp, tmp != MenuTrigger.Back);
                     break;
                 case MenuState.SetUnsortedArray:
                     _instance = _lastState==s? (SetUnsortedArray)_instance : new SetUnsortedArray();
                     _lastState = s;
-                    tmp = GetStateTransition(null);
+                    tmp = GetStateTransition("############################################################\n" + 
+                                             "# SetUnsortedArray\n" + 
+                                             "############################################################");
                     _machine.Trigger(tmp, tmp != MenuTrigger.Back);
                     break;
                 case MenuState.HashTabQuadProb:
                     _instance = _lastState==s? (HashTabQuadProb)_instance : new HashTabQuadProb();
                     _lastState = s;
-                    tmp = GetStateTransition(null);
+                    tmp = GetStateTransition("############################################################\n" + 
+                                             "# HashTabQuadProb\n" + 
+                                             "############################################################");
                     _machine.Trigger(tmp, tmp != MenuTrigger.Back);
                     break;
                 case MenuState.HashTabSepChain:
                     _instance = _lastState==s? (HashTabSepChain)_instance : new HashTabSepChain();
                     _lastState = s;
-                    tmp = GetStateTransition(null);
+                    tmp = GetStateTransition("############################################################\n" + 
+                                             "# HashTabSepChain\n" + 
+                                             "############################################################");
                     _machine.Trigger(tmp, tmp != MenuTrigger.Back);
                     break;
                 case MenuState.MultiSetSortedLinkedList:
                     _instance = _lastState==s? (MultiSetSortedLinkedList)_instance : new MultiSetSortedLinkedList();
                     _lastState = s;
-                    tmp = GetStateTransition(null);
+                    tmp = GetStateTransition("############################################################\n" + 
+                                             "# MultiSetSortedLinkedList\n" + 
+                                             "############################################################");
                     _machine.Trigger(tmp, tmp != MenuTrigger.Back);
                     break;
                 case MenuState.MultiSetUnsortedLinkedList:
                     _instance = _lastState==s? (MultiSetUnsortedLinkedList)_instance : new MultiSetUnsortedLinkedList();
                     _lastState = s;
-                    tmp = GetStateTransition(null);
+                    tmp = GetStateTransition("############################################################\n" + 
+                                             "# MultiSetUnsortedLinkedList\n" + 
+                                             "############################################################");
                     _machine.Trigger(tmp, tmp != MenuTrigger.Back);
                     break;
                 case MenuState.SetSortedLinkedList:
                     _instance = _lastState==s? (SetSortedLinkedList)_instance : new SetSortedLinkedList();
                     _lastState = s;
-                    tmp = GetStateTransition(null);
+                    tmp = GetStateTransition("############################################################\n" + 
+                                             "# SetSortedLinkedList\n" + 
+                                             "############################################################");
                     _machine.Trigger(tmp, tmp != MenuTrigger.Back);
                     break;
                 case MenuState.SetUnsortedLinkedList:
                     _instance = _lastState==s? (SetUnsortedLinkedList)_instance : new SetUnsortedLinkedList();
                     _lastState = s;
-                    tmp = GetStateTransition(null);
+                    tmp = GetStateTransition("############################################################\n" + 
+                                             "# SetUnsortedLinkedList\n" + 
+                                             "############################################################");
                     _machine.Trigger(tmp, tmp != MenuTrigger.Back);
                     break;
                 case MenuState.AVLTree:
                     _instance = _lastState==s? (AVLTree)_instance : new AVLTree();
                     _lastState = s;
-                    tmp = GetStateTransition(null);
+                    tmp = GetStateTransition("############################################################\n" + 
+                                             "# AVLTree\n" + 
+                                             "############################################################");
                     _machine.Trigger(tmp, tmp != MenuTrigger.Back);
                     break;
                 case MenuState.BinSearchTree:
                     _instance = _lastState==s? (BinSearchTree)_instance : new BinSearchTree();
                     _lastState = s;
-                    tmp = GetStateTransition(null);
+                    tmp = GetStateTransition("############################################################\n" + 
+                                             "# BinSearchTree\n" + 
+                                             "############################################################");
                     _machine.Trigger(tmp, tmp != MenuTrigger.Back);
                     break;
                 case MenuState.Treap:
                     _instance = _lastState==s? (Treap)_instance : new Treap();
                     _lastState = s;
-                    tmp = GetStateTransition(null);
+                    tmp = GetStateTransition("############################################################\n" + 
+                                             "# Treap\n" + 
+                                             "############################################################");
                     _machine.Trigger(tmp, tmp != MenuTrigger.Back);
                     break;
                 case MenuState.Delete:
-                    DeleteItems(_instance, "");
+                    DeleteItems(_instance, "############################################################\n" + 
+                                           "# Delete\n" + 
+                                           "############################################################");
                     return;
                 case MenuState.Insert:
-                    AddItems(_instance, "");
+                    AddItems(_instance, "############################################################\n" + 
+                                        "# Insert\n" + 
+                                        "############################################################");
                     return;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(s), s, null);
