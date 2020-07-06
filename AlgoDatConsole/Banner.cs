@@ -7,16 +7,21 @@ namespace AlgoDatConsole
 {
     class Banner
     {
+
+        public static string AppBanner()
+        {
+            var s =   @"  _____  _      _   _                        _" + "\n" +
+                            @" |  __ \(_)    | | (_)                      (_)          " + "\n" +
+                            @" | |  | |_  ___| |_ _  ___  _ __   __ _ _ __ _  ___  ___ " + "\n" +
+                            @" | |  | | |/ __| __| |/ _ \| '_ \ / _` | '__| |/ _ \/ __|" + "\n" +
+                            @" | |__| | | (__| |_| | (_) | | | | (_| | |  | |  __/\__ \" + "\n" +
+                            @" |_____/|_|\___|\__|_|\___/|_| |_|\__,_|_|  |_|\___||___/";
+            return s;
+        }
+        
         public static void PrintBanner()
         {
-            Console.WriteLine(" ");
-            Console.WriteLine(@"  _____  _      _   _                        _");
-            Console.WriteLine(@" |  __ \(_)    | | (_)                      (_)          ");
-            Console.WriteLine(@" | |  | |_  ___| |_ _  ___  _ __   __ _ _ __ _  ___  ___ ");
-            Console.WriteLine(@" | |  | | |/ __| __| |/ _ \| '_ \ / _` | '__| |/ _ \/ __|");
-            Console.WriteLine(@" | |__| | | (__| |_| | (_) | | | | (_| | |  | |  __/\__ \");
-            Console.WriteLine(@" |_____/|_|\___|\__|_|\___/|_| |_|\__,_|_|  |_|\___||___/");
-            Console.WriteLine();
+            Console.WriteLine(AppBanner());
         }
 
         public static void Printbanner1()
