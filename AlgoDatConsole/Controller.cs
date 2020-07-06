@@ -43,10 +43,39 @@ namespace AlgoDatConsole
             {
                 return _keymap[Console.ReadKey().Key];
             }
-            catch (KeyNotFoundException e)
+            catch (KeyNotFoundException)
             {
                 return Control.Unknown;
             }
+        }
+
+        public int AwaitIntInput()
+        {
+            int input;
+            do
+            {
+                try
+                {
+                    input = int.Parse( Console.ReadLine() ?? "");
+                    break;
+                }
+                catch (FormatException)
+                {
+                }
+            } while (true);
+
+            return input;
+        }
+
+        public ConsoleKey? GetKey(Control control)
+        {
+            foreach (KeyValuePair<ConsoleKey,Control> keyValuePair in _keymap)
+            {
+                if (control == keyValuePair.Value)
+                    return keyValuePair.Key;
+            }
+
+            return null;
         }
 
         public string GetControls()
