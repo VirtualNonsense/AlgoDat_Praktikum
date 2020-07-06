@@ -15,6 +15,7 @@ namespace AlgoDatConsole
         private readonly bool _errorIfInvalidPermission;
         private S _currentState;
         private readonly S _finalState;
+        private bool _finalStateProcessed = false;
 
         private readonly List<IObserver<S>> _observer;
         public EzStateMachine(S initialState, S finalState, bool errorIfInvalidPermission=false)
@@ -68,8 +69,9 @@ namespace AlgoDatConsole
             {
                 observer.OnNext(_currentState);
             }
-
-            if (!Equals(_currentState, _finalState)) return;
+            if (!Equals(_currentState, _finalState) || _finalStateProcessed) return;
+            
+            _finalStateProcessed = true;
             int count;
             int index = 0;
             while ((count = _observer.Count) > 0 && index < count)
