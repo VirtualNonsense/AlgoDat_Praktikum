@@ -70,9 +70,13 @@ namespace AlgoDatConsole
             }
 
             if (!Equals(_currentState, _finalState)) return;
-            while (_observer.Count > 0)
+            int count;
+            int index = 0;
+            while ((count = _observer.Count) > 0 && index < count)
             {
-                _observer[0].OnCompleted();
+                _observer[index].OnCompleted();
+                if (count == _observer.Count)
+                    index++;
             }
         }
 
