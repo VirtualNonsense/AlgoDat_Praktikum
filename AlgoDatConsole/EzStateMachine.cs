@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -14,13 +14,15 @@ namespace AlgoDatConsole
         private readonly List<(T, S, S)> _permittedTransitions;
         private readonly bool _errorIfInvalidPermission;
         private S _currentState;
+        private readonly S _finalState;
 
         private readonly List<IObserver<S>> _observer;
-        public EzStateMachine(S initialState, bool errorIfInvalidPermission=false)
+        public EzStateMachine(S initialState, S finalState, bool errorIfInvalidPermission=false)
         {
             _observer = new List<IObserver<S>>();
             _permittedTransitions = new List<(T, S, S)>();
             _currentState = initialState;
+            _finalState = finalState;
             _errorIfInvalidPermission = errorIfInvalidPermission;
         }
 
@@ -59,7 +61,13 @@ namespace AlgoDatConsole
         {
             foreach (var observer in _observer)
             {
-                observer.OnNext(CurrentState);
+                observer.OnNext(_currentState);
+            }
+
+            if (!Equals(_currentState, _finalState)) return;
+            while (_observer.Count > 0)
+            {
+                _observer[0].OnCompleted();
             }
         }
 

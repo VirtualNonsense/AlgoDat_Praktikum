@@ -26,7 +26,7 @@ namespace tests.AlgoDatConsole
         public void PermitTest_AddNonExistentPermission()
         {
             // Setup 
-            var m = new EzStateMachine<TestTrigger, TestState>(TestState.S0);
+            var m = new EzStateMachine<TestTrigger, TestState>(TestState.S0, TestState.S2);
             
             // Action
             var result = m.Permit(TestTrigger.T0, TestState.S0, TestState.S1);
@@ -40,7 +40,7 @@ namespace tests.AlgoDatConsole
         {
             
             // Setup 
-            var m = new EzStateMachine<TestTrigger, TestState>(TestState.S0);
+            var m = new EzStateMachine<TestTrigger, TestState>(TestState.S0, TestState.S2);
             m.Permit(TestTrigger.T0, TestState.S0, TestState.S1);
 
             // Action
@@ -56,7 +56,7 @@ namespace tests.AlgoDatConsole
         {
             
             // Setup 
-            var m = new EzStateMachine<TestTrigger, TestState>(TestState.S0);
+            var m = new EzStateMachine<TestTrigger, TestState>(TestState.S0, TestState.S2);
             m.Permit(TestTrigger.T0, TestState.S0, TestState.S1);
 
             // Action
@@ -70,7 +70,7 @@ namespace tests.AlgoDatConsole
         public void SubscribeTest_Add()
         {
             // Setup 
-            var m = new EzStateMachine<TestTrigger, TestState>(TestState.S0);
+            var m = new EzStateMachine<TestTrigger, TestState>(TestState.S0, TestState.S2);
             var sub = new TestSubscriber();
             // Action
             var ticket = m.Subscribe(sub);
@@ -85,7 +85,7 @@ namespace tests.AlgoDatConsole
         public void SubscribeTest_Add_Remove()
         {
             // Setup 
-            var m = new EzStateMachine<TestTrigger, TestState>(TestState.S0);
+            var m = new EzStateMachine<TestTrigger, TestState>(TestState.S0, TestState.S2);
             var sub = new TestSubscriber();
             var ticket = m.Subscribe(sub);
             
@@ -101,7 +101,7 @@ namespace tests.AlgoDatConsole
         public void TriggerTest_S0toS1withT0()
         {
             // Setup 
-            var m = new EzStateMachine<TestTrigger, TestState>(TestState.S0);
+            var m = new EzStateMachine<TestTrigger, TestState>(TestState.S0, TestState.S2);
             m.Permit(TestTrigger.T0, TestState.S0, TestState.S1);
             var sub = new TestSubscriber();
             m.Subscribe(sub);
@@ -118,7 +118,7 @@ namespace tests.AlgoDatConsole
         public void TriggerTest_UnsupportedTransition()
         {
             // Setup 
-            var m = new EzStateMachine<TestTrigger, TestState>(TestState.S0);
+            var m = new EzStateMachine<TestTrigger, TestState>(TestState.S0, TestState.S2);
 
             // Action
             var result = m.Trigger(TestTrigger.T0);
@@ -131,7 +131,7 @@ namespace tests.AlgoDatConsole
         public void TriggerTest_UnsupportedTransition_RaiseException()
         {
             // Setup 
-            var m = new EzStateMachine<TestTrigger, TestState>(TestState.S0, true);
+            var m = new EzStateMachine<TestTrigger, TestState>(TestState.S0, TestState.S2, true);
             
             // Assert
             Assert.ThrowsException<Exception>(() => { m.Trigger(TestTrigger.T0);});
