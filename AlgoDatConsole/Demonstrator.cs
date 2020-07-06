@@ -11,7 +11,7 @@ namespace AlgoDatConsole
 {
     public enum MenuState
     {
-        Exit,
+        Windows,
         InterfaceSelection,
         
         MultiSet,
@@ -62,7 +62,7 @@ namespace AlgoDatConsole
         public Demonstrator(Controller controller)
         {
             _controller = controller;
-            _machine = new EzStateMachine<MenuTrigger, MenuState>(MenuState.InterfaceSelection, MenuState.Exit);
+            _machine = new EzStateMachine<MenuTrigger, MenuState>(MenuState.InterfaceSelection, MenuState.Windows);
             _ticket = _machine.Subscribe(this);
 
             #region StateMachineConfig
@@ -71,7 +71,7 @@ namespace AlgoDatConsole
             _machine.Permit(MenuTrigger.Selection1, MenuState.InterfaceSelection, MenuState.MultiSetSorted);
             _machine.Permit(MenuTrigger.Selection2, MenuState.InterfaceSelection, MenuState.Set);
             _machine.Permit(MenuTrigger.Selection3, MenuState.InterfaceSelection, MenuState.SetSorted);
-            _machine.Permit(MenuTrigger.Back, MenuState.InterfaceSelection, MenuState.Exit);
+            _machine.Permit(MenuTrigger.Back, MenuState.InterfaceSelection, MenuState.Windows);
 
             _machine.Permit(MenuTrigger.Selection0, MenuState.MultiSet, MenuState.MultiSetUnsortedArray);
             _machine.Permit(MenuTrigger.Selection1, MenuState.MultiSet, MenuState.MultiSetUnsortedLinkedList);
@@ -179,7 +179,7 @@ namespace AlgoDatConsole
             Console.Clear();
             switch (s)
             {
-                case MenuState.Exit:
+                case MenuState.Windows:
                     break;
                 case MenuState.InterfaceSelection:
                     _machine.Trigger(GetStateTransition("############################################################\n" + 
@@ -331,8 +331,10 @@ namespace AlgoDatConsole
             var i = 0;
             foreach (var transition in trans)
             {
-                var cursor = selectionIndex == i? "<<<" : " ";
-                Console.WriteLine($"{transition.Item2}{cursor}");
+                var cursor = selectionIndex == i? ">>>" : " ";
+                var cursor1 = selectionIndex == i? "<<<" : " ";
+                var tra = (transition.Item1 == MenuTrigger.Back) ? $"Back to {transition.Item2}" : $"{transition.Item2}";
+                Console.WriteLine($"{cursor}{tra}{cursor1}");
                 i++;
             }
         }
