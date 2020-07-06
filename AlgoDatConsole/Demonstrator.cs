@@ -55,18 +55,17 @@ namespace AlgoDatConsole
     public class Demonstrator : IObserver<MenuState>
     {
         private readonly Controller _controller;
-        private readonly IDisposable _ticket;
         private readonly EzStateMachine<MenuTrigger, MenuState> _machine;
 
         private MenuState _lastState;
         private int _currentSelection = 0;
-        private IDictionary _instance = null;
+        private IDictionary _instance;
 
         public Demonstrator(Controller controller)
         {
             _controller = controller;
             _machine = new EzStateMachine<MenuTrigger, MenuState>(MenuState.InterfaceSelection, MenuState.Windows);
-            _ticket = _machine.Subscribe(this);
+            _machine.Subscribe(this);
 
             #region StateMachineConfig
 
@@ -343,11 +342,18 @@ namespace AlgoDatConsole
                 Console.WriteLine("Current content of instance:");
                 instance.Print();
                 Console.WriteLine("Please enter an integer");
-                var result = instance.Delete(_controller.AwaitIntInput());
-                Console.WriteLine($"removal {(result? "successful" : "unsuccessful")}");
-                Console.WriteLine("Changed content of instance:");
-                instance.Print();
-                Console.WriteLine($"press {_controller.GetKey(Control.Enter)} to remove another int\n" +
+                var user_input = _controller.AwaitIntInput();
+                if (user_input != null)
+                {
+                    var result = instance.Delete((int) user_input);
+                    Console.WriteLine($"removal {(result? "successful" : "unsuccessful")}");
+                    Console.WriteLine("Changed content of instance:");
+                    instance.Print();
+                    Console.WriteLine($"press {_controller.GetKey(Control.Enter)} to remove another int\n" +
+                                      $"press {_controller.GetKey(Control.Escape)} to exit");
+                    continue;
+                }
+                Console.WriteLine($"press {_controller.GetKey(Control.Enter)} to remove an int\n" +
                                   $"press {_controller.GetKey(Control.Escape)} to exit");
             } while (_controller.AwaitInput() != Control.Escape);
         }
@@ -361,11 +367,18 @@ namespace AlgoDatConsole
                 Console.WriteLine("Current content of instance:");
                 instance.Print();
                 Console.WriteLine("Please enter an integer");
-                var result = instance.Insert(_controller.AwaitIntInput());
-                Console.WriteLine($"insert {(result? "successful" : "unsuccessful")}");
-                Console.WriteLine("Changed content of instance:");
-                instance.Print();
-                Console.WriteLine($"press {_controller.GetKey(Control.Enter)} to enter another int\n" +
+                var user_input = _controller.AwaitIntInput();
+                if (user_input != null)
+                {
+                    var result = instance.Insert((int)user_input);
+                    Console.WriteLine($"insert {(result ? "successful" : "unsuccessful")}");
+                    Console.WriteLine("Changed content of instance:");
+                    instance.Print();
+                    Console.WriteLine($"press {_controller.GetKey(Control.Enter)} to enter another int\n" +
+                                      $"press {_controller.GetKey(Control.Escape)} to exit");
+                    continue;
+                }
+                Console.WriteLine($"press {_controller.GetKey(Control.Enter)} to enter an int\n" +
                                   $"press {_controller.GetKey(Control.Escape)} to exit");
             } while (_controller.AwaitInput() != Control.Escape);
         }
@@ -391,10 +404,17 @@ namespace AlgoDatConsole
                 Console.WriteLine("Current content of instance:");
                 instance.Print();
                 Console.WriteLine("Please enter an integer");
-                var input = _controller.AwaitIntInput();
-                var result = instance.Search(input);
-                Console.WriteLine($"{input} {(result? "has been found" : "has not been found")}");
-                Console.WriteLine($"press {_controller.GetKey(Control.Enter)} to search for another int\n" +
+                var user_input = _controller.AwaitIntInput();
+                if (user_input != null)
+                {
+                    var result = instance.Search((int) user_input);
+                    Console.WriteLine($"{user_input} {(result ? "has been found" : "has not been found")}");
+                    Console.WriteLine($"press {_controller.GetKey(Control.Enter)} to search for another int\n" +
+                                      $"press {_controller.GetKey(Control.Escape)} to exit");
+                    continue;
+                }
+
+                Console.WriteLine($"press {_controller.GetKey(Control.Enter)} to search for an int\n" +
                                   $"press {_controller.GetKey(Control.Escape)} to exit");
             } while (_controller.AwaitInput() != Control.Escape);
         }
