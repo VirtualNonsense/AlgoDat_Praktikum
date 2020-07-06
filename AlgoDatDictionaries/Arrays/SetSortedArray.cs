@@ -5,7 +5,7 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace AlgoDatDictionaries.Arrays
 {
-    public class SetSortedArray : MultiSetSortedArray, ISet
+    public class SetSortedArray : MultiSetSortedArray, ISetSorted
     {
         public override bool Insert(int num)
         {

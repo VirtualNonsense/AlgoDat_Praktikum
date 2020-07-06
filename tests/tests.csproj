@@ -14,6 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\AlgoDatConsole\AlgoDatConsole.csproj" />
       <ProjectReference Include="..\AlgoDatDictionaries\AlgoDatDictionaries.csproj" />
     </ItemGroup>
 
