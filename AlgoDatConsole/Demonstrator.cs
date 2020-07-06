@@ -331,8 +331,8 @@ namespace AlgoDatConsole
             var i = 0;
             foreach (var transition in trans)
             {
-                var cursor = selectionIndex == i? ">>>" : " ";
-                var cursor1 = selectionIndex == i? "<<<" : " ";
+                var cursor = selectionIndex == i? ">>>" : "";
+                var cursor1 = selectionIndex == i? "<<<" : "";
                 var tra = (transition.Item1 == MenuTrigger.Back) ? $"Back to {transition.Item2}" : $"{transition.Item2}";
                 Console.WriteLine($"{cursor}{tra}{cursor1}");
                 i++;
