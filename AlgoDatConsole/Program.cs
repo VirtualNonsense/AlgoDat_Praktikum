@@ -13,18 +13,11 @@ namespace AlgoDatConsole
     {
         static void Main(string[] args)
         {
-            Controller controller = new Controller();
-            List<List<string>> menu = new List<List<string>>()
-            {
-                new List<string>()
-                {
-                    "ISet",
-                    "ISetSorted",
-                    "IMultiSetSorted",
-                    "IMultiSet"
-                }
-            };
+            Console.OutputEncoding = Encoding.Unicode; 
+            Dictionary<ConsoleKey, Control> _keymap = null;
+            Controller controller = _keymap == null? new Controller() : new Controller(_keymap);
             Demonstrator demonstrator = new Demonstrator(controller);
+            demonstrator.Start();
         }
     }
 }
