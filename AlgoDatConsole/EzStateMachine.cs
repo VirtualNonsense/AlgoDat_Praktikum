@@ -40,7 +40,7 @@ namespace AlgoDatConsole
             return true;
         }
 
-        public bool Trigger(T trigger)
+        public bool Trigger(T trigger, bool oneShot = false)
         {
             var t = from tr in _permittedTransitions
                 where Equals(tr.Item1, trigger) && Equals(tr.Item2, CurrentState)
@@ -52,7 +52,12 @@ namespace AlgoDatConsole
                     throw new Exception($"Invalid Transition: There is no transition from {CurrentState} with {trigger} defined");
                 return false;
             }
+
+            var tmp = _currentState;
             _currentState = valueTuples[0].Item3;
+            UpdateSubscriber();
+            if (!oneShot) return true;
+            _currentState = tmp;
             UpdateSubscriber();
             return true;
         }
