@@ -37,9 +37,11 @@ namespace AlgoDatConsole
         Treap,
         
         Delete,
-        Insert
+        Insert,
+        Print,
+        Search
     }
-
+    
     internal enum MenuTrigger
     {
         Selection0,
@@ -49,6 +51,7 @@ namespace AlgoDatConsole
         Selection4,
         Back
     }
+
     public class Demonstrator : IObserver<MenuState>
     {
         private readonly Controller _controller;
@@ -94,56 +97,82 @@ namespace AlgoDatConsole
             _machine.Permit(MenuTrigger.Selection4, MenuState.SetSorted, MenuState.Treap);
             _machine.Permit(MenuTrigger.Back, MenuState.SetSorted, MenuState.InterfaceSelection);
 
-            _machine.Permit(MenuTrigger.Selection0, MenuState.MultiSetUnsortedArray, MenuState.Delete);
-            _machine.Permit(MenuTrigger.Selection1, MenuState.MultiSetUnsortedArray, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection0, MenuState.MultiSetUnsortedArray, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection1, MenuState.MultiSetUnsortedArray, MenuState.Delete);
+            _machine.Permit(MenuTrigger.Selection2, MenuState.MultiSetUnsortedArray, MenuState.Search);
+            _machine.Permit(MenuTrigger.Selection3, MenuState.MultiSetUnsortedArray, MenuState.Print);
             _machine.Permit(MenuTrigger.Back, MenuState.MultiSetUnsortedArray, MenuState.MultiSet);
 
-            _machine.Permit(MenuTrigger.Selection0, MenuState.MultiSetUnsortedLinkedList, MenuState.Delete);
-            _machine.Permit(MenuTrigger.Selection1, MenuState.MultiSetUnsortedLinkedList, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection0, MenuState.MultiSetUnsortedLinkedList, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection1, MenuState.MultiSetUnsortedLinkedList, MenuState.Delete);
+            _machine.Permit(MenuTrigger.Selection2, MenuState.MultiSetUnsortedLinkedList, MenuState.Search);
+            _machine.Permit(MenuTrigger.Selection3, MenuState.MultiSetUnsortedLinkedList, MenuState.Print);
             _machine.Permit(MenuTrigger.Back, MenuState.MultiSetUnsortedLinkedList, MenuState.MultiSet);
 
-            _machine.Permit(MenuTrigger.Selection0, MenuState.MultiSetSortedArray, MenuState.Delete);
-            _machine.Permit(MenuTrigger.Selection1, MenuState.MultiSetSortedArray, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection0, MenuState.MultiSetSortedArray, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection1, MenuState.MultiSetSortedArray, MenuState.Delete);
+            _machine.Permit(MenuTrigger.Selection2, MenuState.MultiSetSortedArray, MenuState.Search);
+            _machine.Permit(MenuTrigger.Selection3, MenuState.MultiSetSortedArray, MenuState.Print);
             _machine.Permit(MenuTrigger.Back, MenuState.MultiSetSortedArray, MenuState.MultiSetSorted);
 
-            _machine.Permit(MenuTrigger.Selection0, MenuState.MultiSetSortedLinkedList, MenuState.Delete);
-            _machine.Permit(MenuTrigger.Selection1, MenuState.MultiSetSortedLinkedList, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection0, MenuState.MultiSetSortedLinkedList, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection1, MenuState.MultiSetSortedLinkedList, MenuState.Delete);
+            _machine.Permit(MenuTrigger.Selection2, MenuState.MultiSetSortedLinkedList, MenuState.Search);
+            _machine.Permit(MenuTrigger.Selection3, MenuState.MultiSetSortedLinkedList, MenuState.Print);
             _machine.Permit(MenuTrigger.Back, MenuState.MultiSetSortedLinkedList, MenuState.MultiSetSorted);
 
-            _machine.Permit(MenuTrigger.Selection0, MenuState.SetUnsortedArray, MenuState.Delete);
-            _machine.Permit(MenuTrigger.Selection1, MenuState.SetUnsortedArray, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection0, MenuState.SetUnsortedArray, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection1, MenuState.SetUnsortedArray, MenuState.Delete);
+            _machine.Permit(MenuTrigger.Selection2, MenuState.SetUnsortedArray, MenuState.Search);
+            _machine.Permit(MenuTrigger.Selection3, MenuState.SetUnsortedArray, MenuState.Print);
             _machine.Permit(MenuTrigger.Back, MenuState.SetUnsortedArray, MenuState.Set);
 
-            _machine.Permit(MenuTrigger.Selection0, MenuState.SetUnsortedLinkedList, MenuState.Delete);
-            _machine.Permit(MenuTrigger.Selection1, MenuState.SetUnsortedLinkedList, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection0, MenuState.SetUnsortedLinkedList, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection1, MenuState.SetUnsortedLinkedList, MenuState.Delete);
+            _machine.Permit(MenuTrigger.Selection2, MenuState.SetUnsortedLinkedList, MenuState.Search);
+            _machine.Permit(MenuTrigger.Selection3, MenuState.SetUnsortedLinkedList, MenuState.Print);
             _machine.Permit(MenuTrigger.Back, MenuState.SetUnsortedLinkedList, MenuState.Set);
 
-            _machine.Permit(MenuTrigger.Selection0, MenuState.HashTabQuadProb, MenuState.Delete);
-            _machine.Permit(MenuTrigger.Selection1, MenuState.HashTabQuadProb, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection0, MenuState.HashTabQuadProb, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection1, MenuState.HashTabQuadProb, MenuState.Delete);
+            _machine.Permit(MenuTrigger.Selection2, MenuState.HashTabQuadProb, MenuState.Search);
+            _machine.Permit(MenuTrigger.Selection3, MenuState.HashTabQuadProb, MenuState.Print);
             _machine.Permit(MenuTrigger.Back, MenuState.HashTabQuadProb, MenuState.Set);
 
-            _machine.Permit(MenuTrigger.Selection0, MenuState.HashTabSepChain, MenuState.Delete);
-            _machine.Permit(MenuTrigger.Selection1, MenuState.HashTabSepChain, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection0, MenuState.HashTabSepChain, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection1, MenuState.HashTabSepChain, MenuState.Delete);
+            _machine.Permit(MenuTrigger.Selection2, MenuState.HashTabSepChain, MenuState.Search);
+            _machine.Permit(MenuTrigger.Selection3, MenuState.HashTabSepChain, MenuState.Print);
             _machine.Permit(MenuTrigger.Back, MenuState.HashTabSepChain, MenuState.Set);
 
-            _machine.Permit(MenuTrigger.Selection0, MenuState.SetSortedArray, MenuState.Delete);
-            _machine.Permit(MenuTrigger.Selection1, MenuState.SetSortedArray, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection0, MenuState.SetSortedArray, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection1, MenuState.SetSortedArray, MenuState.Delete);
+            _machine.Permit(MenuTrigger.Selection2, MenuState.SetSortedArray, MenuState.Search);
+            _machine.Permit(MenuTrigger.Selection3, MenuState.SetSortedArray, MenuState.Print);
             _machine.Permit(MenuTrigger.Back, MenuState.SetSortedArray, MenuState.SetSorted);
 
-            _machine.Permit(MenuTrigger.Selection0, MenuState.SetSortedLinkedList, MenuState.Delete);
-            _machine.Permit(MenuTrigger.Selection1, MenuState.SetSortedLinkedList, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection0, MenuState.SetSortedLinkedList, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection1, MenuState.SetSortedLinkedList, MenuState.Delete);
+            _machine.Permit(MenuTrigger.Selection2, MenuState.SetSortedLinkedList, MenuState.Search);
+            _machine.Permit(MenuTrigger.Selection3, MenuState.SetSortedLinkedList, MenuState.Print);
             _machine.Permit(MenuTrigger.Back, MenuState.SetSortedLinkedList, MenuState.SetSorted);
 
-            _machine.Permit(MenuTrigger.Selection0, MenuState.BinSearchTree, MenuState.Delete);
-            _machine.Permit(MenuTrigger.Selection1, MenuState.BinSearchTree, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection0, MenuState.BinSearchTree, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection1, MenuState.BinSearchTree, MenuState.Delete);
+            _machine.Permit(MenuTrigger.Selection2, MenuState.BinSearchTree, MenuState.Search);
+            _machine.Permit(MenuTrigger.Selection3, MenuState.BinSearchTree, MenuState.Print);
             _machine.Permit(MenuTrigger.Back, MenuState.BinSearchTree, MenuState.SetSorted);
 
-            _machine.Permit(MenuTrigger.Selection0, MenuState.AVLTree, MenuState.Delete);
-            _machine.Permit(MenuTrigger.Selection1, MenuState.AVLTree, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection0, MenuState.AVLTree, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection1, MenuState.AVLTree, MenuState.Delete);
+            _machine.Permit(MenuTrigger.Selection2, MenuState.AVLTree, MenuState.Search);
+            _machine.Permit(MenuTrigger.Selection3, MenuState.AVLTree, MenuState.Print);
             _machine.Permit(MenuTrigger.Back, MenuState.AVLTree, MenuState.SetSorted);
 
-            _machine.Permit(MenuTrigger.Selection0, MenuState.Treap, MenuState.Delete);
-            _machine.Permit(MenuTrigger.Selection1, MenuState.Treap, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection0, MenuState.Treap, MenuState.Insert);
+            _machine.Permit(MenuTrigger.Selection1, MenuState.Treap, MenuState.Delete);
+            _machine.Permit(MenuTrigger.Selection2, MenuState.Treap, MenuState.Search);
+            _machine.Permit(MenuTrigger.Selection3, MenuState.Treap, MenuState.Print);
             _machine.Permit(MenuTrigger.Back, MenuState.Treap, MenuState.SetSorted);
 
             #endregion
@@ -183,8 +212,8 @@ namespace AlgoDatConsole
                     break;
                 case MenuState.InterfaceSelection:
                     _machine.Trigger(GetStateTransition("############################################################\n" + 
-                                                       "# INTERFACESELECTION\n" + 
-                                                       "############################################################"));
+                                                        "# INTERFACESELECTION\n" + 
+                                                        "############################################################"));
                     break;
                 case MenuState.MultiSet:
                     _machine.Trigger(GetStateTransition("############################################################\n" + 
@@ -320,6 +349,16 @@ namespace AlgoDatConsole
                                         "# Insert\n" + 
                                         "############################################################");
                     return;
+                case MenuState.Search:
+                    Search(_instance, "############################################################\n" + 
+                                      "# Search\n" + 
+                                      "############################################################");
+                    return;
+                case MenuState.Print:
+                    Print(_instance, "############################################################\n" + 
+                                     "# Print\n" + 
+                                     "############################################################");
+                    return;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(s), s, null);
             }
@@ -356,6 +395,7 @@ namespace AlgoDatConsole
                                   $"press {_controller.GetKey(Control.Escape)} to exit");
             } while (_controller.AwaitInput() != Control.Escape);
         }
+
         private void AddItems(IDictionary instance, string banner)
         {
             do
@@ -370,6 +410,35 @@ namespace AlgoDatConsole
                 Console.WriteLine("Changed content of instance:");
                 instance.Print();
                 Console.WriteLine($"press {_controller.GetKey(Control.Enter)} to enter another int\n" +
+                                  $"press {_controller.GetKey(Control.Escape)} to exit");
+            } while (_controller.AwaitInput() != Control.Escape);
+        }
+
+        private void Print(IDictionary instance, string banner)
+        {
+            do
+            {
+                Console.Clear();
+                if (banner != null) Console.WriteLine(banner);
+                Console.WriteLine("Current content of instance:");
+                instance.Print();
+                Console.WriteLine($"press {_controller.GetKey(Control.Enter)} to Exit");
+            } while (_controller.AwaitInput() != Control.Enter);
+        }
+
+        private void Search(IDictionary instance, string banner)
+        {
+            do
+            {
+                Console.Clear();
+                if (banner != null) Console.WriteLine(banner);
+                Console.WriteLine("Current content of instance:");
+                instance.Print();
+                Console.WriteLine("Please enter an integer");
+                var input = _controller.AwaitIntInput();
+                var result = instance.Search(input);
+                Console.WriteLine($"{input} {(result? "has been found" : "has not been found")}");
+                Console.WriteLine($"press {_controller.GetKey(Control.Enter)} to search for another int\n" +
                                   $"press {_controller.GetKey(Control.Escape)} to exit");
             } while (_controller.AwaitInput() != Control.Escape);
         }
@@ -401,4 +470,5 @@ namespace AlgoDatConsole
             return trans.ElementAt(selectionIndex).Item1;
         }
     }
+
 }
