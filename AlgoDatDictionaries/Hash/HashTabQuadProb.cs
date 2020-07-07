@@ -46,47 +46,52 @@ namespace AlgoDatDictionaries.Hash
 
             while (tries <= Math.Floor(max))          
             {
-                if (arr[hashfuncpos] == value)    //value was found
+                // value found on positive hashindex
+                if (arr[hashfuncpos] == value) 
                 {
                     return (true, hashfuncpos);
                 }
+                // value found on negative hashindex
                 if (arr[hashfuncneg] == value)
                 {
                     return (true, hashfuncneg);
                 }
-                if (arr[hashfuncpos] == -1 && thinker == -1 ) // if -1 is found, the value is not in the array, returning first free position
+                // found empty spot on hashfuncpos, thinker suggest that there is no freed slot before that
+                if (arr[hashfuncpos] == -1 && thinker == -1 ) 
                 {
                     return (false, hashfuncpos);
                 }
-
+                
+                // found empty spot on hashfuncneg, thinker suggest that there is no freed slot before that
                 if (arr[hashfuncpos] != -1 && arr[hashfuncneg] == -1 && thinker == -1)
                 {
                     return (false, hashfuncneg);
                 }
                 
-                if ((arr[hashfuncpos] == -1 && arr[hashfuncneg] == -1 ||     //value is not in array, but cell previous to current
-                     arr[hashfuncpos] != -1 && arr[hashfuncneg] == -1) 
+                // check whether the "probing chain" is broken and the thinker suggests that there is place somewhere
+                // somewhere before the current hash values
+                if ((arr[hashfuncpos] == -1 || arr[hashfuncneg] == -1) 
                     && thinker != -1)
                 {
                     return (false, thinker);
                 }
 
-
-                if (arr[hashfuncpos] == -2 && thinker == -1)    //cell contained another value before, value could be after, but remembering cell for insert
+                // saving current position in case the desired value isn't found later
+                if (arr[hashfuncpos] == -2 && thinker == -1)    
                 {
                     thinker = hashfuncpos;
                 }
-
                 if (arr[hashfuncneg] == -2 && thinker == -1)
                 {
                     thinker = hashfuncneg;
                 }
+                
                 tries++;
                 hashfuncpos = HashfuncPos(value, tries);
                 hashfuncneg = HashfuncNeg(value, tries);
             }
-
-            return (false, -1);                 // Instead of -1 "thinker" possible
+            
+            return (false, thinker); 
         }
 
         public bool Insert(int value)

@@ -119,7 +119,7 @@ namespace Tests.Hash
         }
 
         [TestMethod]
-        public void ReallocationTest()
+        public void InsertTest_PlaceObject_on_HashFuncPos()
         {
             // Setup
             HashTabQuadProb a = new HashTabQuadProb();
@@ -141,7 +141,29 @@ namespace Tests.Hash
             Assert.IsTrue(res);
         }
 
+        [TestMethod]
+        public void ReallocationTest_thinker_to_HashFuncNeg()
+        {
+            // Setup
+            HashTabQuadProb a = new HashTabQuadProb();
 
+            a.Insert(7);
+            a.Insert(14);
+            a.Insert(21);
+            a.Insert(28);
+            a.Insert(35);
+            a.Insert(42);
+            a.Insert(49);
+            a.Delete(28);
+            Console.WriteLine("after setup");
+            a.Print();
+            // Action
+            var res = a.Insert(5);
+            Console.WriteLine("after action");
+            a.Print();
+            // Assert
+            Assert.IsTrue(res);
+        }
 
     }
 }
