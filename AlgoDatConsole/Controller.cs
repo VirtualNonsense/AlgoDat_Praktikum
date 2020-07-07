@@ -49,9 +49,9 @@ namespace AlgoDatConsole
             }
         }
 
-        public int? AwaitUIntInput()
+        public uint? AwaitUIntInput()
         {
-            int input;
+            uint input;
             string tmp;
             do
             {
@@ -61,15 +61,18 @@ namespace AlgoDatConsole
                     return null;
                 try
                 {
-                    input = int.Parse(tmp);
-                    if (input >= 0)
-                        break;
-                    Console.WriteLine("Please enter a positive integer or zero");
+                    input = uint.Parse(tmp);
+                    break;
                 }
                 catch (FormatException)
                 {
                     Console.WriteLine("Invalid input, please enter a valid integer or hit" +
                                       " enter on an empty field to have more options");
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine($"{tmp} doesn't fit in uint32, please consider entering a number between " +
+                                      $"{uint.MinValue} and {uint.MaxValue}");
                 }
             } while (true);
 
