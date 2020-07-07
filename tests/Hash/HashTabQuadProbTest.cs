@@ -118,6 +118,29 @@ namespace Tests.Hash
             a.Print();
         }
 
+        [TestMethod]
+        public void ReallocationTest()
+        {
+            // Setup
+            HashTabQuadProb a = new HashTabQuadProb();
+
+            a.Insert(7);
+            a.Insert(14);
+            a.Insert(21);
+            a.Delete(14);
+            a.Insert(28);
+            a.Insert(45);
+            a.Insert(5);
+            Console.WriteLine("after setup");
+            a.Print();
+            // Action
+            var res = a.Insert(49);
+            Console.WriteLine("after action");
+            a.Print();
+            // Assert
+            Assert.IsTrue(res);
+        }
+
 
 
     }

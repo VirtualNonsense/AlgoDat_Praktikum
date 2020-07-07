@@ -54,7 +54,7 @@ namespace AlgoDatDictionaries.Hash
                 {
                     return (true, hashfuncneg);
                 }
-                if (arr[hashfuncpos] == -1 && arr[hashfuncneg] == -1 && thinker == -1 ) // if -1 is found, the value is not in the array, returning first free position
+                if (arr[hashfuncpos] == -1 && thinker == -1 ) // if -1 is found, the value is not in the array, returning first free position
                 {
                     return (false, hashfuncpos);
                 }

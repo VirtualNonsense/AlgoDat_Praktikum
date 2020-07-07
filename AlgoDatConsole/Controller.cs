@@ -49,18 +49,25 @@ namespace AlgoDatConsole
             }
         }
 
-        public int AwaitIntInput()
+        public int? AwaitIntInput()
         {
             int input;
+            string tmp;
             do
             {
+                
+                tmp = Console.ReadLine() ?? "";
+                if (tmp == "")
+                    return null;
                 try
                 {
-                    input = int.Parse( Console.ReadLine() ?? "");
+                    input = int.Parse(tmp);
                     break;
                 }
                 catch (FormatException)
                 {
+                    Console.WriteLine("Invalid input, please enter a valid integer or hit" +
+                                      " enter on an empty field to have more options");
                 }
             } while (true);
 
