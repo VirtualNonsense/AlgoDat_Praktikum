@@ -138,7 +138,7 @@ namespace AlgoDatDictionaries.Lists
             llnode temp = First;
             if (temp == null)
             {
-                Console.WriteLine("List is empty");
+                Console.Write("List is empty");
             }
             while (temp != null)
             {
