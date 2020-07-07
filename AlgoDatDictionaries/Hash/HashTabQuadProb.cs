@@ -58,10 +58,21 @@ namespace AlgoDatDictionaries.Hash
                 {
                     return (false, hashfuncpos);
                 }
+                
 
                 if (arr[hashfuncpos] != -1 && arr[hashfuncneg] == -1 && thinker == -1)
                 {
                     return (false, hashfuncneg);
+                }
+                
+                if (arr[hashfuncpos] == -2 && thinker == -1)    //cell contained another value before, value could be after, but remembering cell for insert
+                {
+                    thinker = hashfuncpos;
+                }
+
+                if (arr[hashfuncneg] == -2 && thinker == -1)
+                {
+                    thinker = hashfuncneg;
                 }
                 
                 if ((arr[hashfuncpos] == -1 && arr[hashfuncneg] == -1 ||     //value is not in array, but cell previous to current
@@ -72,20 +83,16 @@ namespace AlgoDatDictionaries.Hash
                 }
 
 
-                if (arr[hashfuncpos] == -2 && thinker == -1)    //cell contained another value before, value could be after, but remembering cell for insert
-                {
-                    thinker = hashfuncpos;
-                }
-
-                if (arr[hashfuncneg] == -2 && thinker == -1)
-                {
-                    thinker = hashfuncneg;
-                }
+                
                 tries++;
                 hashfuncpos = HashfuncPos(value, tries);
                 hashfuncneg = HashfuncNeg(value, tries);
             }
 
+            if (thinker != -1)
+            {
+                return (false, thinker);
+            }
             return (false, -1);                 // Instead of -1 "thinker" possible
         }
 
