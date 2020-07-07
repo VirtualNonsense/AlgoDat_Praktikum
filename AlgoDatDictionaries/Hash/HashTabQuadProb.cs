@@ -119,9 +119,13 @@ namespace AlgoDatDictionaries.Hash
             for (int i = 0; i < arr.Length; i++)
             {
                 Console.Write($"{i}) ");
-                if (arr[i] == -1 || arr[i] == -2)                                  
+                if (arr[i] == -1)                                  
                 {
                     Console.WriteLine("Slot is empty");
+                }
+                else if(arr[i] == -2)
+                {
+                    Console.WriteLine("Slot is empty (previously used)");
                 }
                 else
                 {
