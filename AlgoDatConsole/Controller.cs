@@ -49,7 +49,7 @@ namespace AlgoDatConsole
             }
         }
 
-        public int? AwaitIntInput()
+        public int? AwaitUIntInput()
         {
             int input;
             string tmp;
@@ -62,7 +62,9 @@ namespace AlgoDatConsole
                 try
                 {
                     input = int.Parse(tmp);
-                    break;
+                    if (input >= 0)
+                        break;
+                    Console.WriteLine("Please enter a positive integer or zero");
                 }
                 catch (FormatException)
                 {

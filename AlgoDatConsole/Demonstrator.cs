@@ -342,7 +342,7 @@ namespace AlgoDatConsole
                 Console.WriteLine("Current content of instance:");
                 instance.Print();
                 Console.WriteLine("Please enter an integer");
-                var user_input = _controller.AwaitIntInput();
+                var user_input = _controller.AwaitUIntInput();
                 if (user_input != null)
                 {
                     var result = instance.Delete((int) user_input);
@@ -367,7 +367,7 @@ namespace AlgoDatConsole
                 Console.WriteLine("Current content of instance:");
                 instance.Print();
                 Console.WriteLine("Please enter an integer");
-                var user_input = _controller.AwaitIntInput();
+                var user_input = _controller.AwaitUIntInput();
                 if (user_input != null)
                 {
                     var result = instance.Insert((int)user_input);
@@ -404,7 +404,7 @@ namespace AlgoDatConsole
                 Console.WriteLine("Current content of instance:");
                 instance.Print();
                 Console.WriteLine("Please enter an integer");
-                var user_input = _controller.AwaitIntInput();
+                var user_input = _controller.AwaitUIntInput();
                 if (user_input != null)
                 {
                     var result = instance.Search((int) user_input);
